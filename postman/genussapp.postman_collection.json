@@ -1,0 +1,343 @@
+{
+	"info": {
+		"_postman_id": "9ddcad85-602a-46ea-b5b9-1fb8ae32191f",
+		"name": "genussapp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Standorte",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{PASSWORD}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{USER}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/KMSLiveWebservices/webresources/entity.standort/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"KMSLiveWebservices",
+						"webresources",
+						"entity.standort",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Speiseplan",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{USER}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{PASSWORD}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/KMSLiveWebservices/webresources/entity.speiseplanadvanced/getdata/{{LOCATION}}/1",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"KMSLiveWebservices",
+						"webresources",
+						"entity.speiseplanadvanced",
+						"getdata",
+						"{{LOCATION}}",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Gericht-Kategorien",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{PASSWORD}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{USER}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/KMSLiveWebservices/webresources/entity.gerichtkategorie/current/{{LOCATION}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"KMSLiveWebservices",
+						"webresources",
+						"entity.gerichtkategorie",
+						"current",
+						"{{LOCATION}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Gericht-Merkmale",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{PASSWORD}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{USER}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/KMSLiveWebservices/webresources/entity.gerichtmerkmal/current/{{LOCATION}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"KMSLiveWebservices",
+						"webresources",
+						"entity.gerichtmerkmal",
+						"current",
+						"{{LOCATION}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Allergene",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{PASSWORD}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{USER}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/KMSLiveWebservices/webresources/entity.bonusaktion/current/{{LOCATION}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"KMSLiveWebservices",
+						"webresources",
+						"entity.bonusaktion",
+						"current",
+						"{{LOCATION}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Zusatzstoffe",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{PASSWORD}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{USER}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/KMSLiveWebservices/webresources/entity.zusatzstoffe/current/{{LOCATION}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"KMSLiveWebservices",
+						"webresources",
+						"entity.zusatzstoffe",
+						"current",
+						"{{LOCATION}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "News",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{PASSWORD}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{USER}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/KMSLiveWebservices/webresources/entity.news/current/{{LOCATION}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"KMSLiveWebservices",
+						"webresources",
+						"entity.news",
+						"current",
+						"{{LOCATION}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mobile einstellungen",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{PASSWORD}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{USER}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/KMSLiveWebservices/webresources/entity.mobileeinstellungen",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"KMSLiveWebservices",
+						"webresources",
+						"entity.mobileeinstellungen"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
