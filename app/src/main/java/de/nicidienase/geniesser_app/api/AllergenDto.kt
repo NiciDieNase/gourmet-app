@@ -1,4 +1,4 @@
-package de.nicidienase.geniesser_app.data.api
+package de.nicidienase.geniesser_app.api
 
 data class AllergenDto(
     var allergeneID: Int?,

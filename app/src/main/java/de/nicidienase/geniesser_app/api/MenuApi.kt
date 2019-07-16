@@ -1,4 +1,4 @@
-package de.nicidienase.geniesser_app.data.api
+package de.nicidienase.geniesser_app.api
 
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor

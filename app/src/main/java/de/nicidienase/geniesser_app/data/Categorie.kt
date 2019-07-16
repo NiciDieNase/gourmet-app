@@ -2,7 +2,7 @@ package de.nicidienase.geniesser_app.data
 
 import android.os.Parcel
 import android.os.Parcelable
-import de.nicidienase.geniesser_app.data.api.SpeiseplanKategorieDto
+import de.nicidienase.geniesser_app.api.SpeiseplanKategorieDto
 
 class Categorie(var categoryId: Int, var name: String): Parcelable {
 
@@ -29,7 +29,7 @@ class Categorie(var categoryId: Int, var name: String): Parcelable {
             return arrayOfNulls(size)
         }
 
-        fun fromSpeiseplanKategorieDto(dto: SpeiseplanKategorieDto): Categorie? {
+        fun fromDto(dto: SpeiseplanKategorieDto): Categorie? {
             val categoryId = dto.gerichtkategorieID
             val name = dto.name
             return if(categoryId != null && !name.isNullOrEmpty()) {
