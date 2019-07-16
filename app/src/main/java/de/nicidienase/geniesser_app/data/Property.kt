@@ -2,8 +2,11 @@ package de.nicidienase.geniesser_app.data
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import de.nicidienase.geniesser_app.api.SpeiseplanMerkmalDto
 
+@Entity
 class Property(
     var propertyId: Int,
     var name: String,
@@ -12,6 +15,10 @@ class Property(
     var iconUrl: String,
     var showInMenu: Boolean
 ) : Parcelable {
+
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
+
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString() ?: "",
@@ -19,8 +26,7 @@ class Property(
         parcel.readString() ?: "",
         parcel.readString() ?: "",
         parcel.readByte() != 0.toByte()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(propertyId)

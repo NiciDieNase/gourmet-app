@@ -2,9 +2,20 @@ package de.nicidienase.geniesser_app.data
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import de.nicidienase.geniesser_app.api.AllergenDto
 
-class Allergen (var allergenId: Int, var name: String, var logoUrl: String, var abbreviation: String) : Parcelable {
+@Entity
+class Allergen(
+    var allergenId: Int,
+    var name: String,
+    var logoUrl: String,
+    var abbreviation: String
+) : Parcelable {
+
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -38,7 +49,7 @@ class Allergen (var allergenId: Int, var name: String, var logoUrl: String, var 
             val name = dto.name
             val logoImage = dto.logoImage
             val abbreviation = dto.kuerzel
-            return if( allergeneID != null
+            return if (allergeneID != null
                 && !name.isNullOrEmpty()
                 && !logoImage.isNullOrEmpty()
                 && !abbreviation.isNullOrEmpty()

@@ -2,10 +2,17 @@ package de.nicidienase.geniesser_app.data
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import de.nicidienase.geniesser_app.api.StandortDto
 
+@Entity
 class Location (var locationId: Int,
                 var name: String) : Parcelable {
+
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
+
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString() ?: ""

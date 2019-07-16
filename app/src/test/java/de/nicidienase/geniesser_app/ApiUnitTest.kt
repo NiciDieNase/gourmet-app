@@ -39,7 +39,7 @@ class ApiUnitTest {
         val categories = api.getMenuCategories(DEFAULT_LOCATION)
         assertTrue(categories.isNotEmpty())
 
-        val list = categories.map { Categorie.fromDto(it) }
+        val list = categories.map { Category.fromDto(it) }
         assertEquals(categories.size, list.size)
     }
 

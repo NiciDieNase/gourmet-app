@@ -2,9 +2,16 @@ package de.nicidienase.geniesser_app.data
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import de.nicidienase.geniesser_app.api.SpeiseplanKategorieDto
 
-class Categorie(var categoryId: Int, var name: String): Parcelable {
+@Entity
+class Category(var categoryId: Int, var name: String) : Parcelable {
+
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0
+
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -20,20 +27,20 @@ class Categorie(var categoryId: Int, var name: String): Parcelable {
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Categorie> {
-        override fun createFromParcel(parcel: Parcel): Categorie {
-            return Categorie(parcel)
+    companion object CREATOR : Parcelable.Creator<Category> {
+        override fun createFromParcel(parcel: Parcel): Category {
+            return Category(parcel)
         }
 
-        override fun newArray(size: Int): Array<Categorie?> {
+        override fun newArray(size: Int): Array<Category?> {
             return arrayOfNulls(size)
         }
 
-        fun fromDto(dto: SpeiseplanKategorieDto): Categorie? {
+        fun fromDto(dto: SpeiseplanKategorieDto): Category? {
             val categoryId = dto.gerichtkategorieID
             val name = dto.name
-            return if(categoryId != null && !name.isNullOrEmpty()) {
-                Categorie(categoryId, name)
+            return if (categoryId != null && !name.isNullOrEmpty()) {
+                Category(categoryId, name)
             } else {
                 null
             }
