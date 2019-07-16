@@ -1,6 +1,6 @@
-package de.nicidienase.geniesser_app.data
+package de.nicidienase.geniesser_app.data.api
 
-class SpeiseplanKategorieDto(
+data class SpeiseplanKategorieDto(
     var benutzerID: Int?,
     var gerichtkategorieID: Int?,
     var id: Int?,

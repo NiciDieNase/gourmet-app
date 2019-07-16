@@ -1,6 +1,6 @@
-package de.nicidienase.geniesser_app.data
+package de.nicidienase.geniesser_app.data.api
 
-class SpeiseplanWrapperDto(
+data class SpeiseplanWrapperDto(
     var speiseplanAdvanced: SpeiseplanAdvancedDto,
     var speiseplanGerichtData: List<SpeiseplanGerichtDto>
 )

@@ -1,6 +1,6 @@
-package de.nicidienase.geniesser_app.data
+package de.nicidienase.geniesser_app.data.api
 
-class SpeiseplanAdvancedDto(
+data class SpeiseplanAdvancedDto(
     var exportInactiveContent: Boolean?,
     var gueltigBis: String?,
     var gueltigTaeglich: Boolean?,

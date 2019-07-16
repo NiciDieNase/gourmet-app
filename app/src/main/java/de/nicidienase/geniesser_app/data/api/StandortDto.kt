@@ -1,6 +1,6 @@
-package de.nicidienase.geniesser_app.data
+package de.nicidienase.geniesser_app.data.api
 
-class StandortDto(
+data class StandortDto(
     var benutzerId: Int?,
     var id: Int?,
     var logoImage: String?,
