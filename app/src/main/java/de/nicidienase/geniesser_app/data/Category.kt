@@ -2,16 +2,12 @@ package de.nicidienase.geniesser_app.data
 
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 import de.nicidienase.geniesser_app.api.SpeiseplanKategorieDto
 
-@Entity
-class Category(var categoryId: Int, var name: String) : Parcelable {
-
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0
-
+class Category(
+    @SerializedName("categoryId") var categoryId: Int,
+    @SerializedName("categoryName") var categoryName: String) : Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -20,7 +16,7 @@ class Category(var categoryId: Int, var name: String) : Parcelable {
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(categoryId)
-        parcel.writeString(name)
+        parcel.writeString(categoryName)
     }
 
     override fun describeContents(): Int {

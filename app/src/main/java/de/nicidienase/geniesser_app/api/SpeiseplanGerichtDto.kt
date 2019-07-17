@@ -24,5 +24,7 @@ data class AdvancedGerichtDto (
     var reihenfolgeInGerichtkategorie: Int?,
     var speiseplanAdvancedID: Int?,
     var timestampLog: String?,
-    var zusatzinformationenID: String?
-)
+    var zusatzinformationenID: String?,
+    val gerichtkategorie: SpeiseplanKategorieDto?
+) {
+}

@@ -2,22 +2,25 @@ package de.nicidienase.geniesser_app.data
 
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
+import androidx.room.*
 import de.nicidienase.geniesser_app.api.SpeiseplanGerichtDto
+import de.nicidienase.geniesser_app.api.SpeiseplanKategorieDto
+import java.text.SimpleDateFormat
+import java.util.*
 
-@Entity
+@Entity(indices = [Index(value = ["dishId"], unique = true)])
 data class Dish(
+    val locationId: Int,
     var dishId: Int,
     var name: String,
-    var date: String,
-    var price: Float,
-    var category: Int,
+    var date: Date,
+    var price: Int,
+    @Embedded
+    var category: Category?,
     var allergenIds: List<Int>? = null,
     var additiveIds: List<Int>? = null,
     var propertyIds: List<Int>? = null
-): Parcelable {
+) : Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
@@ -32,10 +35,11 @@ data class Dish(
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
+        parcel.readInt(),
         parcel.readString() ?: "",
-        parcel.readString() ?: "",
-        parcel.readFloat(),
-        parcel.readInt()
+        Date(parcel.readLong()),
+        parcel.readInt(),
+        parcel.readParcelable<Category>(Category::class.java.classLoader)
     ) {
         allergenIds = mutableListOf<Int>().apply {
             parcel.readList(this as List<*>, Int::class.java.classLoader)
@@ -50,11 +54,12 @@ data class Dish(
 
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(locationId)
         parcel.writeInt(dishId)
         parcel.writeString(name)
-        parcel.writeString(date)
-        parcel.writeFloat(price)
-        parcel.writeInt(category)
+        parcel.writeLong(date.time)
+        parcel.writeInt(price)
+        parcel.writeParcelable(category, 0)
         parcel.writeList(allergenIds)
         parcel.writeList(additiveIds)
         parcel.writeList(propertyIds)
@@ -73,24 +78,40 @@ data class Dish(
             return arrayOfNulls(size)
         }
 
-        fun fromGerichtDto(gerichtDto: SpeiseplanGerichtDto): Dish? {
+        fun fromGerichtDto(
+            gerichtDto: SpeiseplanGerichtDto,
+            locationId: Int,
+            kategorieDto: List<SpeiseplanKategorieDto>
+        ): Dish? {
             val dishId = gerichtDto.speiseplanAdvancedGericht.id
             val name = gerichtDto.speiseplanAdvancedGericht.gerichtname
-            val date = gerichtDto.speiseplanAdvancedGericht.datum
+            val date = gerichtDto.speiseplanAdvancedGericht.datum?.let {
+                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.GERMANY).parse(it)
+            }
+
             val price = gerichtDto.zusatzinformationen.mitarbeiterpreisDecimal2
-            val allergens: List<Int>?
-                    = gerichtDto.allergeneIds?.split(",")?.map { it.toInt() }
-            val dishProperties: List<Int>?
-                    = gerichtDto.gerichtmerkmaleIds?.split(",")?.map { it.toInt() }
-            val dishCategoryId = gerichtDto.speiseplanAdvancedGericht.gerichtkategorieID
-            val additivesIds: List<Int>?
-                    = gerichtDto.zusatzstoffeIds?.split(",")?.map { it.toInt() }
-            return if( !name.isNullOrBlank()
-                && !date.isNullOrBlank()
+            val allergens: List<Int>? = gerichtDto.allergeneIds?.split(",")?.map { it.toInt() }
+            val dishProperties: List<Int>? = gerichtDto.gerichtmerkmaleIds?.split(",")?.map { it.toInt() }
+            val dishCategory =
+                kategorieDto.find { it.gerichtkategorieID == gerichtDto.speiseplanAdvancedGericht.gerichtkategorieID }
+            val additivesIds: List<Int>? = gerichtDto.zusatzstoffeIds?.split(",")?.map { it.toInt() }
+            return if (!name.isNullOrBlank()
+                && date != null
                 && price != null
-                && dishCategoryId != null
-                && dishId != null) {
-                Dish(dishId, name, date, price, dishCategoryId, allergens, additivesIds, dishProperties)
+                && dishCategory != null
+                && dishId != null
+            ) {
+                Dish(
+                    locationId,
+                    dishId,
+                    name,
+                    date,
+                    (price * 100).toInt(),
+                    Category.fromDto(dishCategory),
+                    allergens,
+                    additivesIds,
+                    dishProperties
+                )
             } else {
                 null
             }

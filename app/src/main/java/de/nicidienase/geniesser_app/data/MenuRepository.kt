@@ -1,25 +1,30 @@
 package de.nicidienase.geniesser_app.data
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import de.nicidienase.geniesser_app.api.MenuApi
 import de.nicidienase.geniesser_app.api.SpeiseplanWrapperDto
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class MenuRepository(
-    val api: MenuApi,
-    val dishDao: DishDao,
-    val allergenDao: AllergenDao,
-    val additiveDao: AdditiveDao,
-    val propertyDao: PropertyDao
+    private val api: MenuApi,
+    private val database: FoodDatabase
 ) {
 
-    fun getDishes() = dishDao.getAll()
+    private val dishDao by lazy { database.getDishDao() }
+    private val locationDao by lazy { database.getLocationDao() }
 
-    fun update() = GlobalScope.launch {
-        val menu: SpeiseplanWrapperDto = api.getMenu(3317)[0]
-        val dishes = menu.speiseplanGerichtData.map { Dish.fromGerichtDto(it) }.filterNotNull()
-        dishDao.insert( *(dishes.toTypedArray()) )
+    fun getDishes() = dishDao.getAll()
+    fun getDishesForLocation(locationId: Int) = dishDao.getAllForLocation(locationId)
+    fun getDishesForDay(day: Long): LiveData<List<Dish>> = dishDao.getDishesForDay(day)
+    fun getDays() = dishDao.getAvailableDates()
+
+    fun update(locationId: Int) = GlobalScope.launch {
+        locationDao.insert(api.getLocations().mapNotNull { Location.fromDto(it) })
+
+        val menu: SpeiseplanWrapperDto = api.getMenu(locationId)[0]
+        val categories = api.getMenuCategories(locationId)
+        dishDao.insert(menu.speiseplanGerichtData.mapNotNull { Dish.fromGerichtDto(it, locationId, categories) })
     }
+
 }

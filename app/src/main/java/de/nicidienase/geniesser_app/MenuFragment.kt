@@ -10,16 +10,20 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.nicidienase.geniesser_app.databinding.FragmentMenuBinding
+import java.util.*
 
-class MenuFragment: Fragment() {
+class MenuFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentMenuBinding.inflate(inflater, container, false)
 
-        val viewModel = ViewModelProviders.of(this, GourmetViewModelFactory(requireContext())).get(MenuViewModel::class.java)
+        val viewModel =
+            ViewModelProviders.of(this, GourmetViewModelFactory(requireContext())).get(MenuViewModel::class.java)
+
+        val day = arguments?.getLong(KEY_DAY) ?: 1563487200000
 
         val dishAdapter = DishAdapter()
-        viewModel.getDishes().observe(this, Observer {
+        viewModel.getDishesForDay(day).observe(this, Observer {
             dishAdapter.submitList(it)
         })
 
@@ -31,5 +35,15 @@ class MenuFragment: Fragment() {
         viewModel.updateDishes()
 
         return binding.root
+    }
+
+    companion object {
+        private const val KEY_DAY = "day"
+
+        fun menuFragmentForDate(date: Date) = MenuFragment().apply {
+            val args = Bundle()
+            args.putLong(KEY_DAY, date.time)
+            arguments = args
+        }
     }
 }

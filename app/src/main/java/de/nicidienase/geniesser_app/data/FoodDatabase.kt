@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 @Database(
-    entities = [Additive::class, Allergen::class, Category::class, Dish::class, Location::class, Property::class],
+    entities = [Additive::class, Allergen::class, Dish::class, Location::class, Property::class],
     version = 1
 )
 @TypeConverters(FoodConverters::class)
@@ -15,7 +15,6 @@ abstract class FoodDatabase : RoomDatabase() {
 
     abstract fun getAdditiveDao(): AdditiveDao
     abstract fun getAllergenDao(): AllergenDao
-    abstract fun getCategoryDao(): CategoryDao
     abstract fun getDishDao(): DishDao
     abstract fun getLocationDao(): LocationDao
     abstract fun getPropertyDao(): PropertyDao

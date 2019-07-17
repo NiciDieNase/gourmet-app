@@ -3,11 +3,18 @@ package de.nicidienase.geniesser_app
 import androidx.lifecycle.ViewModel
 import de.nicidienase.geniesser_app.data.MenuRepository
 
-class MenuViewModel(val menuRepository: MenuRepository): ViewModel() {
+class MenuViewModel(
+    val menuRepository: MenuRepository,
+    val preferencesService: PreferencesService
+): ViewModel() {
 
-    fun getDishes() = menuRepository.getDishes()
+    fun getDishes() = menuRepository.getDishesForLocation(preferencesService.currentLocation)
+
+    fun getDishesForDay(day:Long) = menuRepository.getDishesForDay(day)
 
     fun updateDishes() {
-        menuRepository.update()
+        menuRepository.update(preferencesService.currentLocation)
     }
+
+    fun getAvailableDays() = menuRepository.getDays()
 }

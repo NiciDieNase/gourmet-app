@@ -11,19 +11,15 @@ class GourmetViewModelFactory(context: Context) : ViewModelProvider.Factory {
 
     private val database = FoodDatabase.build(context.applicationContext)
 
+    private val preferencesService = PreferencesService(context.getSharedPreferences("gourmet_preferences", Context.MODE_PRIVATE))
+
     private val menuApi by lazy { buildMenuApi() }
 
-    private val menuRepository: MenuRepository = MenuRepository(
-        menuApi,
-        database.getDishDao(),
-        database.getAllergenDao(),
-        database.getAdditiveDao(),
-        database.getPropertyDao()
-    )
+    private val menuRepository: MenuRepository = MenuRepository(menuApi,database)
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MenuViewModel::class.java)) {
-            return MenuViewModel(menuRepository) as T
+            return MenuViewModel(menuRepository, preferencesService) as T
         } else {
             throw UnsupportedOperationException(
                 "The requested ViewModel is currently unsupported. " +

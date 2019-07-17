@@ -1,6 +1,7 @@
 package de.nicidienase.geniesser_app.data
 
 import androidx.room.TypeConverter
+import java.util.*
 
 class FoodConverters {
 
@@ -18,5 +19,15 @@ class FoodConverters {
             return if(string.isNullOrEmpty()) emptyList()
             else string.split(",").map { it.toInt() }
         }
+
+        @TypeConverter
+        @JvmStatic
+        fun fromTimestamp(value: Long?): Date? {
+            return value?.let { Date(it) }
+        }
+
+        @TypeConverter
+        @JvmStatic
+        fun dateToTimestampe(date: Date?): Long? = date?.time
     }
 }
