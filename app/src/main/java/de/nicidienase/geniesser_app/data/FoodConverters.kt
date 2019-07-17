@@ -8,14 +8,15 @@ class FoodConverters {
 
         @TypeConverter
         @JvmStatic
-        fun intListToString(ints: List<Int>): String {
-            return ints.map { it.toString() }.reduce { acc, s -> "$acc,$s" }
+        fun intListToString(ints: List<Int>?): String {
+            return ints?.map { it.toString() }?.reduce { acc, s -> "$acc,$s" } ?: ""
         }
 
         @TypeConverter
         @JvmStatic
         fun stringToIntList(string: String): List<Int> {
-            return string.split(",").map { it.toInt() }
+            return if(string.isNullOrEmpty()) emptyList()
+            else string.split(",").map { it.toInt() }
         }
     }
 }

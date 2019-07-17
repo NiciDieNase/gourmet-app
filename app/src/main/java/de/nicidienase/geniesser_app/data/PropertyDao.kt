@@ -9,4 +9,7 @@ abstract class PropertyDao: BaseDao<Property>() {
 
     @Query("SELECT * FROM Property")
     abstract fun getAll(): LiveData<List<Property>>
+
+    @Query("SELECT * FROM Property WHERE propertyId IN (:ids)")
+    abstract suspend fun getByIds(ids: List<Int>): List<Property>
 }

@@ -3,6 +3,7 @@ package de.nicidienase.geniesser_app.data
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import de.nicidienase.geniesser_app.api.SpeiseplanGerichtDto
 
@@ -13,13 +14,20 @@ data class Dish(
     var date: String,
     var price: Float,
     var category: Int,
-    var allergens: List<Int>? = null,
-    var additives: List<Int>? = null,
-    var properties: List<Int>? = null
+    var allergenIds: List<Int>? = null,
+    var additiveIds: List<Int>? = null,
+    var propertyIds: List<Int>? = null
 ): Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
+
+    @Ignore
+    var allergens: List<Allergen>? = null
+    @Ignore
+    var additives: List<Additive>? = null
+    @Ignore
+    var properties: List<Property>? = null
 
 
     constructor(parcel: Parcel) : this(
@@ -29,13 +37,13 @@ data class Dish(
         parcel.readFloat(),
         parcel.readInt()
     ) {
-        allergens = mutableListOf<Int>().apply {
+        allergenIds = mutableListOf<Int>().apply {
             parcel.readList(this as List<*>, Int::class.java.classLoader)
         }
-        additives = mutableListOf<Int>().apply {
+        additiveIds = mutableListOf<Int>().apply {
             parcel.readList(this as List<*>, Int::class.java.classLoader)
         }
-        properties = mutableListOf<Int>().apply {
+        propertyIds = mutableListOf<Int>().apply {
             parcel.readList(this as List<*>, Int::class.java.classLoader)
         }
     }
@@ -47,9 +55,9 @@ data class Dish(
         parcel.writeString(date)
         parcel.writeFloat(price)
         parcel.writeInt(category)
-        parcel.writeList(allergens)
-        parcel.writeList(additives)
-        parcel.writeList(properties)
+        parcel.writeList(allergenIds)
+        parcel.writeList(additiveIds)
+        parcel.writeList(propertyIds)
     }
 
     override fun describeContents(): Int {
