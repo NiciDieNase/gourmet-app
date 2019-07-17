@@ -1,4 +1,4 @@
-package de.nicidienase.geniesser_app
+package de.nicidienase.geniesser_app.overview
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -10,7 +10,11 @@ class MenuPagerAdapter(fragmentManager: FragmentManager, var dates: List<Date>?)
     FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(position: Int): Fragment {
-        return dates?.get(position)?.let { MenuFragment.menuFragmentForDate(it) } ?: Fragment()
+        return dates?.get(position)?.let {
+            MenuFragment.menuFragmentForDate(
+                it
+            )
+        } ?: Fragment()
     }
 
     override fun getCount() = dates?.size ?: 0

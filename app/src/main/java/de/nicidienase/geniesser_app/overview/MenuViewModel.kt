@@ -1,6 +1,7 @@
-package de.nicidienase.geniesser_app
+package de.nicidienase.geniesser_app.overview
 
 import androidx.lifecycle.ViewModel
+import de.nicidienase.geniesser_app.PreferencesService
 import de.nicidienase.geniesser_app.data.MenuRepository
 
 class MenuViewModel(
@@ -16,5 +17,5 @@ class MenuViewModel(
         menuRepository.update(preferencesService.currentLocation)
     }
 
-    fun getAvailableDays() = menuRepository.getDays()
+    fun getAvailableDays() = menuRepository.getDays(preferencesService.currentLocation)
 }

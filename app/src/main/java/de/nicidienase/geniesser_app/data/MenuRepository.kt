@@ -17,7 +17,7 @@ class MenuRepository(
     fun getDishes() = dishDao.getAll()
     fun getDishesForLocation(locationId: Int) = dishDao.getAllForLocation(locationId)
     fun getDishesForDay(day: Long): LiveData<List<Dish>> = dishDao.getDishesForDay(day)
-    fun getDays() = dishDao.getAvailableDates()
+    fun getDays(locationId: Int) = dishDao.getAvailableDatesForLocation(locationId)
 
     fun update(locationId: Int) = GlobalScope.launch {
         locationDao.insert(api.getLocations().mapNotNull { Location.fromDto(it) })

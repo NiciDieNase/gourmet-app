@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 import de.nicidienase.geniesser_app.api.StandortDto
 
 @Entity(indices = [Index(value = ["locationId"], unique = true)])
-class Location (var locationId: Int,
+data class Location (var locationId: Int,
                 var name: String) : Parcelable {
 
     @PrimaryKey(autoGenerate = true)

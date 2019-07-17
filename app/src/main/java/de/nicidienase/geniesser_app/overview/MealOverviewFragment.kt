@@ -1,25 +1,35 @@
-package de.nicidienase.geniesser_app
+package de.nicidienase.geniesser_app.overview
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
+import de.nicidienase.geniesser_app.GourmetViewModelFactory
+import de.nicidienase.geniesser_app.R
 import de.nicidienase.geniesser_app.databinding.FragmentMealOverviewBinding
 
 class MealOverviewFragment: Fragment() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentMealOverviewBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(true)
 
         val viewModel =
-            ViewModelProviders.of(this, GourmetViewModelFactory(requireContext())).get(MenuViewModel::class.java)
+            ViewModelProviders.of(this,
+                GourmetViewModelFactory(requireContext())
+            ).get(MenuViewModel::class.java)
 
         viewModel.updateDishes()
 
-        activity?.setActionBar( binding.toolbar )
-
-        setHasOptionsMenu(true)
+        activity?.setActionBar(binding.toolbar) ?: Log.i(TAG, "No Activity to set toolbar")
 
         val pagerAdapter = MenuPagerAdapter(childFragmentManager, emptyList())
         binding.pager.adapter = pagerAdapter
@@ -36,16 +46,19 @@ class MealOverviewFragment: Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.overview_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId){
             R.id.action_select_location -> {
-                // TODO
+                findNavController().navigate(MealOverviewFragmentDirections.actionMealOverviewFragmentToLocationSelectFragment())
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    companion object {
+        private val TAG = MealOverviewFragment::class.java.simpleName
     }
 }

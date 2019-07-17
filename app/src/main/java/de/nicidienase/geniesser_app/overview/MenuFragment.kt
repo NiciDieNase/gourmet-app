@@ -1,4 +1,4 @@
-package de.nicidienase.geniesser_app
+package de.nicidienase.geniesser_app.overview
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import de.nicidienase.geniesser_app.GourmetViewModelFactory
 import de.nicidienase.geniesser_app.databinding.FragmentMenuBinding
 import java.util.*
 
@@ -18,7 +19,9 @@ class MenuFragment : Fragment() {
         val binding = FragmentMenuBinding.inflate(inflater, container, false)
 
         val viewModel =
-            ViewModelProviders.of(this, GourmetViewModelFactory(requireContext())).get(MenuViewModel::class.java)
+            ViewModelProviders.of(this,
+                GourmetViewModelFactory(requireContext())
+            ).get(MenuViewModel::class.java)
 
         val day = arguments?.getLong(KEY_DAY) ?: 1563487200000
 

@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 import de.nicidienase.geniesser_app.api.buildMenuApi
 import de.nicidienase.geniesser_app.data.FoodDatabase
 import de.nicidienase.geniesser_app.data.MenuRepository
+import de.nicidienase.geniesser_app.location.LocationViewModel
+import de.nicidienase.geniesser_app.overview.MenuViewModel
 
 class GourmetViewModelFactory(context: Context) : ViewModelProvider.Factory {
 
@@ -20,6 +22,8 @@ class GourmetViewModelFactory(context: Context) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MenuViewModel::class.java)) {
             return MenuViewModel(menuRepository, preferencesService) as T
+        } else if (modelClass.isAssignableFrom(LocationViewModel::class.java)) {
+            return LocationViewModel(database.getLocationDao(), preferencesService) as T
         } else {
             throw UnsupportedOperationException(
                 "The requested ViewModel is currently unsupported. " +

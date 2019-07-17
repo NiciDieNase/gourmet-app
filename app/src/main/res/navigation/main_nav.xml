@@ -6,16 +6,15 @@
             app:startDestination="@id/mealOverviewFragment">
 
     <fragment
-            android:id="@+id/menuFragment"
-            android:name="de.nicidienase.geniesser_app.MenuFragment"
-            android:label="MenuFragment"
-            tools:layout="@layout/fragment_menu"/>
-    <fragment
             android:id="@+id/mealOverviewFragment"
-            android:name="de.nicidienase.geniesser_app.MealOverviewFragment"
+            android:name="de.nicidienase.geniesser_app.overview.MealOverviewFragment"
             android:label="MealOverviewFragment">
         <action
-                android:id="@+id/action_mealOverviewFragment_to_menuFragment"
-                app:destination="@id/menuFragment"/>
+                android:id="@+id/action_mealOverviewFragment_to_locationSelectFragment"
+                app:destination="@id/locationSelectFragment"/>
     </fragment>
+    <fragment
+            android:id="@+id/locationSelectFragment"
+            android:name="de.nicidienase.geniesser_app.location.LocationSelectFragment"
+            android:label="LocationSelectFragment"/>
 </navigation>
