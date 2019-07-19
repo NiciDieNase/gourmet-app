@@ -35,7 +35,7 @@ class MealOverviewFragment : Fragment() {
 
         viewModel.updateDishes()
 
-        (activity as AppCompatActivity).setActionBar(binding.toolbar)
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
 
         val pagerAdapter = MenuPagerAdapter(childFragmentManager, emptyList())
         binding.pager.adapter = pagerAdapter

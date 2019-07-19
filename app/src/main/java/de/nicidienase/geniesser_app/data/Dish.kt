@@ -7,6 +7,7 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import de.nicidienase.geniesser_app.api.SpeiseplanAdvancedDto
 import de.nicidienase.geniesser_app.api.SpeiseplanGerichtDto
 import de.nicidienase.geniesser_app.api.SpeiseplanKategorieDto
 import java.text.SimpleDateFormat
@@ -16,6 +17,7 @@ import java.util.Locale
 @Entity(indices = [Index(value = ["dishId"], unique = true)])
 data class Dish(
     val locationId: Int,
+    val outletId: Int,
     var dishId: Int,
     var name: String,
     var date: Date,
@@ -40,6 +42,7 @@ data class Dish(
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readInt(),
+        parcel.readInt(),
         parcel.readString() ?: "",
         Date(parcel.readLong()),
         parcel.readInt(),
@@ -58,6 +61,7 @@ data class Dish(
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(locationId)
+        parcel.writeInt(outletId)
         parcel.writeInt(dishId)
         parcel.writeString(name)
         parcel.writeLong(date.time)
@@ -84,6 +88,7 @@ data class Dish(
         fun fromGerichtDto(
             gerichtDto: SpeiseplanGerichtDto,
             locationId: Int,
+            planInfo: SpeiseplanAdvancedDto,
             kategorieDto: List<SpeiseplanKategorieDto>
         ): Dish? {
             val dishId = gerichtDto.speiseplanAdvancedGericht.id
@@ -98,14 +103,17 @@ data class Dish(
             val dishCategory =
                 kategorieDto.find { it.gerichtkategorieID == gerichtDto.speiseplanAdvancedGericht.gerichtkategorieID }
             val additivesIds: List<Int>? = gerichtDto.zusatzstoffeIds?.split(",")?.map { it.toInt() }
+            val outletId = planInfo.outletID
             return if (!name.isNullOrBlank() &&
                 date != null &&
                 price != null &&
                 dishCategory != null &&
-                dishId != null
+                dishId != null &&
+                outletId != null
             ) {
                 Dish(
                     locationId,
+                    outletId,
                     dishId,
                     name,
                     date,

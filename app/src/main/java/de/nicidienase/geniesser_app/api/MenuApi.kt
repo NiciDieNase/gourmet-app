@@ -14,7 +14,7 @@ interface MenuApi {
     suspend fun getLocations(): List<StandortDto>
 
     @GET("KMSLiveWebservices/webresources/entity.speiseplanadvanced/getdata/{location_id}/1")
-    suspend fun getMenu(@Path("location_id") locationId: Int): List<SpeiseplanWrapperDto>
+    suspend fun getMenu(@Path("location_id") locationId: Int): List<SpeiseplanWrapperDto>?
 
     @GET("KMSLiveWebservices/webresources/entity.gerichtkategorie/current/{location_id}")
     suspend fun getMenuCategories(@Path("location_id") locationId: Int): List<SpeiseplanKategorieDto>

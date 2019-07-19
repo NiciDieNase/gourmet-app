@@ -27,8 +27,14 @@ class MenuRepository(
 
         val menus = api.getMenu(locationId)
         val categories = api.getMenuCategories(locationId)
-        val dishes: List<Dish> = menus.flatMap { it.speiseplanGerichtData.mapNotNull { Dish.fromGerichtDto(it, locationId, categories) } }
-        dishDao.insert(dishes)
+        val dishes: List<Dish>? = menus?.flatMap { wrapper ->
+            wrapper.speiseplanGerichtData.mapNotNull {
+                Dish.fromGerichtDto(it, locationId, wrapper.speiseplanAdvanced, categories)
+            }
+        }
+        if (dishes != null) {
+            dishDao.insert(dishes)
+        }
         _isRefreshing.postValue(false)
     }
 }

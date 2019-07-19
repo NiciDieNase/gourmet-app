@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 
 @Database(
     entities = [Additive::class, Allergen::class, Dish::class, Location::class, Property::class],
-    version = 1
+    version = 2
 )
 @TypeConverters(FoodConverters::class)
 abstract class FoodDatabase : RoomDatabase() {

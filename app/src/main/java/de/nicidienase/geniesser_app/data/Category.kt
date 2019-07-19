@@ -7,17 +7,19 @@ import de.nicidienase.geniesser_app.api.SpeiseplanKategorieDto
 
 class Category(
     @SerializedName("categoryId") var categoryId: Int,
-    @SerializedName("categoryName") var categoryName: String
+    @SerializedName("categoryName") var categoryName: String,
+    @SerializedName("reihenfolgeInApp") var orderIndex: Int
 ) : Parcelable {
-
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
-        parcel.readString() ?: ""
+        parcel.readString() ?: "",
+        parcel.readInt()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(categoryId)
         parcel.writeString(categoryName)
+        parcel.writeInt(orderIndex)
     }
 
     override fun describeContents(): Int {
@@ -33,14 +35,17 @@ class Category(
             return arrayOfNulls(size)
         }
 
+
         fun fromDto(dto: SpeiseplanKategorieDto): Category? {
             val categoryId = dto.gerichtkategorieID
             val name = dto.name
-            return if (categoryId != null && !name.isNullOrEmpty()) {
-                Category(categoryId, name)
+            val order = dto.reihenfolgeInApp
+            return if (categoryId != null && !name.isNullOrEmpty() && order != null) {
+                Category(categoryId, name, order)
             } else {
                 null
             }
         }
     }
+
 }
