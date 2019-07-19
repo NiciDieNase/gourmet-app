@@ -75,6 +75,10 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version_ktx"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version_ktx"
 
+    def appCenterSdkVersion = '2.2.0'
+    implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
+    implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
+
     debugImplementation 'com.facebook.stetho:stetho:1.4.2'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-3'
 
