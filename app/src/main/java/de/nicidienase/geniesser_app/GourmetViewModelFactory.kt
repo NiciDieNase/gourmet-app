@@ -19,6 +19,7 @@ class GourmetViewModelFactory(context: Context) : ViewModelProvider.Factory {
 
     private val menuRepository: MenuRepository = MenuRepository(menuApi, database)
 
+    @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MenuViewModel::class.java)) {
             return MenuViewModel(menuRepository, preferencesService) as T

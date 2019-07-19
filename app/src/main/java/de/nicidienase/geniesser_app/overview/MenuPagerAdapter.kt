@@ -21,6 +21,8 @@ class MenuPagerAdapter(fragmentManager: FragmentManager, var dates: List<Date>?)
     override fun getCount() = dates?.size ?: 0
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return SimpleDateFormat("EEE, dd. MMMM", Locale.getDefault()).format(dates?.get(position))
+        val date = dates?.get(position)
+        return if (date != null) SimpleDateFormat("EEE, dd. MMMM", Locale.getDefault()).format(date)
+        else "NoDate"
     }
 }
