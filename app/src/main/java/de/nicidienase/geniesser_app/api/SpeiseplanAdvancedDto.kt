@@ -1,5 +1,8 @@
 package de.nicidienase.geniesser_app.api
 
+import androidx.annotation.Keep
+
+@Keep
 data class SpeiseplanAdvancedDto(
     var exportInactiveContent: Boolean?,
     var gueltigBis: String?,

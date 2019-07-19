@@ -1,5 +1,8 @@
 package de.nicidienase.geniesser_app.api
 
+import androidx.annotation.Keep
+
+@Keep
 data class StandortDto(
     var benutzerId: Int?,
     var id: Int?,

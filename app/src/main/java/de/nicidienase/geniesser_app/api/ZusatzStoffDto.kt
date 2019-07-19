@@ -1,5 +1,8 @@
 package de.nicidienase.geniesser_app.api
 
+import androidx.annotation.Keep
+
+@Keep
 data class ZusatzStoffDto(
     var benutzerID: Int?,
     var id: Int?,

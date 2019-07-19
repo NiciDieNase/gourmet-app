@@ -14,7 +14,7 @@
 
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+-keepattributes SourceFile,LineNumberTable
 
 # If you keep the line number information, uncomment this to
 # hide the original source file categoryName.
@@ -50,3 +50,16 @@
 # and replaces all potential values with null. Explicitly keeping the interfaces prevents this.
 -if interface * { @retrofit2.http.* <methods>; }
 -keep,allowobfuscation interface <1>
+
+-keep @interface android.support.annotation.Keep
+
+
+-keep class kotlin.** { *; }
+-keep class org.jetbrains.** { *; }
+
+
+# aboutlibraries
+-keep class .R
+-keep class **.R$* {
+    <fields>;
+}

@@ -1,5 +1,8 @@
 package de.nicidienase.geniesser_app.api
 
+import androidx.annotation.Keep
+
+@Keep
 data class AllergenDto(
     var allergeneID: Int?,
     var benutzerID: Int?,

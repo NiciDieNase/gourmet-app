@@ -1,5 +1,8 @@
 package de.nicidienase.geniesser_app.api
 
+import androidx.annotation.Keep
+
+@Keep
 data class SpeiseplanGerichtDto(
     var allergeneIds: String?,
     var gerichtmerkmaleIds: String?,
@@ -8,12 +11,14 @@ data class SpeiseplanGerichtDto(
     var zusatzstoffeIds: String?
 )
 
+@Keep
 data class ZusatzinformationenDto(
     var allowFeedback: Boolean?,
     var id: Int?,
     var mitarbeiterpreisDecimal2: Float?
 )
 
+@Keep
 data class AdvancedGerichtDto(
     var aktiv: Boolean?,
     var benutzerID: Int?,
