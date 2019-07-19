@@ -34,7 +34,7 @@ class ApiUnitTest {
     @Test
     fun menu() = runBlocking {
         val menu = api.getMenu(DEFAULT_LOCATION)
-        assertTrue(menu.size == 1)
+        assertTrue(menu.size != 0)
     }
 
     @Test
