@@ -5,6 +5,7 @@ apply plugin: "kotlin-kapt"
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 String appName = "Genießer-App"
+String versionString = new File("versionfile").text.trim()
 
 android {
     compileSdkVersion 29
@@ -13,7 +14,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0"
+        versionName versionString
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [label: appName]
         javaCompileOptions {
