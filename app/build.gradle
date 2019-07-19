@@ -6,7 +6,6 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 
 String appName = "Genießer-App"
 String versionString = new File("versionfile").text.trim()
-int versionCode = 1
 
 android {
     compileSdkVersion 29
@@ -14,7 +13,7 @@ android {
         applicationId "de.nicidienase.geniesser_app"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode versionCode
+        versionCode 1
         versionName versionString
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [label: appName]
@@ -24,7 +23,6 @@ android {
                              "$projectDir/schemas".toString()]
             }
         }
-
     }
 
     signingConfigs {
@@ -45,6 +43,8 @@ android {
 
     buildTypes {
         debug {
+            manifestPlaceholders = [label: appName + "-Debug"]
+            applicationIdSuffix ".debug"
         }
         release {
             useProguard true
@@ -62,7 +62,6 @@ android {
         prod {
             dimension "stage"
             buildConfigField "String", "APPCENTER_ID", "$gourmetAppcenterId"
-            manifestPlaceholders = [label: appName + "-debug"]
         }
         dev {
             dimension "stage"
