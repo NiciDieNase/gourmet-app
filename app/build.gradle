@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: "kotlin-kapt"
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
+String appName = "Genießer-App"
+
 android {
     compileSdkVersion 29
     defaultConfig {
@@ -13,11 +15,46 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [label: appName]
     }
     buildTypes {
+        debug {
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+        }
+    }
+    flavorDimensions "stage"
+
+    productFlavors {
+        prod {
+            dimension "stage"
+            buildConfigField "String", "APPCENTER_ID", "$gourmetAppcenterId"
+            manifestPlaceholders = [label: appName + "-debug"]
+        }
+        dev {
+            dimension "stage"
+            applicationIdSuffix ".dev"
+            manifestPlaceholders = [label: appName + "-Dev"]
+            buildConfigField "String", "APPCENTER_ID", "$gourmetAppcenterDevId"
+        }
+    }
+
+    signingConfigs {
+        //noinspection GroovyMissingReturnStatement, GroovyAssignabilityCheck
+        release {
+            if (project.hasProperty("gourmetKeyStore") && file(gourmetKeyStore).exists() && file(gourmetKeyStore).isFile()) {
+                println "Release app signing is configured: will sign APK"
+                storeFile file(gourmetKeyStore)
+                storePassword gourmetStorePassword
+                keyAlias gourmetKeyName
+                keyPassword gourmetKeyPassword
+            } else {
+                println(gourmetKeyStore + gourmetKeyName + gourmetKeyPassword + gourmetStorePassword)
+                println "App signing data not found. Will not sign."
+            }
         }
     }
     dataBinding.enabled = true
@@ -39,7 +76,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version_ktx"
 
     debugImplementation 'com.facebook.stetho:stetho:1.4.2'
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-alpha-3'
 
     implementation "com.squareup.retrofit2:retrofit:2.6.0"
     implementation "com.squareup.retrofit2:converter-gson:2.6.0"

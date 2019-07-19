@@ -3,6 +3,7 @@ package de.nicidienase.geniesser_app.overview
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -29,7 +30,7 @@ class MealOverviewFragment: Fragment() {
 
         viewModel.updateDishes()
 
-        activity?.setActionBar(binding.toolbar) ?: Log.i(TAG, "No Activity to set toolbar")
+        (activity as AppCompatActivity).setActionBar(binding.toolbar)
 
         val pagerAdapter = MenuPagerAdapter(childFragmentManager, emptyList())
         binding.pager.adapter = pagerAdapter
