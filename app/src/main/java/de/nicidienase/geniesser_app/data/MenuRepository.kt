@@ -26,5 +26,4 @@ class MenuRepository(
         val categories = api.getMenuCategories(locationId)
         dishDao.insert(menu.speiseplanGerichtData.mapNotNull { Dish.fromGerichtDto(it, locationId, categories) })
     }
-
 }

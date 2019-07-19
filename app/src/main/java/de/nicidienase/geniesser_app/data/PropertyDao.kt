@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Query
 
 @Dao
-abstract class PropertyDao: BaseDao<Property>() {
+abstract class PropertyDao : BaseDao<Property>() {
 
     @Query("SELECT * FROM Property")
     abstract fun getAll(): LiveData<List<Property>>

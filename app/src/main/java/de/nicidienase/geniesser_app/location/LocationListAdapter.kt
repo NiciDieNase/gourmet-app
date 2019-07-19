@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import de.nicidienase.geniesser_app.data.Location
 import de.nicidienase.geniesser_app.databinding.ItemLocationBinding
 
-class LocationListAdapter(val onClickAction: (Location)->Unit) :
+class LocationListAdapter(val onClickAction: (Location) -> Unit) :
     ListAdapter<Location, LocationListAdapter.LocationViewHolder>(object : DiffUtil.ItemCallback<Location>() {
         override fun areItemsTheSame(oldItem: Location, newItem: Location): Boolean {
             return oldItem.id == newItem.id
@@ -17,7 +17,6 @@ class LocationListAdapter(val onClickAction: (Location)->Unit) :
         override fun areContentsTheSame(oldItem: Location, newItem: Location): Boolean {
             return oldItem == newItem
         }
-
     }) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewHolder {
         val binding = ItemLocationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -30,7 +29,6 @@ class LocationListAdapter(val onClickAction: (Location)->Unit) :
             onClickAction(getItem(position))
         }
     }
-
 
     class LocationViewHolder(val binding: ItemLocationBinding) : RecyclerView.ViewHolder(binding.root)
 }

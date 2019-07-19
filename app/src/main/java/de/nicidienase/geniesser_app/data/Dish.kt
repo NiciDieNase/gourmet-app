@@ -2,11 +2,16 @@ package de.nicidienase.geniesser_app.data
 
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.room.*
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.Index
+import androidx.room.PrimaryKey
 import de.nicidienase.geniesser_app.api.SpeiseplanGerichtDto
 import de.nicidienase.geniesser_app.api.SpeiseplanKategorieDto
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 @Entity(indices = [Index(value = ["dishId"], unique = true)])
 data class Dish(
@@ -32,7 +37,6 @@ data class Dish(
     @Ignore
     var properties: List<Property>? = null
 
-
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readInt(),
@@ -51,7 +55,6 @@ data class Dish(
             parcel.readList(this as List<*>, Int::class.java.classLoader)
         }
     }
-
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(locationId)
@@ -95,11 +98,11 @@ data class Dish(
             val dishCategory =
                 kategorieDto.find { it.gerichtkategorieID == gerichtDto.speiseplanAdvancedGericht.gerichtkategorieID }
             val additivesIds: List<Int>? = gerichtDto.zusatzstoffeIds?.split(",")?.map { it.toInt() }
-            return if (!name.isNullOrBlank()
-                && date != null
-                && price != null
-                && dishCategory != null
-                && dishId != null
+            return if (!name.isNullOrBlank() &&
+                date != null &&
+                price != null &&
+                dishCategory != null &&
+                dishId != null
             ) {
                 Dish(
                     locationId,

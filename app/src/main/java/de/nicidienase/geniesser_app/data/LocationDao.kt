@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Query
 
 @Dao
-abstract class LocationDao: BaseDao<Location>() {
+abstract class LocationDao : BaseDao<Location>() {
 
     @Query("SELECT * FROM Location")
     abstract fun getAll(): LiveData<List<Location>>

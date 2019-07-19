@@ -58,16 +58,15 @@ class Property(
             val abbreviation = dto.kuerzel
             val logoImage = dto.logoImage
             val showInSpeiseplanOverview = dto.showInSpeiseplanOverview
-            return if(
-                propertyId != null
-                && !name.isNullOrEmpty()
-                && !nameAlternative.isNullOrEmpty()
-                && !abbreviation.isNullOrEmpty()
-                && !logoImage.isNullOrEmpty()
-                && showInSpeiseplanOverview != null)
-                Property(propertyId,name,nameAlternative,abbreviation,logoImage, showInSpeiseplanOverview)
+            return if (
+                propertyId != null &&
+                !name.isNullOrEmpty() &&
+                !nameAlternative.isNullOrEmpty() &&
+                !abbreviation.isNullOrEmpty() &&
+                !logoImage.isNullOrEmpty() &&
+                showInSpeiseplanOverview != null)
+                Property(propertyId, name, nameAlternative, abbreviation, logoImage, showInSpeiseplanOverview)
             else null
         }
     }
-
 }

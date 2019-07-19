@@ -5,8 +5,10 @@ import de.nicidienase.geniesser_app.PreferencesService
 import de.nicidienase.geniesser_app.data.Location
 import de.nicidienase.geniesser_app.data.LocationDao
 
-class LocationViewModel(val locationDao: LocationDao,
-                        val preferencesService: PreferencesService): ViewModel() {
+class LocationViewModel(
+    val locationDao: LocationDao,
+    val preferencesService: PreferencesService
+) : ViewModel() {
 
     fun getLocations() = locationDao.getAll()
 

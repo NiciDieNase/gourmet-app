@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.nicidienase.geniesser_app.GourmetViewModelFactory
 import de.nicidienase.geniesser_app.databinding.FragmentMenuBinding
-import java.util.*
+import java.util.Date
 
 class MenuFragment : Fragment() {
 

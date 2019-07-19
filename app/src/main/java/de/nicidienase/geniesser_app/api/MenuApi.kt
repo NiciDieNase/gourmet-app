@@ -36,9 +36,9 @@ fun buildMenuApi(): MenuApi {
                 .newBuilder()
                 .header("Authorization", "Basic d3NfbGl2ZV91c2VyOkF0TXM0SEd5RSFWTjc=")
                 .header("Accept", "application/json")
-                .header("User-Agent","Mozilla/5.0 (Linux; Android 4.4.4; Nexus S Build/KTU84Q) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36")
-                .header("X-LANGUAGETYPE","1")
-                .header("X-Requested-With","de.konkaapps.mittagstisch.geha")
+                .header("User-Agent", "Mozilla/5.0 (Linux; Android 4.4.4; Nexus S Build/KTU84Q) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36")
+                .header("X-LANGUAGETYPE", "1")
+                .header("X-Requested-With", "de.konkaapps.mittagstisch.geha")
                 .build()
             return@addInterceptor chain.proceed(request)
         }

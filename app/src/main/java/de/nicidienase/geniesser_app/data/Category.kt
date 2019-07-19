@@ -7,7 +7,8 @@ import de.nicidienase.geniesser_app.api.SpeiseplanKategorieDto
 
 class Category(
     @SerializedName("categoryId") var categoryId: Int,
-    @SerializedName("categoryName") var categoryName: String) : Parcelable {
+    @SerializedName("categoryName") var categoryName: String
+) : Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),

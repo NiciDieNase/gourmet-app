@@ -1,7 +1,7 @@
 package de.nicidienase.geniesser_app.data
 
 import androidx.room.TypeConverter
-import java.util.*
+import java.util.Date
 
 class FoodConverters {
 
@@ -16,7 +16,7 @@ class FoodConverters {
         @TypeConverter
         @JvmStatic
         fun stringToIntList(string: String): List<Int> {
-            return if(string.isNullOrEmpty()) emptyList()
+            return if (string.isNullOrEmpty()) emptyList()
             else string.split(",").map { it.toInt() }
         }
 

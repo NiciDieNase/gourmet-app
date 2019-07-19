@@ -7,11 +7,11 @@ import de.nicidienase.geniesser_app.data.MenuRepository
 class MenuViewModel(
     val menuRepository: MenuRepository,
     val preferencesService: PreferencesService
-): ViewModel() {
+) : ViewModel() {
 
     fun getDishes() = menuRepository.getDishesForLocation(preferencesService.currentLocation)
 
-    fun getDishesForDay(day:Long) = menuRepository.getDishesForDay(day)
+    fun getDishesForDay(day: Long) = menuRepository.getDishesForDay(day)
 
     fun updateDishes() {
         menuRepository.update(preferencesService.currentLocation)

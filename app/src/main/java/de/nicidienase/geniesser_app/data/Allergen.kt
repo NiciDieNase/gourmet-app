@@ -50,10 +50,10 @@ class Allergen(
             val name = dto.name
             val logoImage = dto.logoImage
             val abbreviation = dto.kuerzel
-            return if (allergeneID != null
-                && !name.isNullOrEmpty()
-                && !logoImage.isNullOrEmpty()
-                && !abbreviation.isNullOrEmpty()
+            return if (allergeneID != null &&
+                !name.isNullOrEmpty() &&
+                !logoImage.isNullOrEmpty() &&
+                !abbreviation.isNullOrEmpty()
             ) Allergen(allergeneID, name, logoImage, abbreviation)
             else null
         }

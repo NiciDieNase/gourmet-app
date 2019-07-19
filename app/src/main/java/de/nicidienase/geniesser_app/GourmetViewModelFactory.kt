@@ -17,7 +17,7 @@ class GourmetViewModelFactory(context: Context) : ViewModelProvider.Factory {
 
     private val menuApi by lazy { buildMenuApi() }
 
-    private val menuRepository: MenuRepository = MenuRepository(menuApi,database)
+    private val menuRepository: MenuRepository = MenuRepository(menuApi, database)
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MenuViewModel::class.java)) {

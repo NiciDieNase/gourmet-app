@@ -1,6 +1,6 @@
 package de.nicidienase.geniesser_app.api
 
-data class SpeiseplanGerichtDto (
+data class SpeiseplanGerichtDto(
     var allergeneIds: String?,
     var gerichtmerkmaleIds: String?,
     var speiseplanAdvancedGericht: AdvancedGerichtDto,
@@ -8,13 +8,13 @@ data class SpeiseplanGerichtDto (
     var zusatzstoffeIds: String?
 )
 
-data class ZusatzinformationenDto (
+data class ZusatzinformationenDto(
     var allowFeedback: Boolean?,
     var id: Int?,
     var mitarbeiterpreisDecimal2: Float?
 )
 
-data class AdvancedGerichtDto (
+data class AdvancedGerichtDto(
     var aktiv: Boolean?,
     var benutzerID: Int?,
     var datum: String?,
@@ -26,5 +26,4 @@ data class AdvancedGerichtDto (
     var timestampLog: String?,
     var zusatzinformationenID: String?,
     val gerichtkategorie: SpeiseplanKategorieDto?
-) {
-}
+)

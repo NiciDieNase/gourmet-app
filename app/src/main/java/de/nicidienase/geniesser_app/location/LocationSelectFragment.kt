@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import de.nicidienase.geniesser_app.GourmetViewModelFactory
 import de.nicidienase.geniesser_app.databinding.FragmentSelectLocationsBinding
 
-class LocationSelectFragment: Fragment() {
+class LocationSelectFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentSelectLocationsBinding.inflate(inflater, container, false)

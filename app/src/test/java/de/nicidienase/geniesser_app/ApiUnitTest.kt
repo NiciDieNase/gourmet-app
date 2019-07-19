@@ -1,14 +1,17 @@
 package de.nicidienase.geniesser_app
 
-import de.nicidienase.geniesser_app.data.*
 import de.nicidienase.geniesser_app.api.MenuApi
 import de.nicidienase.geniesser_app.api.buildMenuApi
+import de.nicidienase.geniesser_app.data.Additive
+import de.nicidienase.geniesser_app.data.Allergen
+import de.nicidienase.geniesser_app.data.Category
+import de.nicidienase.geniesser_app.data.Location
+import de.nicidienase.geniesser_app.data.Property
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-
 
 class ApiUnitTest {
 

@@ -8,8 +8,10 @@ import androidx.room.PrimaryKey
 import de.nicidienase.geniesser_app.api.StandortDto
 
 @Entity(indices = [Index(value = ["locationId"], unique = true)])
-data class Location (var locationId: Int,
-                var name: String) : Parcelable {
+data class Location(
+    var locationId: Int,
+    var name: String
+) : Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
@@ -40,7 +42,7 @@ data class Location (var locationId: Int,
         fun fromDto(dto: StandortDto): Location? {
             val id = dto.id
             val name = dto.name
-            return if( id != null && !name.isNullOrEmpty())
+            return if (id != null && !name.isNullOrEmpty())
                 Location(id, name)
             else null
         }

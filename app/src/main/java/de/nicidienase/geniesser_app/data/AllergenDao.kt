@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Query
 
 @Dao
-abstract class AllergenDao: BaseDao<Allergen>() {
+abstract class AllergenDao : BaseDao<Allergen>() {
 
     @Query("SELECT * FROM Allergen")
     abstract fun getAll(): LiveData<List<Allergen>>

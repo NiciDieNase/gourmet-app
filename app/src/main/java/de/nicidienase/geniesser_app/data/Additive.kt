@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 import de.nicidienase.geniesser_app.api.ZusatzStoffDto
 
 @Entity(indices = [Index(value = ["additiveId"], unique = true)])
-class Additive (
+class Additive(
     var additiveId: Int,
     var name: String,
     var abbreviation: String
@@ -46,10 +46,10 @@ class Additive (
             val id = dto.zusatzstoffeID
             val name = dto.name
             val abbreviation = dto.kuerzel
-            return if( id != null
-                && !name.isNullOrEmpty()
-                && !abbreviation.isNullOrEmpty())
-                Additive(id,name,abbreviation)
+            return if (id != null &&
+                !name.isNullOrEmpty() &&
+                !abbreviation.isNullOrEmpty())
+                Additive(id, name, abbreviation)
             else null
         }
     }
