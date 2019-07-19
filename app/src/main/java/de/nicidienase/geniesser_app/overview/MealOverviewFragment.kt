@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.tabs.TabLayout
 import de.nicidienase.geniesser_app.GourmetViewModelFactory
 import de.nicidienase.geniesser_app.R
 import de.nicidienase.geniesser_app.databinding.FragmentMealOverviewBinding
@@ -38,6 +39,7 @@ class MealOverviewFragment : Fragment() {
 
         val pagerAdapter = MenuPagerAdapter(childFragmentManager, emptyList())
         binding.pager.adapter = pagerAdapter
+        binding.tabs.tabMode = TabLayout.MODE_SCROLLABLE
 
         binding.tabs.setupWithViewPager(binding.pager)
 

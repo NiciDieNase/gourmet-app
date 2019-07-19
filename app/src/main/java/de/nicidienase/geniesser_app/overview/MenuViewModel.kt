@@ -18,4 +18,6 @@ class MenuViewModel(
     }
 
     fun getAvailableDays() = menuRepository.getDays(preferencesService.currentLocation)
+
+    val isRefreshing = menuRepository.isRefreshing
 }

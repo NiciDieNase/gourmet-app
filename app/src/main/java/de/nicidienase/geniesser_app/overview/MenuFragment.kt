@@ -35,7 +35,13 @@ class MenuFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         }
 
-        viewModel.updateDishes()
+        viewModel.isRefreshing.observe(this, Observer {
+            binding.swipeRefreshLayout.isRefreshing = it
+        })
+
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.updateDishes()
+        }
 
         return binding.root
     }
