@@ -1,0 +1,75 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/code
+    docker:
+      - image: circleci/android:api-28
+    environment:
+      JVM_OPTS: -XX\:MaxHeapSize\=2048m -Xmx1536m
+      LIBS: NoFree
+      BUILD_TYPE: Release
+      APPCENTER_OWNER: nicidienase
+      APPCENTER_GROUP: "Collaborators"
+      RELEASENOTES_FILE: "release_notes.txt"
+    branches:
+      only:
+        - master
+        - develop
+    steps:
+      - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+      - run:
+          name: Setup env
+          command: |
+            .circleci/setup_env.sh >> $BASH_ENV
+            echo "VERSION_CODE=$(.circleci/getVersionCode.sh)" >> $BASH_ENV
+      - run:
+          name: Download Dependencies
+          command: ./gradlew $SIGN_CONFIG androidDependencies
+      - run:
+          name: ktlint
+          command: |
+            ./gradlew $SIGN_CONFIG --continue \
+              app:ktlint${BUILD_TYPE}Check
+      - run:
+          name: Build
+          command: |
+            ./gradlew $SIGN_CONFIG \
+              -PversionCode=$VERSION_CODE_TOUCH \
+              -PversionName=${VERSION_NAME} \
+              app:assemble${BUILD_TYPE}
+      - run:
+          name: Test
+          command: |
+            ./gradlew $SIGN_CONFIG --continue \
+              app:test${STAGE}${LIBS}${BUILD_TYPE}UnitTest \
+              app:lint${STAGE}${LIBS}${BUILD_TYPE}
+      - store_artifacts:
+          path: app/build/outputs
+          destination: app-outputs
+      - store_artifacts:
+          path: app/build/reports
+          destination: app-reports
+      - store_artifacts:
+          path: app/build/reports/ktlint/
+          destination: ktlint-reports
+      - store_test_results:
+          path: app/build/test-results
+      - run:
+          name: Appcenter Upload
+          command: |
+            git log --format="%h %s" master..HEAD > $RELEASENOTES_FILE
+            .circleci/appCenterUpload.sh \
+              $APPCENTER_OWNER \
+              $APPCENTER_TOKEN \
+              "app/build/outputs/apk/${BUILD_TYPE_LOWER}/app-${BUILD_TYPE_LOWER}.apk" \
+              $RELEASENOTES_FILE \
+              $APPCENTER_GROUP \
+              "app/build/outputs/mapping/${BUILD_TYPE_LOWER}/mapping.txt" \
+              "$VERSION_CODE" \
+              "$VERSION_NAME"
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
