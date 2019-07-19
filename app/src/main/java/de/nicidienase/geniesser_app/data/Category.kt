@@ -35,7 +35,6 @@ class Category(
             return arrayOfNulls(size)
         }
 
-
         fun fromDto(dto: SpeiseplanKategorieDto): Category? {
             val categoryId = dto.gerichtkategorieID
             val name = dto.name
@@ -47,5 +46,4 @@ class Category(
             }
         }
     }
-
 }

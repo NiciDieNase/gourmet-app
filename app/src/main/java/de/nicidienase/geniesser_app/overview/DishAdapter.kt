@@ -2,15 +2,13 @@ package de.nicidienase.geniesser_app.overview
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import de.nicidienase.geniesser_app.data.Dish
-import de.nicidienase.geniesser_app.data.Property
 import de.nicidienase.geniesser_app.databinding.ItemDishBinding
 
-class DishAdapter: ListAdapter<Dish, DishAdapter.DishViewHolder>(object : DiffUtil.ItemCallback<Dish>() {
+class DishAdapter : ListAdapter<Dish, DishAdapter.DishViewHolder>(object : DiffUtil.ItemCallback<Dish>() {
     override fun areItemsTheSame(oldItem: Dish, newItem: Dish): Boolean {
         return oldItem.dishId == newItem.dishId
     }
