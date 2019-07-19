@@ -63,10 +63,10 @@ jobs:
             .circleci/appCenterUpload.sh \
               $APPCENTER_OWNER \
               $APPCENTER_TOKEN \
-              "app/build/outputs/apk/${BUILD_TYPE_LOWER}/app-${BUILD_TYPE_LOWER}.apk" \
+              "app/build/outputs/apk/${STAGE_LOWER}/${BUILD_TYPE_LOWER}/app-${STAGE_LOWER}-${BUILD_TYPE_LOWER}.apk" \
               $RELEASENOTES_FILE \
               $APPCENTER_GROUP \
-              "app/build/outputs/mapping/${${BUILD_TYPE_LOWER}/mapping.txt" \
+              "app/build/outputs/mapping/${STAGE_LOWER}/${BUILD_TYPE_LOWER}/mapping.txt" \
               "$VERSION_CODE" \
               "$VERSION_NAME"
       - save_cache:
