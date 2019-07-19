@@ -35,7 +35,6 @@ android {
                 keyAlias gourmetKeyName
                 keyPassword gourmetKeyPassword
             } else {
-                println(gourmetKeyStore + gourmetKeyName + gourmetKeyPassword + gourmetStorePassword)
                 println "App signing data not found. Will not sign."
             }
         }
