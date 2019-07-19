@@ -6,6 +6,7 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 
 String appName = "Genießer-App"
 String versionString = new File("versionfile").text.trim()
+int versionCode = 1
 
 android {
     compileSdkVersion 29
@@ -13,7 +14,7 @@ android {
         applicationId "de.nicidienase.geniesser_app"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1
+        versionCode versionCode
         versionName versionString
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [label: appName]

@@ -36,7 +36,7 @@ jobs:
           name: Build
           command: |
             ./gradlew $SIGN_CONFIG \
-              -PversionCode=$VERSION_CODE_TOUCH \
+              -PversionCode=$VERSION_CODE \
               -PversionName=${VERSION_NAME} \
               app:assemble${STAGE}${BUILD_TYPE}
       - run:
