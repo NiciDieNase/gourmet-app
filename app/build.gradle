@@ -48,7 +48,7 @@ android {
 
     buildTypes {
         debug {
-            manifestPlaceholders = [label: appName + "-Debug"]
+            manifestPlaceholders = [label: "[Debug]" + appName]
             applicationIdSuffix ".debug"
         }
         release {
@@ -71,7 +71,7 @@ android {
         dev {
             dimension "stage"
             applicationIdSuffix ".dev"
-            manifestPlaceholders = [label: appName + "-Dev"]
+            manifestPlaceholders = [label: "[DEV]" + appName]
             buildConfigField "String", "APPCENTER_ID", "$gourmetAppcenterDevId"
         }
     }
