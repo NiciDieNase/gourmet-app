@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/main_nav"
-            app:startDestination="@id/mealOverviewFragment">
+<navigation android:id="@+id/main_nav"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	app:startDestination="@id/mealOverviewFragment">
 
-    <fragment
-            android:id="@+id/mealOverviewFragment"
-            android:name="de.nicidienase.geniesser_app.overview.MealOverviewFragment"
-            android:label="MealOverviewFragment">
-        <action
-                android:id="@+id/action_mealOverviewFragment_to_locationSelectFragment"
-                app:destination="@id/locationSelectFragment"/>
-    </fragment>
-    <fragment
-            android:id="@+id/locationSelectFragment"
-            android:name="de.nicidienase.geniesser_app.location.LocationSelectFragment"
-            android:label="LocationSelectFragment"/>
+	<fragment
+		android:id="@+id/mealOverviewFragment"
+		android:name="de.nicidienase.geniesser_app.overview.MenuOverviewFragment"
+		android:label="MealOverviewFragment"
+		tools:layout="@layout/fragment_meal_overview">
+		<action
+			android:id="@+id/action_mealOverviewFragment_to_locationSelectFragment"
+			app:destination="@id/locationSelectFragment" />
+		<action
+			android:id="@+id/action_mealOverviewFragment_to_dishDetailFragment"
+			app:destination="@id/dishDetailFragment"
+			app:enterAnim="@anim/nav_default_enter_anim"
+			app:exitAnim="@anim/nav_default_exit_anim"
+			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+			app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+	</fragment>
+	<fragment
+		android:id="@+id/locationSelectFragment"
+		android:name="de.nicidienase.geniesser_app.location.LocationSelectFragment"
+		android:label="LocationSelectFragment"
+		tools:layout="@layout/fragment_select_locations" />
+	<fragment
+		android:id="@+id/dishDetailFragment"
+		android:name="de.nicidienase.geniesser_app.detail.DishDetailFragment"
+		android:label="DishDetailFragment"
+		tools:layout="@layout/fragment_dish_detail" >
+		<argument
+			android:name="dish"
+			app:argType="de.nicidienase.geniesser_app.data.Dish" />
+	</fragment>
 </navigation>
