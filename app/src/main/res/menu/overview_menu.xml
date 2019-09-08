@@ -6,4 +6,9 @@
             android:title="@string/select_location"
             android:icon="@drawable/ic_action_location"
             app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_goto_today"
+        android:icon="@drawable/ic_action_date"
+        android:title="Go to today"
+        app:showAsAction="ifRoom" />
 </menu>

@@ -19,13 +19,16 @@ class MenuFragment : Fragment() {
         val binding = FragmentMenuBinding.inflate(inflater, container, false)
 
         val viewModel =
-            ViewModelProviders.of(this,
+            ViewModelProviders.of(
+                this,
                 GourmetViewModelFactory(requireContext())
             ).get(MenuViewModel::class.java)
 
         val day = arguments?.getLong(KEY_DAY) ?: 1563487200000
 
-        val dishAdapter = DishAdapter()
+        val dishAdapter = DishAdapter {
+            findNavController().navigate(MenuOverviewFragmentDirections.actionMealOverviewFragmentToDishDetailFragment(it))
+        }
         viewModel.getDishesForDay(day).observe(this, Observer {
             dishAdapter.submitList(it)
         })
