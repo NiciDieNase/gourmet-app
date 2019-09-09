@@ -81,13 +81,12 @@ class MenuOverviewFragment : Fragment() {
         }
     }
 
-
     private fun getIndexOfToday(dates: List<Date>): Int {
         val now = Date()
         try {
             val today = dates.last { it.before(now) }
             return dates.indexOf(today)
-        } catch (ex: NoSuchElementException){
+        } catch (ex: NoSuchElementException) {
             // all entries are in the future, show first item
             return 0
         }

@@ -25,13 +25,12 @@ class DishAdapter(val onItemSelected: (Dish) -> Unit) : ListAdapter<Dish, DishAd
     }
 
     override fun onBindViewHolder(holder: DishViewHolder, position: Int) {
-        holder.binding.apply{
+        holder.binding.apply {
             dish = getItem(position)
             root.setOnClickListener {
                 onItemSelected(getItem(position))
             }
         }
-
     }
 
     class DishViewHolder(val binding: ItemDishBinding) : RecyclerView.ViewHolder(binding.root)
