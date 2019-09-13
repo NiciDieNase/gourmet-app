@@ -21,10 +21,19 @@ class NewsRepository(
         Log.i(TAG, "Starting News update for locationId $locationId")
         _isRefreshing.postValue(true)
 
-        newsDao.getNewsTitlesForLocationSync(locationId)
+        val existingNews = newsDao.getNewsForLocationSync(locationId)
+        val oldBackendIds = existingNews.map { it.backendId }
         val news: List<News> = api.getNews(locationId).mapNotNull { News.fromNewsDto(it, locationId.toLong()) }
 
-        newsDao.insert(news)
+        val newsToUpdate = news.filter { oldBackendIds.contains(it.backendId) }
+        newsToUpdate.forEach { news ->
+            news.id = existingNews.first { it.backendId == news.backendId }.id
+        }
+
+        val newsToInsert = news.filterNot { oldBackendIds.contains(it.backendId) }
+
+        newsDao.insert(newsToInsert)
+        newsDao.update(* newsToUpdate.toTypedArray())
 
         _isRefreshing.postValue(false)
         Log.i(TAG, "News update for locationId $locationId is done")

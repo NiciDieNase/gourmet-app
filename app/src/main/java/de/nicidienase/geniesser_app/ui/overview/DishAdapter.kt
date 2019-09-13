@@ -9,13 +9,8 @@ import de.nicidienase.geniesser_app.data.Dish
 import de.nicidienase.geniesser_app.databinding.ItemDishBinding
 
 class DishAdapter(val onItemSelected: (Dish) -> Unit) : ListAdapter<Dish, DishAdapter.DishViewHolder>(object : DiffUtil.ItemCallback<Dish>() {
-    override fun areItemsTheSame(oldItem: Dish, newItem: Dish): Boolean {
-        return oldItem.dishId == newItem.dishId
-    }
-
-    override fun areContentsTheSame(oldItem: Dish, newItem: Dish): Boolean {
-        return oldItem == newItem
-    }
+    override fun areItemsTheSame(oldItem: Dish, newItem: Dish) =  oldItem.id == newItem.id
+    override fun areContentsTheSame(oldItem: Dish, newItem: Dish) = oldItem == newItem
 }) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DishViewHolder {

@@ -18,8 +18,8 @@ import java.util.Locale
 @Keep
 @Entity(indices = [Index(value = ["dishId"], unique = true)])
 data class Dish(
-    val locationId: Long,
-    val outletId: Long,
+    var locationId: Long,
+    var outletId: Long,
     var dishId: Long,
     var name: String,
     var date: Date,
@@ -59,6 +59,23 @@ data class Dish(
         propertyIds = mutableListOf<Int>().apply {
             parcel.readList(this as List<*>, Int::class.java.classLoader)
         }
+    }
+
+    fun update(dish: Dish): Dish?{
+        if(dish != this){
+            locationId = dish.locationId
+            outletId = dish.outletId
+            dishId = dish.dishId
+            name = dish.name
+            date = dish.date
+            price = dish.price
+            category = dish.category
+            allergenIds = dish.allergenIds
+            additiveIds = dish.additiveIds
+            propertyIds = dish.propertyIds
+            return this
+        }
+        return null
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

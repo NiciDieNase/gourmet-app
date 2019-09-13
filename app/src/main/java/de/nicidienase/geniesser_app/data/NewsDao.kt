@@ -13,6 +13,9 @@ abstract class NewsDao : BaseDao<News>() {
     @Query("SELECT title FROM news WHERE locationId = :locationId")
     abstract fun getNewsTitlesForLocationSync(locationId: Long): List<String>
 
+    @Query("SELECT * FROM news WHERE locationId = :locationId")
+    abstract fun getNewsForLocationSync(locationId: Long): List<News>
+
     @Query("SELECT count(*) FROM news WHERE locationId = :locationId")
     abstract fun getNewsCountForLocation(locationId: Long): LiveData<Int>
 }

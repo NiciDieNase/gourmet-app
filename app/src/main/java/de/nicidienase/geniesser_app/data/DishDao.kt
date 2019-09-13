@@ -25,4 +25,7 @@ abstract class DishDao : BaseDao<Dish>() {
 
     @Query("SELECT * FROM Dish WHERE date = :day AND locationId = :locationId ORDER BY orderIndex")
     abstract fun getDishesForDayAndLocation(day: Long, locationId: Long): LiveData<List<Dish>>
+
+    @Query("SELECT * FROM Dish WHERE locationId = :locationId ORDER BY orderIndex")
+    abstract fun getAllForLocationSync(locationId: Long): List<Dish>
 }

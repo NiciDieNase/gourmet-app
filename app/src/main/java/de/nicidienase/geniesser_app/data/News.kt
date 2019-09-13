@@ -19,7 +19,8 @@ data class News(
     val content: String,
     val internal: Boolean,
     val imageUrl: String,
-    val locationId: Long
+    val locationId: Long,
+    val backendId: Long
 ) : Parcelable {
 
     @PrimaryKey(autoGenerate = true)
@@ -31,6 +32,7 @@ data class News(
         parcel.readString() ?: "",
         parcel.readByte() != 0.toByte(),
         parcel.readString() ?: "",
+        parcel.readLong(),
         parcel.readLong()
     ) {
         id = parcel.readLong()
@@ -45,6 +47,7 @@ data class News(
             writeString(imageUrl)
             writeLong(id)
             writeLong(locationId)
+            writeLong(backendId)
         }
     }
 
@@ -61,13 +64,14 @@ data class News(
             val content = dto.content
             val internal = dto.internal
             val imageUrl = dto.newsImageUrl
+            val backendId = dto.id
             return if (
                 !title.isNullOrEmpty() &&
                 date != null &&
                 !content.isNullOrBlank() &&
                 internal != null &&
                 !imageUrl.isNullOrBlank()
-            ) News(title, date, content, internal, imageUrl, locationId)
+            ) News(title, date, content, internal, imageUrl, locationId, backendId)
             else null
         }
 

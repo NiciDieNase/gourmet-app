@@ -5,7 +5,7 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import de.nicidienase.geniesser_app.api.SpeiseplanKategorieDto
 
-class Category(
+data class Category(
     @SerializedName("categoryId") var categoryId: Int,
     @SerializedName("categoryName") var categoryName: String,
     @SerializedName("reihenfolgeInApp") var orderIndex: Int

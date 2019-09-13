@@ -32,7 +32,22 @@ class MenuRepository(
             }
         }
         if (dishes != null) {
-            dishDao.insert(dishes)
+            val existingItems = dishDao.getAllForLocationSync(locationId)
+            val newItems = dishes.map { it.dishId to it }.toMap()
+            val oldBackendIds = existingItems.map { it.dishId }
+            val newBackendIds = dishes.map { it.dishId }
+
+            var itemsToUpdate = existingItems.filter { newBackendIds.contains(it.dishId) }
+
+            itemsToUpdate =
+                itemsToUpdate.mapNotNull {
+                    it.update(newItems[it.dishId]!!) // can be !! because we filtered for the same ids before
+                }
+
+            val itemsToInsert = dishes.filterNot { oldBackendIds.contains(it.dishId) }
+
+            dishDao.insert(itemsToInsert)
+            dishDao.update(*itemsToUpdate.toTypedArray())
         }
         _isRefreshing.postValue(false)
     }

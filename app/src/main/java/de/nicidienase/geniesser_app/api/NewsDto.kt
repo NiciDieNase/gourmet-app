@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 @Keep
 class NewsDto(
+    val id: Long,
     @SerializedName("benutzerID") val userId: Long?,
     @SerializedName("datum") val date: String?,
     @SerializedName("inhaltRichtext") val content: String?,
