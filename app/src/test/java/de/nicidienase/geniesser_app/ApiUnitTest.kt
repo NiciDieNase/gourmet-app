@@ -74,6 +74,6 @@ class ApiUnitTest {
     }
 
     companion object {
-        const val DEFAULT_LOCATION = 3317
+        const val DEFAULT_LOCATION = 3317L
     }
 }
