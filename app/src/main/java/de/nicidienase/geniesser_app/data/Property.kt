@@ -2,11 +2,13 @@ package de.nicidienase.geniesser_app.data
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import de.nicidienase.geniesser_app.api.SpeiseplanMerkmalDto
 
+@Keep
 @Entity(indices = [Index(value = ["propertyId"], unique = true)])
 class Property(
     var propertyId: Int,

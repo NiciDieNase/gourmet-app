@@ -2,11 +2,13 @@ package de.nicidienase.geniesser_app.data
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import de.nicidienase.geniesser_app.api.ZusatzStoffDto
 
+@Keep
 @Entity(indices = [Index(value = ["additiveId"], unique = true)])
 class Additive(
     var additiveId: Int,
