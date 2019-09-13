@@ -24,20 +24,6 @@
 			app:exitAnim="@anim/nav_default_exit_anim"
 			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
 			app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-		<action
-			android:id="@+id/action_mealOverviewFragment_to_newsListFragment"
-			app:destination="@id/newsListFragment"
-			app:enterAnim="@anim/nav_default_enter_anim"
-			app:exitAnim="@anim/nav_default_exit_anim"
-			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-			app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-		<action
-			android:id="@+id/action_mealOverviewFragment_to_newsListFragment2"
-			app:destination="@id/newsListFragment"
-			app:enterAnim="@anim/nav_default_enter_anim"
-			app:exitAnim="@anim/nav_default_exit_anim"
-			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-			app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
 	</fragment>
 	<fragment
 		android:id="@+id/locationSelectFragment"
@@ -58,13 +44,6 @@
 		android:name="de.nicidienase.geniesser_app.ui.news.NewsListFragment"
 		android:label="News"
 		tools:layout="@layout/fragment_news">
-		<action
-			android:id="@+id/action_newsListFragment_to_mealOverviewFragment"
-			app:destination="@id/mealOverviewFragment"
-			app:enterAnim="@anim/nav_default_enter_anim"
-			app:exitAnim="@anim/nav_default_exit_anim"
-			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-			app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
 		<action
 			android:id="@+id/action_newsListFragment_to_newsDetailFragment"
 			app:destination="@id/newsDetailFragment"

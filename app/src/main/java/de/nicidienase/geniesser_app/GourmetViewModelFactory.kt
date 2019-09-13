@@ -16,20 +16,34 @@ class GourmetViewModelFactory private constructor(context: Context) : ViewModelP
 
     private val database = GourmetDatabase.build(context.applicationContext)
 
-    private val preferencesService = PreferencesService(context.getSharedPreferences("gourmet_preferences", Context.MODE_PRIVATE))
+    private val preferencesService = PreferencesService(
+        context.getSharedPreferences(
+            "gourmet_preferences",
+            Context.MODE_PRIVATE
+        )
+    )
 
     private val menuApi by lazy { buildMenuApi() }
 
     private val menuRepository: MenuRepository by lazy { MenuRepository(menuApi, database) }
 
-    private val newsRepository: NewsRepository by lazy { NewsRepository(menuApi, database.getNewsDao()) }
+    private val newsRepository: NewsRepository by lazy {
+        NewsRepository(
+            menuApi,
+            database.getNewsDao()
+        )
+    }
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MenuViewModel::class.java)) {
             return MenuViewModel(menuRepository, preferencesService) as T
         } else if (modelClass.isAssignableFrom(LocationViewModel::class.java)) {
-            return LocationViewModel(database.getLocationDao(), preferencesService) as T
+            return LocationViewModel(
+                database.getLocationDao(),
+                preferencesService,
+                newsRepository
+            ) as T
         } else if (modelClass.isAssignableFrom(NewsViewModel::class.java)) {
             return NewsViewModel(newsRepository, preferencesService) as T
         } else if (modelClass.isAssignableFrom(GourmetActivityViewModel::class.java)) {
@@ -43,5 +57,5 @@ class GourmetViewModelFactory private constructor(context: Context) : ViewModelP
         }
     }
 
-    companion object : SingletonHolder<GourmetViewModelFactory, Context> (::GourmetViewModelFactory)
+    companion object : SingletonHolder<GourmetViewModelFactory, Context>(::GourmetViewModelFactory)
 }

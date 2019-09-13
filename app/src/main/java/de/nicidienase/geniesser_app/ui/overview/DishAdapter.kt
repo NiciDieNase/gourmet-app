@@ -14,7 +14,7 @@ class DishAdapter(val onItemSelected: (Dish) -> Unit) : ListAdapter<Dish, DishAd
     }
 
     override fun areContentsTheSame(oldItem: Dish, newItem: Dish): Boolean {
-        return oldItem.equals(newItem)
+        return oldItem == newItem
     }
 }) {
 

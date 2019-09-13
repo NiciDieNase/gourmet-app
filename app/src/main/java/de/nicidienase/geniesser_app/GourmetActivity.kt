@@ -21,7 +21,11 @@ class GourmetActivity : AppCompatActivity() {
 
         val viewModel = ViewModelProviders.of(this, GourmetViewModelFactory.getInstance(this))[GourmetActivityViewModel::class.java]
         viewModel.newsCount.observe(this, Observer {
-            bottonNav.getOrCreateBadge(R.id.newsListFragment).number = it
+            if (it == 0) {
+                bottonNav.removeBadge(R.id.newsListFragment)
+            } else {
+                bottonNav.getOrCreateBadge(R.id.newsListFragment).number = it
+            }
         })
     }
 

@@ -7,6 +7,6 @@ import androidx.room.Query
 @Dao
 abstract class LocationDao : BaseDao<Location>() {
 
-    @Query("SELECT * FROM Location")
+    @Query("SELECT * FROM Location ORDER BY name COLLATE NOCASE ASC")
     abstract fun getAll(): LiveData<List<Location>>
 }
