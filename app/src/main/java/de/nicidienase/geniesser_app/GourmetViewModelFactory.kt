@@ -6,10 +6,13 @@ import androidx.lifecycle.ViewModelProvider
 import de.nicidienase.geniesser_app.api.buildMenuApi
 import de.nicidienase.geniesser_app.data.GourmetDatabase
 import de.nicidienase.geniesser_app.data.MenuRepository
-import de.nicidienase.geniesser_app.location.LocationViewModel
-import de.nicidienase.geniesser_app.overview.MenuViewModel
+import de.nicidienase.geniesser_app.data.NewsRepository
+import de.nicidienase.geniesser_app.ui.location.LocationViewModel
+import de.nicidienase.geniesser_app.ui.news.NewsViewModel
+import de.nicidienase.geniesser_app.ui.overview.MenuViewModel
+import de.nicidienase.geniesser_app.util.SingletonHolder
 
-class GourmetViewModelFactory(context: Context) : ViewModelProvider.Factory {
+class GourmetViewModelFactory private constructor(context: Context) : ViewModelProvider.Factory {
 
     private val database = GourmetDatabase.build(context.applicationContext)
 
@@ -17,7 +20,9 @@ class GourmetViewModelFactory(context: Context) : ViewModelProvider.Factory {
 
     private val menuApi by lazy { buildMenuApi() }
 
-    private val menuRepository: MenuRepository = MenuRepository(menuApi, database)
+    private val menuRepository: MenuRepository by lazy { MenuRepository(menuApi, database) }
+
+    private val newsRepository: NewsRepository by lazy { NewsRepository(menuApi, database.getNewsDao()) }
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -25,6 +30,10 @@ class GourmetViewModelFactory(context: Context) : ViewModelProvider.Factory {
             return MenuViewModel(menuRepository, preferencesService) as T
         } else if (modelClass.isAssignableFrom(LocationViewModel::class.java)) {
             return LocationViewModel(database.getLocationDao(), preferencesService) as T
+        } else if (modelClass.isAssignableFrom(NewsViewModel::class.java)) {
+            return NewsViewModel(newsRepository, preferencesService) as T
+        } else if (modelClass.isAssignableFrom(GourmetActivityViewModel::class.java)) {
+            return GourmetActivityViewModel(newsRepository, preferencesService) as T
         } else {
             throw UnsupportedOperationException(
                 "The requested ViewModel is currently unsupported. " +
@@ -33,4 +42,6 @@ class GourmetViewModelFactory(context: Context) : ViewModelProvider.Factory {
             )
         }
     }
+
+    companion object : SingletonHolder<GourmetViewModelFactory, Context> (::GourmetViewModelFactory)
 }

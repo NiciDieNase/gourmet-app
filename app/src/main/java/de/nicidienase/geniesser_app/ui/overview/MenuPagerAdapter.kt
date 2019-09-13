@@ -1,4 +1,4 @@
-package de.nicidienase.geniesser_app.overview
+package de.nicidienase.geniesser_app.ui.overview
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

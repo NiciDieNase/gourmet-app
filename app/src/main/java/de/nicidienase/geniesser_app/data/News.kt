@@ -3,14 +3,15 @@ package de.nicidienase.geniesser_app.data
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import de.nicidienase.geniesser_app.api.NewsDto
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-@Entity
-class News(
+@Entity(indices = [Index(value = ["title"], unique = true)])
+data class News(
     val title: String,
     val date: Date,
     val content: String,
@@ -52,7 +53,7 @@ class News(
     companion object CREATOR : Parcelable.Creator<News> {
         fun fromNewsDto(dto: NewsDto, locationId: Long): News? {
             val title = dto.title
-            val date = dto.date.let {
+            val date = dto.date?.let {
                 SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.GERMANY).parse(it)
             }
             val content = dto.content

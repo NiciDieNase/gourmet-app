@@ -1,4 +1,4 @@
-package de.nicidienase.geniesser_app.overview
+package de.nicidienase.geniesser_app.ui.overview
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -37,7 +37,7 @@ class MenuOverviewFragment : Fragment() {
         viewModel =
             ViewModelProviders.of(
                 this,
-                GourmetViewModelFactory(requireContext())
+                GourmetViewModelFactory.getInstance(requireContext())
             ).get(MenuViewModel::class.java)
 
         viewModel.updateDishes()

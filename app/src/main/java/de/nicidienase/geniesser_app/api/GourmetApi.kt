@@ -14,22 +14,22 @@ interface GourmetApi {
     suspend fun getLocations(): List<StandortDto>
 
     @GET("KMSLiveWebservices/webresources/entity.speiseplanadvanced/getdata/{location_id}/1")
-    suspend fun getMenu(@Path("location_id") locationId: Int): List<SpeiseplanWrapperDto>?
+    suspend fun getMenu(@Path("location_id") locationId: Long): List<SpeiseplanWrapperDto>?
 
     @GET("KMSLiveWebservices/webresources/entity.gerichtkategorie/current/{location_id}")
-    suspend fun getMenuCategories(@Path("location_id") locationId: Int): List<SpeiseplanKategorieDto>
+    suspend fun getMenuCategories(@Path("location_id") locationId: Long): List<SpeiseplanKategorieDto>
 
     @GET("KMSLiveWebservices/webresources/entity.gerichtmerkmal/current/{location_id}")
-    suspend fun getDishProperties(@Path("location_id") locationId: Int): List<SpeiseplanMerkmalDto>
+    suspend fun getDishProperties(@Path("location_id") locationId: Long): List<SpeiseplanMerkmalDto>
 
     @GET("KMSLiveWebservices/webresources/entity.zusatzstoffe/current/{location_id}")
-    suspend fun getAdditives(@Path("location_id") locationId: Int): List<ZusatzStoffDto>
+    suspend fun getAdditives(@Path("location_id") locationId: Long): List<ZusatzStoffDto>
 
     @GET("KMSLiveWebservices/webresources/entity.allergene/current/{location_id}")
-    suspend fun getAllergens(@Path("location_id") locationId: Int): List<AllergenDto>
+    suspend fun getAllergens(@Path("location_id") locationId: Long): List<AllergenDto>
 
     @GET("KMSLiveWebservices/webresources/entity.news/current/{location_id}")
-    suspend fun getNews(@Path("location_id") locationId: Int): List<NewsDto>
+    suspend fun getNews(@Path("location_id") locationId: Long): List<NewsDto>
 }
 
 fun buildMenuApi(): GourmetApi {

@@ -28,7 +28,7 @@
 
 		</com.google.android.material.appbar.AppBarLayout>
 
-		<TextView
+		<androidx.appcompat.widget.AppCompatTextView
 			android:id="@+id/nameText"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
 			app:layout_constraintTop_toBottomOf="@+id/appbar"
 			tools:text="Paniertes Schnitzel" />
 
-		<TextView
+		<androidx.appcompat.widget.AppCompatTextView
 			price="@{dish.price}"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"

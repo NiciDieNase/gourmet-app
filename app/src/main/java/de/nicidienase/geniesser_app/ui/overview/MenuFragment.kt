@@ -1,4 +1,4 @@
-package de.nicidienase.geniesser_app.overview
+package de.nicidienase.geniesser_app.ui.overview
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,7 +22,7 @@ class MenuFragment : Fragment() {
         val viewModel =
             ViewModelProviders.of(
                 this,
-                GourmetViewModelFactory(requireContext())
+                GourmetViewModelFactory.getInstance(requireContext())
             ).get(MenuViewModel::class.java)
 
         val day = arguments?.getLong(KEY_DAY) ?: 1563487200000

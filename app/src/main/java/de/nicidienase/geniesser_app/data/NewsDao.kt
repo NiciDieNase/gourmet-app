@@ -7,6 +7,12 @@ import androidx.room.Query
 @Dao
 abstract class NewsDao : BaseDao<News>() {
 
-    @Query("SELECT * FROM news WHERE locationId = :locationId")
-    abstract fun getNewsForLocation(locationId: Long): LiveData<News>
+    @Query("SELECT * FROM news WHERE locationId = :locationId ORDER BY date DESC")
+    abstract fun getNewsForLocation(locationId: Long): LiveData<List<News>>
+
+    @Query("SELECT title FROM news WHERE locationId = :locationId")
+    abstract fun getNewsTitlesForLocationSync(locationId: Long): List<String>
+
+    @Query("SELECT count(*) FROM news WHERE locationId = :locationId")
+    abstract fun getNewsCountForLocation(locationId: Long): LiveData<Long>
 }

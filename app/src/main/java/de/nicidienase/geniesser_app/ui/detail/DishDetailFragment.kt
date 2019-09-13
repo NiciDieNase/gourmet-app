@@ -1,4 +1,4 @@
-package de.nicidienase.geniesser_app.detail
+package de.nicidienase.geniesser_app.ui.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater

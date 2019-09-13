@@ -18,9 +18,9 @@ import java.util.Locale
 @Keep
 @Entity(indices = [Index(value = ["dishId"], unique = true)])
 data class Dish(
-    val locationId: Int,
-    val outletId: Int,
-    var dishId: Int,
+    val locationId: Long,
+    val outletId: Long,
+    var dishId: Long,
     var name: String,
     var date: Date,
     var price: Int,
@@ -42,9 +42,9 @@ data class Dish(
     var properties: List<Property>? = null
 
     constructor(parcel: Parcel) : this(
-        parcel.readInt(),
-        parcel.readInt(),
-        parcel.readInt(),
+        parcel.readLong(),
+        parcel.readLong(),
+        parcel.readLong(),
         parcel.readString() ?: "",
         Date(parcel.readLong()),
         parcel.readInt(),
@@ -62,9 +62,9 @@ data class Dish(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(locationId)
-        parcel.writeInt(outletId)
-        parcel.writeInt(dishId)
+        parcel.writeLong(locationId)
+        parcel.writeLong(outletId)
+        parcel.writeLong(dishId)
         parcel.writeString(name)
         parcel.writeLong(date.time)
         parcel.writeInt(price)
@@ -89,11 +89,11 @@ data class Dish(
 
         fun fromGerichtDto(
             gerichtDto: SpeiseplanGerichtDto,
-            locationId: Int,
+            locationId: Long,
             planInfo: SpeiseplanAdvancedDto,
             kategorieDto: List<SpeiseplanKategorieDto>
         ): Dish? {
-            val dishId = gerichtDto.speiseplanAdvancedGericht.id
+            val dishId = gerichtDto.speiseplanAdvancedGericht.id?.toLong()
             val name = gerichtDto.speiseplanAdvancedGericht.gerichtname
             val date = gerichtDto.speiseplanAdvancedGericht.datum?.let {
                 SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.GERMANY).parse(it)
@@ -105,7 +105,7 @@ data class Dish(
             val dishCategory =
                 kategorieDto.find { it.gerichtkategorieID == gerichtDto.speiseplanAdvancedGericht.gerichtkategorieID }
             val additivesIds: List<Int>? = gerichtDto.zusatzstoffeIds?.split(",")?.map { it.toInt() }
-            val outletId = planInfo.outletID
+            val outletId = planInfo.outletID?.toLong()
             return if (!name.isNullOrBlank() &&
                 date != null &&
                 price != null &&

@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
 @Database(
-    entities = [Additive::class, Allergen::class, Dish::class, Location::class, Property::class],
+    entities = [Additive::class, Allergen::class, Dish::class, Location::class, Property::class, News::class],
     version = 2
 )
 @TypeConverters(FoodConverters::class)

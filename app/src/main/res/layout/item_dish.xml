@@ -9,18 +9,21 @@
 		android:layout_height="wrap_content"
 		android:background="?attr/selectableItemBackground">
 
-		<TextView
+		<androidx.appcompat.widget.AppCompatTextView
 			android:id="@+id/categoryText"
-			android:layout_width="wrap_content"
+			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_marginStart="8dp"
 			android:layout_marginTop="8dp"
+			android:backgroundTint="@color/colorPrimary"
+			android:backgroundTintMode="screen"
+			android:gravity="center_horizontal"
 			android:text="@{dish.category.categoryName}"
+			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			tools:text="Hauptgericht" />
 
-		<TextView
+		<androidx.appcompat.widget.AppCompatTextView
 			android:id="@+id/nameText"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
@@ -41,7 +44,7 @@
 			app:layout_constraintVertical_bias="0.0"
 			tools:text="Paniertes Schnitzel" />
 
-		<TextView
+		<androidx.appcompat.widget.AppCompatTextView
 			android:id="@+id/priceText"
 			price="@{dish.price}"
 			android:layout_width="wrap_content"

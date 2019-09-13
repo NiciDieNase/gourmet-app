@@ -9,7 +9,7 @@ import de.nicidienase.geniesser_app.api.StandortDto
 
 @Entity(indices = [Index(value = ["locationId"], unique = true)])
 data class Location(
-    var locationId: Int,
+    var locationId: Long,
     var name: String
 ) : Parcelable {
 
@@ -17,12 +17,12 @@ data class Location(
     var id: Long = 0
 
     constructor(parcel: Parcel) : this(
-        parcel.readInt(),
+        parcel.readLong(),
         parcel.readString() ?: ""
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(locationId)
+        parcel.writeLong(locationId)
         parcel.writeString(name)
     }
 

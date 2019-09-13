@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<item
+		android:title="Meals"
+		android:icon="@drawable/ic_action_date"
+		android:id="@+id/mealOverviewFragment"/>
+
+	<item
+		android:title="News"
+		android:icon="@drawable/ic_action_location"
+		android:id="@+id/newsListFragment"/>
+</menu>

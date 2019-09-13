@@ -1,4 +1,4 @@
-package de.nicidienase.geniesser_app.location
+package de.nicidienase.geniesser_app.ui.location
 
 import androidx.lifecycle.ViewModel
 import de.nicidienase.geniesser_app.PreferencesService

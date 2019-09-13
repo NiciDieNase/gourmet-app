@@ -11,5 +11,5 @@ class NewsDto(
     @SerializedName("interneNews") val internal: Boolean?,
     @SerializedName("newsImage") val newsImageUrl: String?,
     @SerializedName("timestampLog") val timestampLog: String?,
-    @SerializedName("title") val title: String?
+    @SerializedName("titel") val title: String?
 )

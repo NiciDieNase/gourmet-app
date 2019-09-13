@@ -5,7 +5,7 @@ import androidx.annotation.Keep
 @Keep
 data class StandortDto(
     var benutzerId: Int?,
-    var id: Int?,
+    var id: Long?,
     var logoImage: String?,
     var name: String?,
     var reihenfolge: Int?,

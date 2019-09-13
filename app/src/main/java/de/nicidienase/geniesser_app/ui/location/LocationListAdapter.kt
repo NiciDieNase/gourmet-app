@@ -1,4 +1,4 @@
-package de.nicidienase.geniesser_app.location
+package de.nicidienase.geniesser_app.ui.location
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -24,9 +24,12 @@ class LocationListAdapter(val onClickAction: (Location) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
-        holder.binding.location = getItem(position)
-        holder.binding.root.setOnClickListener {
-            onClickAction(getItem(position))
+        holder.binding.apply {
+            val item = getItem(position)
+            location = item
+            root.setOnClickListener {
+                onClickAction(item)
+            }
         }
     }
 

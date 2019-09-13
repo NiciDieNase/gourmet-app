@@ -17,11 +17,10 @@ class MenuRepository(
     private val _isRefreshing = MutableLiveData<Boolean>()
     val isRefreshing: LiveData<Boolean> = _isRefreshing
 
-    fun getDishesForLocation(locationId: Int) = dishDao.getAllForLocation(locationId)
-    fun getDishesForDay(day: Long): LiveData<List<Dish>> = dishDao.getDishesForDay(day)
-    fun getDays(locationId: Int) = dishDao.getAvailableDatesForLocation(locationId)
+    fun getDishesForDayAndLocation(day: Long, locationId: Long) = dishDao.getDishesForDayAndLocation(day, locationId)
+    fun getDays(locationId: Long) = dishDao.getAvailableDatesForLocation(locationId)
 
-    fun update(locationId: Int) = GlobalScope.launch {
+    fun update(locationId: Long) = GlobalScope.launch {
         _isRefreshing.postValue(true)
         locationDao.insert(api.getLocations().mapNotNull { Location.fromDto(it) })
 

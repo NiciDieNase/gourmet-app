@@ -7,12 +7,16 @@
 
 	<fragment
 		android:id="@+id/mealOverviewFragment"
-		android:name="de.nicidienase.geniesser_app.overview.MenuOverviewFragment"
-		android:label="MealOverviewFragment"
+		android:name="de.nicidienase.geniesser_app.ui.overview.MenuOverviewFragment"
+		android:label="Essen"
 		tools:layout="@layout/fragment_meal_overview">
 		<action
 			android:id="@+id/action_mealOverviewFragment_to_locationSelectFragment"
-			app:destination="@id/locationSelectFragment" />
+			app:destination="@id/locationSelectFragment"
+			app:enterAnim="@anim/nav_default_enter_anim"
+			app:exitAnim="@anim/nav_default_exit_anim"
+			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+			app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 		<action
 			android:id="@+id/action_mealOverviewFragment_to_dishDetailFragment"
 			app:destination="@id/dishDetailFragment"
@@ -20,19 +24,62 @@
 			app:exitAnim="@anim/nav_default_exit_anim"
 			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
 			app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+		<action
+			android:id="@+id/action_mealOverviewFragment_to_newsListFragment"
+			app:destination="@id/newsListFragment"
+			app:enterAnim="@anim/nav_default_enter_anim"
+			app:exitAnim="@anim/nav_default_exit_anim"
+			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+			app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+		<action
+			android:id="@+id/action_mealOverviewFragment_to_newsListFragment2"
+			app:destination="@id/newsListFragment"
+			app:enterAnim="@anim/nav_default_enter_anim"
+			app:exitAnim="@anim/nav_default_exit_anim"
+			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+			app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
 	</fragment>
 	<fragment
 		android:id="@+id/locationSelectFragment"
-		android:name="de.nicidienase.geniesser_app.location.LocationSelectFragment"
-		android:label="LocationSelectFragment"
+		android:name="de.nicidienase.geniesser_app.ui.location.LocationSelectFragment"
+		android:label="Standortauswahl"
 		tools:layout="@layout/fragment_select_locations" />
 	<fragment
 		android:id="@+id/dishDetailFragment"
-		android:name="de.nicidienase.geniesser_app.detail.DishDetailFragment"
+		android:name="de.nicidienase.geniesser_app.ui.detail.DishDetailFragment"
 		android:label="DishDetailFragment"
 		tools:layout="@layout/fragment_dish_detail" >
 		<argument
 			android:name="dish"
 			app:argType="de.nicidienase.geniesser_app.data.Dish" />
+	</fragment>
+	<fragment
+		android:id="@+id/newsListFragment"
+		android:name="de.nicidienase.geniesser_app.ui.news.NewsListFragment"
+		android:label="News"
+		tools:layout="@layout/fragment_news">
+		<action
+			android:id="@+id/action_newsListFragment_to_mealOverviewFragment"
+			app:destination="@id/mealOverviewFragment"
+			app:enterAnim="@anim/nav_default_enter_anim"
+			app:exitAnim="@anim/nav_default_exit_anim"
+			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+			app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
+		<action
+			android:id="@+id/action_newsListFragment_to_newsDetailFragment"
+			app:destination="@id/newsDetailFragment"
+			app:enterAnim="@anim/nav_default_enter_anim"
+			app:exitAnim="@anim/nav_default_exit_anim"
+			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+			app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+	</fragment>
+	<fragment
+		android:id="@+id/newsDetailFragment"
+		android:name="de.nicidienase.geniesser_app.ui.news.NewsDetailFragment"
+		android:label="News"
+		tools:layout="@layout/fragment_news_detail">
+		<argument
+			android:name="item"
+			app:argType="de.nicidienase.geniesser_app.data.News" />
 	</fragment>
 </navigation>

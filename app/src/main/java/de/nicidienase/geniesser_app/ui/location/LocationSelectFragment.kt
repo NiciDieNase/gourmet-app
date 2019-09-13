@@ -1,4 +1,4 @@
-package de.nicidienase.geniesser_app.location
+package de.nicidienase.geniesser_app.ui.location
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -26,7 +26,7 @@ class LocationSelectFragment : Fragment() {
         }
 
         val viewModel =
-            ViewModelProviders.of(this, GourmetViewModelFactory(requireContext()))[LocationViewModel::class.java]
+            ViewModelProviders.of(this, GourmetViewModelFactory.getInstance(requireContext()))[LocationViewModel::class.java]
 
         val adapter = LocationListAdapter {
             viewModel.selectLocation(it)
