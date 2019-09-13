@@ -61,8 +61,8 @@ data class Dish(
         }
     }
 
-    fun update(dish: Dish): Dish?{
-        if(dish != this){
+    fun update(dish: Dish): Dish? {
+        if (dish != this) {
             locationId = dish.locationId
             outletId = dish.outletId
             dishId = dish.dishId
