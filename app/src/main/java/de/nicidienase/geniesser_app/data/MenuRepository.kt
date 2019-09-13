@@ -2,13 +2,13 @@ package de.nicidienase.geniesser_app.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import de.nicidienase.geniesser_app.api.MenuApi
+import de.nicidienase.geniesser_app.api.GourmetApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class MenuRepository(
-    private val api: MenuApi,
-    private val database: FoodDatabase
+    private val api: GourmetApi,
+    private val database: GourmetDatabase
 ) {
 
     private val dishDao by lazy { database.getDishDao() }

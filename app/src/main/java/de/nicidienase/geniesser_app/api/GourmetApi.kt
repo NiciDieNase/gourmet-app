@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface MenuApi {
+interface GourmetApi {
 
     @GET("KMSLiveWebservices/webresources/entity.standort/")
     suspend fun getLocations(): List<StandortDto>
@@ -27,9 +27,12 @@ interface MenuApi {
 
     @GET("KMSLiveWebservices/webresources/entity.allergene/current/{location_id}")
     suspend fun getAllergens(@Path("location_id") locationId: Int): List<AllergenDto>
+
+    @GET("KMSLiveWebservices/webresources/entity.news/current/{location_id}")
+    suspend fun getNews(@Path("location_id") locationId: Int): List<NewsDto>
 }
 
-fun buildMenuApi(): MenuApi {
+fun buildMenuApi(): GourmetApi {
     val okhttpClient = OkHttpClient.Builder()
         .addInterceptor { chain: Interceptor.Chain ->
             val request = chain.request()
@@ -51,5 +54,5 @@ fun buildMenuApi(): MenuApi {
         .client(okhttpClient)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
-    return retrofit.create(MenuApi::class.java)
+    return retrofit.create(GourmetApi::class.java)
 }

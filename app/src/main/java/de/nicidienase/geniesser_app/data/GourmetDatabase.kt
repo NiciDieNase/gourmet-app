@@ -11,17 +11,18 @@ import androidx.room.TypeConverters
     version = 2
 )
 @TypeConverters(FoodConverters::class)
-abstract class FoodDatabase : RoomDatabase() {
+abstract class GourmetDatabase : RoomDatabase() {
 
     abstract fun getAdditiveDao(): AdditiveDao
     abstract fun getAllergenDao(): AllergenDao
     abstract fun getDishDao(): DishDao
     abstract fun getLocationDao(): LocationDao
     abstract fun getPropertyDao(): PropertyDao
+    abstract fun getNewsDao(): NewsDao
 
     companion object {
         fun build(context: Context) =
-            Room.databaseBuilder(context.applicationContext, FoodDatabase::class.java, "food_database")
+            Room.databaseBuilder(context.applicationContext, GourmetDatabase::class.java, "food_database")
                 .fallbackToDestructiveMigration()
                 .build()
     }

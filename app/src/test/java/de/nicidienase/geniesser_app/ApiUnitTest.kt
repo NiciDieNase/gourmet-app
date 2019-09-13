@@ -1,6 +1,6 @@
 package de.nicidienase.geniesser_app
 
-import de.nicidienase.geniesser_app.api.MenuApi
+import de.nicidienase.geniesser_app.api.GourmetApi
 import de.nicidienase.geniesser_app.api.buildMenuApi
 import de.nicidienase.geniesser_app.data.Additive
 import de.nicidienase.geniesser_app.data.Allergen
@@ -15,7 +15,7 @@ import org.junit.Test
 
 class ApiUnitTest {
 
-    lateinit var api: MenuApi
+    lateinit var api: GourmetApi
 
     @Before
     fun setup() {
