@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools">
-
-	<data>
-		<variable
-			name="item"
-			type="de.nicidienase.geniesser_app.data.News" />
-	</data>
 
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
 
 		<androidx.appcompat.widget.AppCompatImageView
-			app:srcCompat="@{item.imageUrl}"
-			tools:srcCompat="@tools:sample/backgrounds/scenic"
 			android:id="@+id/appCompatImageView"
 			android:layout_width="120dp"
 			android:layout_height="80dp"
@@ -24,7 +16,9 @@
 			android:layout_marginTop="8dp"
 			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent" />
+			app:layout_constraintTop_toTopOf="parent"
+			app:srcCompat="@{item.imageUrl}"
+			tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
 		<androidx.appcompat.widget.AppCompatTextView
 			android:id="@+id/appCompatTextView"
@@ -34,11 +28,18 @@
 			android:layout_marginStart="8dp"
 			android:layout_marginTop="8dp"
 			android:text="@{item.title}"
-			tools:text="@tools:sample/cities"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintStart_toEndOf="@+id/appCompatImageView"
-			app:layout_constraintTop_toTopOf="parent" />
+			app:layout_constraintTop_toTopOf="parent"
+			tools:text="@tools:sample/cities" />
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
+
+	<data>
+
+		<variable
+			name="item"
+			type="de.nicidienase.geniesser_app.data.News" />
+	</data>
 
 </layout>

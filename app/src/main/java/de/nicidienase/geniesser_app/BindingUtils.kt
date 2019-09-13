@@ -2,7 +2,6 @@ package de.nicidienase.geniesser_app
 
 import android.os.Build
 import android.text.Html
-import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.BindingAdapter
@@ -23,7 +22,7 @@ fun AppCompatImageView.setSrc(url: String) {
 }
 
 @BindingAdapter("textHtml")
-fun TextView.setTextHtml(html: String) {
+fun AppCompatTextView.setTextHtml(html: String) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         text = Html.fromHtml(html, Html.FROM_HTML_MODE_COMPACT)
     } else {

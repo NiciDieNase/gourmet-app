@@ -14,5 +14,5 @@ abstract class NewsDao : BaseDao<News>() {
     abstract fun getNewsTitlesForLocationSync(locationId: Long): List<String>
 
     @Query("SELECT count(*) FROM news WHERE locationId = :locationId")
-    abstract fun getNewsCountForLocation(locationId: Long): LiveData<Long>
+    abstract fun getNewsCountForLocation(locationId: Long): LiveData<Int>
 }

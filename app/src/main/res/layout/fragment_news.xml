@@ -3,32 +3,9 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools">
 
-	<data>
-		<variable
-			name="vm"
-			type="de.nicidienase.geniesser_app.ui.news.NewsViewModel" />
-	</data>
-
-
 	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
-
-
-		<com.google.android.material.appbar.AppBarLayout
-			android:id="@+id/appbar"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content">
-
-			<androidx.appcompat.widget.Toolbar
-				android:id="@+id/toolbar"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content" />
-
-		</com.google.android.material.appbar.AppBarLayout>
 
 		<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 			android:id="@+id/swipe_refresh_layout"
@@ -49,6 +26,28 @@
 
 		</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+		<com.google.android.material.appbar.AppBarLayout
+			android:id="@+id/appbar"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent">
+
+			<androidx.appcompat.widget.Toolbar
+				android:id="@+id/toolbar"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content" />
+
+		</com.google.android.material.appbar.AppBarLayout>
+
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
+
+	<data>
+
+		<variable
+			name="vm"
+			type="de.nicidienase.geniesser_app.ui.news.NewsViewModel" />
+	</data>
 </layout>

@@ -7,6 +7,12 @@
 		android:layout_height="match_parent"
 		android:orientation="vertical">
 
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/location_list"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			tools:listitem="@layout/item_location" />
+
 		<com.google.android.material.appbar.AppBarLayout
 			android:id="@+id/appbar"
 			android:layout_width="match_parent"
@@ -15,15 +21,9 @@
 			<androidx.appcompat.widget.Toolbar
 				android:id="@+id/toolbar"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"/>
+				android:layout_height="wrap_content" />
 
 		</com.google.android.material.appbar.AppBarLayout>
-
-		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/location_list"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			tools:listitem="@layout/item_location" />
 
 	</LinearLayout>
 </layout>

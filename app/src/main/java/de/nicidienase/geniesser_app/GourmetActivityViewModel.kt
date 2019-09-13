@@ -9,6 +9,6 @@ class GourmetActivityViewModel(
     private val preferencesService: PreferencesService
 ) : ViewModel() {
 
-    val newsCount: LiveData<Long>
-            get() = newsRepository.newsCountForLocation(preferencesService.currentLocation.toLong())
+    val newsCount: LiveData<Int>
+            get() = newsRepository.newsCountForLocation(preferencesService.currentLocation)
 }
