@@ -99,16 +99,20 @@ data class Dish(
                 SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.GERMANY).parse(it)
             }
 
-            val price = gerichtDto.zusatzinformationen.mitarbeiterpreisDecimal2
+            val priceDecimal = gerichtDto.zusatzinformationen.mitarbeiterpreisDecimal2
+            val priceInteger =
+                if (priceDecimal != null) ((priceDecimal) * 100 + 0.5).toInt() else null
             val allergens: List<Int>? = gerichtDto.allergeneIds?.split(",")?.map { it.toInt() }
-            val dishProperties: List<Int>? = gerichtDto.gerichtmerkmaleIds?.split(",")?.map { it.toInt() }
+            val dishProperties: List<Int>? =
+                gerichtDto.gerichtmerkmaleIds?.split(",")?.map { it.toInt() }
             val dishCategory =
                 kategorieDto.find { it.gerichtkategorieID == gerichtDto.speiseplanAdvancedGericht.gerichtkategorieID }
-            val additivesIds: List<Int>? = gerichtDto.zusatzstoffeIds?.split(",")?.map { it.toInt() }
+            val additivesIds: List<Int>? =
+                gerichtDto.zusatzstoffeIds?.split(",")?.map { it.toInt() }
             val outletId = planInfo.outletID?.toLong()
             return if (!name.isNullOrBlank() &&
                 date != null &&
-                price != null &&
+                priceInteger != null &&
                 dishCategory != null &&
                 dishId != null &&
                 outletId != null
@@ -119,7 +123,7 @@ data class Dish(
                     dishId,
                     name,
                     date,
-                    (price * 100).toInt(),
+                    priceInteger,
                     Category.fromDto(dishCategory),
                     allergens,
                     additivesIds,
