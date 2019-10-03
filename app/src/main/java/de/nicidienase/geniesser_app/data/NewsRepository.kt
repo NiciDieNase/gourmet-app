@@ -26,8 +26,8 @@ class NewsRepository(
         val news: List<News> = api.getNews(locationId).mapNotNull { News.fromNewsDto(it, locationId.toLong()) }
 
         val newsToUpdate = news.filter { oldBackendIds.contains(it.backendId) }
-        newsToUpdate.forEach { news ->
-            news.id = existingNews.first { it.backendId == news.backendId }.id
+        newsToUpdate.forEach { newsItem ->
+            newsItem.id = existingNews.first { it.backendId == newsItem.backendId }.id
         }
 
         val newsToInsert = news.filterNot { oldBackendIds.contains(it.backendId) }
