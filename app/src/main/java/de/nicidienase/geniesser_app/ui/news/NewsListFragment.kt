@@ -17,7 +17,13 @@ import de.nicidienase.geniesser_app.databinding.FragmentNewsBinding
 
 class NewsListFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    private lateinit var viewModel: NewsViewModel
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val binding = FragmentNewsBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
 
@@ -26,14 +32,15 @@ class NewsListFragment : Fragment() {
             setupActionBarWithNavController(findNavController())
         }
 
-        val viewModel =
+        viewModel =
             ViewModelProviders.of(this, GourmetViewModelFactory.getInstance(requireContext()))[NewsViewModel::class.java]
 
         val adapter = NewsListAdapter {
             findNavController().navigate(NewsListFragmentDirections.actionNewsListFragmentToNewsDetailFragment(it))
         }
         binding.newsList.adapter = adapter
-        binding.newsList.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        binding.newsList.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         viewModel.getNews().observe(this, Observer {
             adapter.submitList(it)
         })
@@ -47,5 +54,10 @@ class NewsListFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.seen()
     }
 }

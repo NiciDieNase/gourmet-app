@@ -13,4 +13,5 @@ class NewsViewModel(
 
     fun getNews() = newsRepository.getNewsForLocation(preferencesService.currentLocation.toLong())
     fun update() = newsRepository.update(preferencesService.currentLocation)
+    fun seen() = newsRepository.setNewsForLocationOld(preferencesService.currentLocation)
 }

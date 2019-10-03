@@ -47,12 +47,12 @@ class GourmetViewModelFactory private constructor(context: Context) : ViewModelP
         } else if (modelClass.isAssignableFrom(NewsViewModel::class.java)) {
             return NewsViewModel(newsRepository, preferencesService) as T
         } else if (modelClass.isAssignableFrom(GourmetActivityViewModel::class.java)) {
-            return GourmetActivityViewModel(newsRepository, preferencesService) as T
+            return GourmetActivityViewModel(newsRepository, menuRepository, preferencesService) as T
         } else {
             throw UnsupportedOperationException(
                 "The requested ViewModel is currently unsupported. " +
-                        "Please make sure to implement are correct creation of it. " +
-                        " Request: ${modelClass.canonicalName}"
+                    "Please make sure to implement are correct creation of it. " +
+                    " Request: ${modelClass.canonicalName}"
             )
         }
     }

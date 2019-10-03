@@ -7,6 +7,7 @@ import de.nicidienase.geniesser_app.api.GourmetApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
+
 class NewsRepository(
     private val api: GourmetApi,
     private val newsDao: NewsDao
@@ -23,14 +24,18 @@ class NewsRepository(
 
         val existingNews = newsDao.getNewsForLocationSync(locationId)
         val oldBackendIds = existingNews.map { it.backendId }
-        val news: List<News> = api.getNews(locationId).mapNotNull { News.fromNewsDto(it, locationId.toLong()) }
+        val news: List<News> =
+            api.getNews(locationId).mapNotNull { News.fromNewsDto(it, locationId.toLong()) }
 
         val newsToUpdate = news.filter { oldBackendIds.contains(it.backendId) }
         newsToUpdate.forEach { newsItem ->
-            newsItem.id = existingNews.first { it.backendId == newsItem.backendId }.id
+            val first = existingNews.first { it.backendId == newsItem.backendId }
+            newsItem.id = first.id
+            newsItem.newNews = first.newNews
         }
 
         val newsToInsert = news.filterNot { oldBackendIds.contains(it.backendId) }
+        newsToInsert.forEach { it.newNews = true }
 
         newsDao.insert(newsToInsert)
         newsDao.update(* newsToUpdate.toTypedArray())
@@ -40,6 +45,10 @@ class NewsRepository(
     }
 
     fun newsCountForLocation(locationId: Long) = newsDao.getNewsCountForLocation(locationId)
+
+    fun setNewsForLocationOld(locationId: Long) = GlobalScope.launch {
+        newsDao.setNewsOldForLocation(locationId)
+    }
 
     companion object {
         private val TAG = NewsRepository::class.java.simpleName

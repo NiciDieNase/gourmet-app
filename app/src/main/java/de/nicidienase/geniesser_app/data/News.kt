@@ -14,13 +14,14 @@ import java.util.Locale
 @Keep
 @Entity(indices = [Index(value = ["title"], unique = true)])
 data class News(
-    val title: String,
-    val date: Date,
-    val content: String,
-    val internal: Boolean,
-    val imageUrl: String,
-    val locationId: Long,
-    val backendId: Long
+    var title: String,
+    var date: Date,
+    var content: String,
+    var internal: Boolean,
+    var imageUrl: String,
+    var locationId: Long,
+    var backendId: Long,
+    var newNews: Boolean = false
 ) : Parcelable {
 
     @PrimaryKey(autoGenerate = true)
@@ -33,7 +34,8 @@ data class News(
         parcel.readByte() != 0.toByte(),
         parcel.readString() ?: "",
         parcel.readLong(),
-        parcel.readLong()
+        parcel.readLong(),
+        parcel.readByte() != 0.toByte()
     ) {
         id = parcel.readLong()
     }
@@ -48,6 +50,7 @@ data class News(
             writeLong(id)
             writeLong(locationId)
             writeLong(backendId)
+            writeByte(if (newNews) 1 else 0)
         }
     }
 

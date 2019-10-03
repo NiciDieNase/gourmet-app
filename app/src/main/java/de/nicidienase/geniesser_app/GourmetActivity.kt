@@ -3,7 +3,6 @@ package de.nicidienase.geniesser_app
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
@@ -27,6 +26,7 @@ class GourmetActivity : AppCompatActivity() {
                 bottonNav.getOrCreateBadge(R.id.newsListFragment).number = it
             }
         })
+        viewModel.update()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
