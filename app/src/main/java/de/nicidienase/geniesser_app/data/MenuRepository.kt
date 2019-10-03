@@ -27,9 +27,9 @@ class MenuRepository(
         val menus = api.getMenu(locationId)
         val categories = api.getMenuCategories(locationId)
         val dishes: List<Dish>? = menus?.flatMap { wrapper ->
-            wrapper.speiseplanGerichtData.mapNotNull {
+            wrapper.speiseplanGerichtData?.mapNotNull {
                 Dish.fromGerichtDto(it, locationId, wrapper.speiseplanAdvanced, categories)
-            }
+            } ?: emptyList()
         }
         if (dishes != null) {
             val existingItems = dishDao.getAllForLocationSync(locationId)
