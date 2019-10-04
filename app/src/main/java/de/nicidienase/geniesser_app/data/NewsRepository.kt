@@ -7,7 +7,6 @@ import de.nicidienase.geniesser_app.api.GourmetApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-
 class NewsRepository(
     private val api: GourmetApi,
     private val newsDao: NewsDao
