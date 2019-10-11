@@ -14,10 +14,6 @@ class NewsDetailFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentNewsDetailBinding.inflate(inflater, container, false)
-//        (activity as AppCompatActivity).apply {
-//            setSupportActionBar(binding.toolbar)
-//            setupActionBarWithNavController(findNavController())
-//        }
         binding.item = args.item
 
         return binding.root

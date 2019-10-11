@@ -2,22 +2,30 @@ package de.nicidienase.geniesser_app.ui.news
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.nicidienase.geniesser_app.GourmetViewModelFactory
+import de.nicidienase.geniesser_app.R
 import de.nicidienase.geniesser_app.databinding.FragmentNewsBinding
+import de.nicidienase.geniesser_app.ui.overview.MenuOverviewFragmentDirections
 
 class NewsListFragment : Fragment() {
 
     private lateinit var viewModel: NewsViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,11 +34,7 @@ class NewsListFragment : Fragment() {
     ): View? {
         val binding = FragmentNewsBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-
-        (activity as AppCompatActivity).apply {
-            setSupportActionBar(binding.toolbar)
-            setupActionBarWithNavController(findNavController())
-        }
+        setHasOptionsMenu(true)
 
         viewModel =
             ViewModelProviders.of(this, GourmetViewModelFactory.getInstance(requireContext()))[NewsViewModel::class.java]
@@ -54,6 +58,20 @@ class NewsListFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.news_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_select_location -> {
+                findNavController().navigate(MenuOverviewFragmentDirections.actionMealOverviewFragmentToLocationSelectFragment())
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     override fun onResume() {

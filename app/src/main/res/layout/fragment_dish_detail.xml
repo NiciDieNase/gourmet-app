@@ -4,6 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools">
 
 	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/root"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
 
@@ -22,7 +23,7 @@
 			app:layout_constraintEnd_toStartOf="@+id/priceText"
 			app:layout_constraintHorizontal_bias="1.0"
 			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toBottomOf="@+id/appbar"
+			app:layout_constraintTop_toTopOf="parent"
 			tools:text="Paniertes Schnitzel" />
 
 		<androidx.appcompat.widget.AppCompatTextView
@@ -38,21 +39,6 @@
 			app:layout_constraintTop_toTopOf="@+id/nameText"
 			tools:text="3.00 €" />
 
-		<com.google.android.material.appbar.AppBarLayout
-			android:id="@+id/appbar"
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toStartOf="parent"
-			app:layout_constraintTop_toTopOf="parent">
-
-			<androidx.appcompat.widget.Toolbar
-				android:id="@+id/toolbar"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				app:title="@{dish.category.categoryName}" />
-
-		</com.google.android.material.appbar.AppBarLayout>
 	</androidx.constraintlayout.widget.ConstraintLayout>
 
 	<data>

@@ -7,13 +7,13 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import de.nicidienase.geniesser_app.GourmetViewModelFactory
 import de.nicidienase.geniesser_app.R
 import de.nicidienase.geniesser_app.databinding.FragmentMealOverviewBinding
@@ -32,7 +32,6 @@ class MenuOverviewFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentMealOverviewBinding.inflate(inflater, container, false)
-        setHasOptionsMenu(true)
 
         viewModel =
             ViewModelProviders.of(
@@ -42,23 +41,34 @@ class MenuOverviewFragment : Fragment() {
 
         viewModel.updateDishes()
 
-        (activity as AppCompatActivity).apply {
-            setSupportActionBar(binding.toolbar)
-            setupActionBarWithNavController(findNavController())
-        }
-
-        pagerAdapter = MenuPagerAdapter(childFragmentManager, emptyList())
+        pagerAdapter = MenuPagerAdapter(this, emptyList())
         binding.pager.adapter = pagerAdapter
         binding.tabs.tabMode = TabLayout.MODE_SCROLLABLE
 
-        binding.tabs.setupWithViewPager(binding.pager)
+        TabLayoutMediator(binding.tabs, binding.pager) { tab, position ->
+            tab.text = pagerAdapter.getPageTitle(position)
+        }.attach()
 
-        viewModel.getAvailableDays().observe(this, Observer {
-            pagerAdapter.dates = it
-            pagerAdapter.notifyDataSetChanged()
+        viewModel.getAvailableDays().observe(this, Observer { dates ->
+            pagerAdapter.submitItems(dates)
+            viewModel.selectedDay?.let {
+                if (dates.contains(it)) {
+                    binding.pager.setCurrentItem(dates.indexOf(it), false)
+                }
+            }
+        })
+        binding.pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                viewModel.selectedDay = pagerAdapter.dates[position]
+            }
         })
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        pagerAdapter.notifyDataSetChanged()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -72,27 +82,23 @@ class MenuOverviewFragment : Fragment() {
                 true
             }
             R.id.action_goto_today -> {
-                pagerAdapter.dates?.let {
-                    binding.pager.setCurrentItem(getIndexOfToday(it), true)
-                }
+                binding.pager.setCurrentItem(getIndexOfToday(pagerAdapter.dates), true)
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    private fun getIndexOfToday(dates: List<Date>): Int {
-        val now = Date()
-        try {
-            val today = dates.last { it.before(now) }
-            return dates.indexOf(today)
-        } catch (ex: NoSuchElementException) {
-            // all entries are in the future, show first item
-            return 0
-        }
+    private fun getIndexOfToday(dates: List<Date>): Int = try {
+        val today = dates.last { it.before(Date()) }
+        dates.indexOf(today)
+    } catch (ex: NoSuchElementException) {
+        // all entries are in the future, show first item
+        0
     }
 
     companion object {
         private val TAG = MenuOverviewFragment::class.java.simpleName
+        private const val SELECTED_DATE = "selected_date"
     }
 }

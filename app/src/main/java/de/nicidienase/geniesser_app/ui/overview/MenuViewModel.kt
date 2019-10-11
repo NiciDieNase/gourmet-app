@@ -3,11 +3,14 @@ package de.nicidienase.geniesser_app.ui.overview
 import androidx.lifecycle.ViewModel
 import de.nicidienase.geniesser_app.PreferencesService
 import de.nicidienase.geniesser_app.data.MenuRepository
+import java.util.Date
 
 class MenuViewModel(
     private val menuRepository: MenuRepository,
     private val preferencesService: PreferencesService
 ) : ViewModel() {
+
+    var selectedDay: Date? = null
 
     fun getDishesForDay(day: Long) = menuRepository.getDishesForDayAndLocation(day, preferencesService.currentLocation)
 

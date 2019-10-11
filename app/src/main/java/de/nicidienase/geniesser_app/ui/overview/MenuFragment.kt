@@ -28,7 +28,8 @@ class MenuFragment : Fragment() {
         val day = arguments?.getLong(KEY_DAY) ?: 1563487200000
 
         val dishAdapter = DishAdapter {
-            findNavController().navigate(MenuOverviewFragmentDirections.actionMealOverviewFragmentToDishDetailFragment(it))
+            findNavController().navigate(MenuOverviewFragmentDirections.actionMealOverviewFragmentToDishDetailFragment(it, it.category?.categoryName
+            ?: "Detail"))
         }
         viewModel.getDishesForDay(day).observe(this, Observer {
             dishAdapter.submitList(it)

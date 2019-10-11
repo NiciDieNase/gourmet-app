@@ -1,28 +1,26 @@
 package de.nicidienase.geniesser_app.ui.overview
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class MenuPagerAdapter(fragmentManager: FragmentManager, var dates: List<Date>?) :
-    FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class MenuPagerAdapter(fragment: Fragment, var dates: List<Date>) : FragmentStateAdapter(fragment) {
 
-    override fun getItem(position: Int): Fragment {
-        return dates?.get(position)?.let {
-            MenuFragment.menuFragmentForDate(
-                it
-            )
-        } ?: Fragment()
+    fun submitItems(dates: List<Date>) {
+        val diffResult = DiffUtil.calculateDiff(DateListDiffUtil(this.dates, dates))
+        this.dates = dates
+        diffResult.dispatchUpdatesTo(this)
     }
 
-    override fun getCount() = dates?.size ?: 0
+    override fun createFragment(position: Int) = MenuFragment.menuFragmentForDate(dates[position])
 
-    override fun getPageTitle(position: Int): CharSequence? {
-        val date = dates?.get(position)
-        return if (date != null) SimpleDateFormat("EEE, dd. MMMM", Locale.getDefault()).format(date)
-        else "NoDate"
+    override fun getItemCount() = dates.size
+
+    fun getPageTitle(position: Int): CharSequence? {
+        val date = dates.get(position)
+        return SimpleDateFormat("EEE, dd. MMMM", Locale.getDefault()).format(date)
     }
 }

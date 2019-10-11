@@ -11,19 +11,15 @@
 		android:label="Essen"
 		tools:layout="@layout/fragment_meal_overview">
 		<action
-			android:id="@+id/action_mealOverviewFragment_to_locationSelectFragment"
-			app:destination="@id/locationSelectFragment"
-			app:enterAnim="@anim/nav_default_enter_anim"
-			app:exitAnim="@anim/nav_default_exit_anim"
-			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-			app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-		<action
 			android:id="@+id/action_mealOverviewFragment_to_dishDetailFragment"
 			app:destination="@id/dishDetailFragment"
 			app:enterAnim="@anim/nav_default_enter_anim"
 			app:exitAnim="@anim/nav_default_exit_anim"
 			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
 			app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+		<action
+			android:id="@+id/action_mealOverviewFragment_to_locationSelectFragment"
+			app:destination="@id/locationSelectFragment" />
 	</fragment>
 	<fragment
 		android:id="@+id/locationSelectFragment"
@@ -33,11 +29,14 @@
 	<fragment
 		android:id="@+id/dishDetailFragment"
 		android:name="de.nicidienase.geniesser_app.ui.detail.DishDetailFragment"
-		android:label="DishDetailFragment"
+		android:label="{title}"
 		tools:layout="@layout/fragment_dish_detail" >
 		<argument
 			android:name="dish"
 			app:argType="de.nicidienase.geniesser_app.data.Dish" />
+		<argument
+			android:name="title"
+			app:argType="string" />
 	</fragment>
 	<fragment
 		android:id="@+id/newsListFragment"
@@ -51,6 +50,9 @@
 			app:exitAnim="@anim/nav_default_exit_anim"
 			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
 			app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+		<action
+			android:id="@+id/action_newsListFragment_to_locationSelectFragment"
+			app:destination="@id/locationSelectFragment" />
 	</fragment>
 	<fragment
 		android:id="@+id/newsDetailFragment"
