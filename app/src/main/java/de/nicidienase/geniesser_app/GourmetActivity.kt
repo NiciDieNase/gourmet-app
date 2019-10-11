@@ -36,7 +36,7 @@ class GourmetActivity : AppCompatActivity() {
             }
         })
 
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+        navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.newsDetailFragment -> binding.toolbar.visibility = View.GONE
                 else -> binding.toolbar.visibility = View.VISIBLE
