@@ -113,7 +113,7 @@ data class Dish(
             val dishId = gerichtDto.speiseplanAdvancedGericht.id?.toLong()
             val name = gerichtDto.speiseplanAdvancedGericht.gerichtname
             val date = gerichtDto.speiseplanAdvancedGericht.datum?.let {
-                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.GERMANY).parse(it)
+                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.GERMANY).parse(it)
             }
 
             val priceDecimal = gerichtDto.zusatzinformationen.mitarbeiterpreisDecimal2

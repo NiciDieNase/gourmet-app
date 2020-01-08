@@ -62,7 +62,7 @@ data class News(
         fun fromNewsDto(dto: NewsDto, locationId: Long): News? {
             val title = dto.title
             val date = dto.date?.let {
-                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.GERMANY).parse(it)
+                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.GERMANY).parse(it)
             }
             val content = dto.content
             val internal = dto.internal
