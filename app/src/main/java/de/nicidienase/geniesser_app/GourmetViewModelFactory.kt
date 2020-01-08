@@ -3,7 +3,7 @@ package de.nicidienase.geniesser_app
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import de.nicidienase.geniesser_app.api.buildMenuApi
+import de.nicidienase.geniesser_app.api.GourmetApi
 import de.nicidienase.geniesser_app.data.GourmetDatabase
 import de.nicidienase.geniesser_app.data.MenuRepository
 import de.nicidienase.geniesser_app.data.NewsRepository
@@ -23,7 +23,7 @@ class GourmetViewModelFactory private constructor(context: Context) : ViewModelP
         )
     )
 
-    private val menuApi by lazy { buildMenuApi() }
+    private val menuApi by lazy { GourmetApi.instance }
 
     private val menuRepository: MenuRepository by lazy { MenuRepository(menuApi, database) }
 

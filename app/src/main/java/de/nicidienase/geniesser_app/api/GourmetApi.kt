@@ -30,29 +30,31 @@ interface GourmetApi {
 
     @GET("KMSLiveWebservices/webresources/entity.news/current/{location_id}")
     suspend fun getNews(@Path("location_id") locationId: Long): List<NewsDto>
-}
 
-fun buildMenuApi(): GourmetApi {
-    val okhttpClient = OkHttpClient.Builder()
-        .addInterceptor { chain: Interceptor.Chain ->
-            val request = chain.request()
-                .newBuilder()
-                .header("Authorization", "Basic d3NfbGl2ZV91c2VyOkF0TXM0SEd5RSFWTjc=")
-                .header("Accept", "application/json")
-                .header("User-Agent", "Mozilla/5.0 (Linux; Android 4.4.4; Nexus S Build/KTU84Q) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36")
-                .header("X-LANGUAGETYPE", "1")
-                .header("X-Requested-With", "de.konkaapps.mittagstisch.geha")
+    companion object {
+        val instance: GourmetApi by lazy {
+            val okhttpClient = OkHttpClient.Builder()
+                .addInterceptor { chain: Interceptor.Chain ->
+                    val request = chain.request()
+                        .newBuilder()
+                        .header("Authorization", "Basic d3NfbGl2ZV91c2VyOkF0TXM0SEd5RSFWTjc=")
+                        .header("Accept", "application/json")
+                        .header("User-Agent", "Mozilla/5.0 (Linux; Android 4.4.4; Nexus S Build/KTU84Q) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/33.0.0.0 Mobile Safari/537.36")
+                        .header("X-LANGUAGETYPE", "1")
+                        .header("X-Requested-With", "de.konkaapps.mittagstisch.geha")
+                        .build()
+                    return@addInterceptor chain.proceed(request)
+                }
                 .build()
-            return@addInterceptor chain.proceed(request)
+
+            val gson = GsonBuilder().setLenient().create()
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl("https://genussapp.konkaapps.de/")
+                .client(okhttpClient)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build()
+            retrofit.create(GourmetApi::class.java)
         }
-        .build()
-
-    val gson = GsonBuilder().setLenient().create()
-
-    val retrofit = Retrofit.Builder()
-        .baseUrl("https://genussapp.konkaapps.de/")
-        .client(okhttpClient)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .build()
-    return retrofit.create(GourmetApi::class.java)
+    }
 }

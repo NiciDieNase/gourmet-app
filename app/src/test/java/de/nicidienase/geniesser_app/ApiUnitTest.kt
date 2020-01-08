@@ -1,11 +1,11 @@
 package de.nicidienase.geniesser_app
 
 import de.nicidienase.geniesser_app.api.GourmetApi
-import de.nicidienase.geniesser_app.api.buildMenuApi
 import de.nicidienase.geniesser_app.data.Additive
 import de.nicidienase.geniesser_app.data.Allergen
 import de.nicidienase.geniesser_app.data.Category
 import de.nicidienase.geniesser_app.data.Location
+import de.nicidienase.geniesser_app.data.News
 import de.nicidienase.geniesser_app.data.Property
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -19,7 +19,7 @@ class ApiUnitTest {
 
     @Before
     fun setup() {
-        api = buildMenuApi()
+        api = GourmetApi.instance
     }
 
     @Test
@@ -71,6 +71,15 @@ class ApiUnitTest {
 
         val list = allergens.map { Allergen.fromAllergenDto(it) }
         assertEquals(allergens.size, list.size)
+    }
+
+    @Test
+    fun news() = runBlocking {
+        val news = api.getNews(DEFAULT_LOCATION)
+        assertTrue(news.isNotEmpty())
+
+        val list = news.map { News.fromNewsDto(it, DEFAULT_LOCATION) }
+        assertEquals(news.size, list.size)
     }
 
     companion object {
