@@ -17,4 +17,5 @@ class NewsDto(
 )
 
 @Keep
-class LocationInfoDto( val id: Long, val name: String )
+class LocationInfoDto(val id: Long, val name: String)
+
