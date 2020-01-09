@@ -18,4 +18,3 @@ class NewsDto(
 
 @Keep
 class LocationInfoDto(val id: Long, val name: String)
-
