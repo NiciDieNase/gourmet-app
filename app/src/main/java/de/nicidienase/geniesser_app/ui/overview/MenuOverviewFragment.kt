@@ -27,7 +27,7 @@ class MenuOverviewFragment : Fragment() {
     private lateinit var viewModel: MenuViewModel
 
     init {
-        lifecycle.addObserver(LifecycleLogger())
+        lifecycle.addObserver(LifecycleLogger(MenuOverviewFragment::class.java.simpleName))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -13,12 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import de.nicidienase.geniesser_app.GourmetViewModelFactory
 import de.nicidienase.geniesser_app.LifecycleLogger
 import de.nicidienase.geniesser_app.databinding.FragmentMenuBinding
+import timber.log.Timber
 import java.util.Date
 
-class MenuFragment : Fragment() {
+class MenuListFragment : Fragment() {
 
     init {
-        lifecycle.addObserver(LifecycleLogger())
+        lifecycle.addObserver(LifecycleLogger(MenuListFragment::class.java.simpleName))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -31,6 +32,8 @@ class MenuFragment : Fragment() {
             ).get(MenuViewModel::class.java)
 
         val day = arguments?.getLong(KEY_DAY) ?: 1563487200000
+
+        Timber.i("Day: %s", Date(day))
 
         val dishAdapter = DishAdapter {
             findNavController().navigate(MenuOverviewFragmentDirections.actionMealOverviewFragmentToDishDetailFragment(it, it.category?.categoryName
@@ -59,7 +62,7 @@ class MenuFragment : Fragment() {
     companion object {
         private const val KEY_DAY = "day"
 
-        fun menuFragmentForDate(date: Date) = MenuFragment().apply {
+        fun menuFragmentForDate(date: Date) = MenuListFragment().apply {
             val args = Bundle()
             args.putLong(KEY_DAY, date.time)
             arguments = args

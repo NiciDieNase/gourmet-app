@@ -19,7 +19,7 @@ import de.nicidienase.geniesser_app.databinding.FragmentSelectLocationsBinding
 class LocationSelectFragment : Fragment() {
 
     init {
-        lifecycle.addObserver(LifecycleLogger())
+        lifecycle.addObserver(LifecycleLogger(LocationSelectFragment::class.java.simpleName))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

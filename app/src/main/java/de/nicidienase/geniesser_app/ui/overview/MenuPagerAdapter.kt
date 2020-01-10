@@ -15,7 +15,7 @@ class MenuPagerAdapter(fragment: Fragment, var dates: List<Date>) : FragmentStat
         diffResult.dispatchUpdatesTo(this)
     }
 
-    override fun createFragment(position: Int) = MenuFragment.menuFragmentForDate(dates[position])
+    override fun createFragment(position: Int) = MenuListFragment.menuFragmentForDate(dates[position])
 
     override fun getItemCount() = dates.size
 

@@ -24,7 +24,7 @@ class NewsListFragment : Fragment() {
     private lateinit var viewModel: NewsViewModel
 
     init {
-        lifecycle.addObserver(LifecycleLogger())
+        lifecycle.addObserver(LifecycleLogger(NewsDetailFragment::class.java.simpleName))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

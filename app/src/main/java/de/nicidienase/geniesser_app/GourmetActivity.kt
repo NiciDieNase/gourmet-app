@@ -16,7 +16,7 @@ import de.nicidienase.geniesser_app.databinding.ActivityGourmetBinding
 class GourmetActivity : AppCompatActivity() {
 
     init {
-        lifecycle.addObserver(LifecycleLogger())
+        lifecycle.addObserver(LifecycleLogger(GourmetActivity::class.java.simpleName))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

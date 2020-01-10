@@ -5,31 +5,31 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import timber.log.Timber
 
-class LifecycleLogger : LifecycleObserver {
+class LifecycleLogger(val tag: String) : LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun onCreate() {
-        Timber.i("onCreate")
+        Timber.tag(tag).i("onCreate")
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onstart() {
-        Timber.i("onStart")
+        Timber.tag(tag).i("onStart")
     }
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onresume() {
-        Timber.d("onResume")
+        Timber.tag(tag).d("onResume")
     }
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onpause() {
-        Timber.d("onPause")
+        Timber.tag(tag).d("onPause")
     }
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onstop() {
-        Timber.i("onStop")
+        Timber.tag(tag).i("onStop")
     }
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun ondestroy() {
-        Timber.d("onDestroy")
+        Timber.tag(tag).d("onDestroy")
     }
 }

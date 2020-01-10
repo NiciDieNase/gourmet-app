@@ -14,7 +14,7 @@ class DishDetailFragment : Fragment() {
     val args: DishDetailFragmentArgs by navArgs()
 
     init {
-        lifecycle.addObserver(LifecycleLogger())
+        lifecycle.addObserver(LifecycleLogger(DishDetailFragment::class.java.simpleName))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

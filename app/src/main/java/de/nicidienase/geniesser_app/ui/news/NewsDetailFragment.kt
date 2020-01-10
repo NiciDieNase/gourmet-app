@@ -14,7 +14,7 @@ class NewsDetailFragment : Fragment() {
     val args: NewsDetailFragmentArgs by navArgs()
 
     init {
-        lifecycle.addObserver(LifecycleLogger())
+        lifecycle.addObserver(LifecycleLogger(NewsDetailFragment::class.java.simpleName))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
