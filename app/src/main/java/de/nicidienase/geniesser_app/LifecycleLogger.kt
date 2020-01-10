@@ -18,11 +18,11 @@ class LifecycleLogger : LifecycleObserver {
     }
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onresume() {
-        Timber.i("onResume")
+        Timber.d("onResume")
     }
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onpause() {
-        Timber.i("onPause")
+        Timber.d("onPause")
     }
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onstop() {
@@ -30,6 +30,6 @@ class LifecycleLogger : LifecycleObserver {
     }
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun ondestroy() {
-        Timber.i("onDestroy")
+        Timber.d("onDestroy")
     }
 }
