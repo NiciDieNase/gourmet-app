@@ -15,6 +15,10 @@ import de.nicidienase.geniesser_app.databinding.ActivityGourmetBinding
 
 class GourmetActivity : AppCompatActivity() {
 
+    init {
+        lifecycle.addObserver(LifecycleLogger())
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<ActivityGourmetBinding>(this, R.layout.activity_gourmet)

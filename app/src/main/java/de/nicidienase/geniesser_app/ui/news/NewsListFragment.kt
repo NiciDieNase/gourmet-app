@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.nicidienase.geniesser_app.GourmetViewModelFactory
+import de.nicidienase.geniesser_app.LifecycleLogger
 import de.nicidienase.geniesser_app.R
 import de.nicidienase.geniesser_app.databinding.FragmentNewsBinding
 import de.nicidienase.geniesser_app.ui.overview.MenuOverviewFragmentDirections
@@ -21,6 +22,10 @@ import de.nicidienase.geniesser_app.ui.overview.MenuOverviewFragmentDirections
 class NewsListFragment : Fragment() {
 
     private lateinit var viewModel: NewsViewModel
+
+    init {
+        lifecycle.addObserver(LifecycleLogger())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

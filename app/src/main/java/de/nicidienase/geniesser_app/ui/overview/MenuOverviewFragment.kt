@@ -15,6 +15,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import de.nicidienase.geniesser_app.GourmetViewModelFactory
+import de.nicidienase.geniesser_app.LifecycleLogger
 import de.nicidienase.geniesser_app.R
 import de.nicidienase.geniesser_app.databinding.FragmentMealOverviewBinding
 import java.util.Date
@@ -24,6 +25,10 @@ class MenuOverviewFragment : Fragment() {
     private lateinit var pagerAdapter: MenuPagerAdapter
     private lateinit var binding: FragmentMealOverviewBinding
     private lateinit var viewModel: MenuViewModel
+
+    init {
+        lifecycle.addObserver(LifecycleLogger())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

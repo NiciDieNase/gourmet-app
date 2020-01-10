@@ -13,9 +13,14 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.nicidienase.geniesser_app.GourmetViewModelFactory
+import de.nicidienase.geniesser_app.LifecycleLogger
 import de.nicidienase.geniesser_app.databinding.FragmentSelectLocationsBinding
 
 class LocationSelectFragment : Fragment() {
+
+    init {
+        lifecycle.addObserver(LifecycleLogger())
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentSelectLocationsBinding.inflate(inflater, container, false)

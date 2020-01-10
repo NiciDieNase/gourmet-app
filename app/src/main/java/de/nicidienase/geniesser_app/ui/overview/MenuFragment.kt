@@ -11,10 +11,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import de.nicidienase.geniesser_app.GourmetViewModelFactory
+import de.nicidienase.geniesser_app.LifecycleLogger
 import de.nicidienase.geniesser_app.databinding.FragmentMenuBinding
 import java.util.Date
 
 class MenuFragment : Fragment() {
+
+    init {
+        lifecycle.addObserver(LifecycleLogger())
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentMenuBinding.inflate(inflater, container, false)
