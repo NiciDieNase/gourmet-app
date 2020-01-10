@@ -6,7 +6,9 @@ import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.microsoft.appcenter.crashes.Crashes
 import de.nicidienase.geniesser_app.api.NewsDto
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -61,8 +63,13 @@ data class News(
     companion object CREATOR : Parcelable.Creator<News> {
         fun fromNewsDto(dto: NewsDto, locationId: Long): News? {
             val title = dto.title
-            val date = dto.date?.let {
-                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.GERMANY).parse(it)
+            val date: Date? = try {
+                dto.date?.let {
+                    SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.GERMANY).parse(it)
+                }
+            } catch (ex: Exception) {
+                Crashes.trackError(ex)
+                null
             }
             val content = dto.content
             val internal = dto.internal

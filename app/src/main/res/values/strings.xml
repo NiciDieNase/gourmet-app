@@ -1,7 +1,4 @@
 <resources>
     <string name="app_name">Genießer-App</string>
     <string name="select_location">Select Location</string>
-
-    <!-- override BuildConfig name -->
-    <string name="hbc_target_build_config_name" translatable="false">de.nicidienase.geniesser_app.BuildConfig</string>
 </resources>

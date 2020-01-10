@@ -8,9 +8,11 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.microsoft.appcenter.crashes.Crashes
 import de.nicidienase.geniesser_app.api.SpeiseplanAdvancedDto
 import de.nicidienase.geniesser_app.api.SpeiseplanGerichtDto
 import de.nicidienase.geniesser_app.api.SpeiseplanKategorieDto
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -112,8 +114,13 @@ data class Dish(
         ): Dish? {
             val dishId = gerichtDto.speiseplanAdvancedGericht.id?.toLong()
             val name = gerichtDto.speiseplanAdvancedGericht.gerichtname
-            val date = gerichtDto.speiseplanAdvancedGericht.datum?.let {
-                SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.GERMANY).parse(it)
+            val date: Date? = try {
+                gerichtDto.speiseplanAdvancedGericht.datum?.let {
+                    SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.GERMANY).parse(it)
+                }
+            } catch (ex: Exception) {
+                Crashes.trackError(ex)
+                null
             }
 
             val priceDecimal = gerichtDto.zusatzinformationen.mitarbeiterpreisDecimal2

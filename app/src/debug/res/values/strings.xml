@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- override BuildConfig name -->
+	<string name="hbc_target_build_config_name" translatable="false">de.nicidienase.geniesser_app.BuildConfig</string>
+</resources>
