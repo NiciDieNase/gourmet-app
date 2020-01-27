@@ -21,17 +21,20 @@ class GourmetActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<ActivityGourmetBinding>(this, R.layout.activity_gourmet)
+        val binding =
+            DataBindingUtil.setContentView<ActivityGourmetBinding>(this, R.layout.activity_gourmet)
 
         val navController = findNavController(R.id.nav_host)
         binding.bottomNavigationView.setupWithNavController(navController)
 
         setSupportActionBar(binding.toolbar)
 
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.mealOverviewFragment, R.id.newsListFragment))
+        val appBarConfiguration =
+            AppBarConfiguration(setOf(R.id.mealOverviewFragment, R.id.newsListFragment))
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
 
-        val viewModel = ViewModelProviders.of(this, GourmetViewModelFactory.getInstance(this))[GourmetActivityViewModel::class.java]
+        val viewModel =
+            ViewModelProviders.of(this, GourmetViewModelFactory.getInstance(this))[GourmetActivityViewModel::class.java]
         viewModel.newsCount.observe(this, Observer {
             if (it == 0) {
                 binding.bottomNavigationView.removeBadge(R.id.newsListFragment)
@@ -41,9 +44,16 @@ class GourmetActivity : AppCompatActivity() {
         })
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.newsDetailFragment -> binding.toolbar.visibility = View.GONE
-                else -> binding.toolbar.visibility = View.VISIBLE
+            if (noToolbarIds.contains(destination.id)) {
+                binding.toolbar.visibility = View.GONE
+            } else {
+                binding.toolbar.visibility = View.VISIBLE
+            }
+
+            if (noBottomNavIds.contains(destination.id)) {
+                binding.bottomNavigationView.visibility = View.GONE
+            } else {
+                binding.bottomNavigationView.visibility = View.VISIBLE
             }
         }
 
@@ -58,5 +68,10 @@ class GourmetActivity : AppCompatActivity() {
             else -> return super.onOptionsItemSelected(item)
         }
         return false
+    }
+
+    companion object {
+        private val noToolbarIds = listOf(R.id.newsDetailFragment)
+        private val noBottomNavIds = listOf(R.id.newsDetailFragment, R.id.locationSelectFragment)
     }
 }
