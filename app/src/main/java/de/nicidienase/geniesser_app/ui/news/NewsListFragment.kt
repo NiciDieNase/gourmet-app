@@ -17,7 +17,6 @@ import de.nicidienase.geniesser_app.GourmetViewModelFactory
 import de.nicidienase.geniesser_app.LifecycleLogger
 import de.nicidienase.geniesser_app.R
 import de.nicidienase.geniesser_app.databinding.FragmentNewsBinding
-import de.nicidienase.geniesser_app.ui.overview.MenuOverviewFragmentDirections
 
 class NewsListFragment : Fragment() {
 
@@ -72,7 +71,7 @@ class NewsListFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_select_location -> {
-                findNavController().navigate(MenuOverviewFragmentDirections.actionMealOverviewFragmentToLocationSelectFragment())
+                findNavController().navigate(R.id.locationSelectFragment)
                 true
             }
             else -> super.onOptionsItemSelected(item)
