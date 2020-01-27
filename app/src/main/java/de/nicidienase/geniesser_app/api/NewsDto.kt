@@ -6,13 +6,13 @@ import com.google.gson.annotations.SerializedName
 @Keep
 class NewsDto(
     val id: Long,
-    @SerializedName("benutzerID") val userId: Long?,
-    @SerializedName("datum") val date: String?,
-    @SerializedName("inhaltRichtext") val content: String?,
-    @SerializedName("interneNews") val internal: Boolean?,
-    @SerializedName("newsImage") val newsImageUrl: String?,
-    @SerializedName("timestampLog") val timestampLog: String?,
     @SerializedName("titel") val title: String?,
+    @SerializedName("inhaltRichtext") val content: String?,
+    @SerializedName("newsImage") val newsImageUrl: String?,
+    @SerializedName("datum") val date: String?,
+    @SerializedName("benutzerID") val userId: Long?,
+    @SerializedName("interneNews") val internal: Boolean?,
+    @SerializedName("timestampLog") val timestampLog: String?,
     @SerializedName("locationInfo") val locationInfo: List<LocationInfoDto>
 )
 

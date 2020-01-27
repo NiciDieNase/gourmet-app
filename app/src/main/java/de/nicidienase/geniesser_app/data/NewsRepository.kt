@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import de.nicidienase.geniesser_app.api.GourmetApi
+import de.nicidienase.geniesser_app.api.NewsDto
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -23,8 +24,9 @@ class NewsRepository(
 
         val existingNews = newsDao.getNewsForLocationSync(locationId)
         val oldBackendIds = existingNews.map { it.backendId }
+        val backendNews: List<NewsDto> = api.getNews(locationId)
         val news: List<News> =
-            api.getNews(locationId).mapNotNull { News.fromNewsDto(it, locationId.toLong()) }
+            backendNews.mapNotNull { News.fromNewsDto(it, locationId.toLong()) }
 
         val newsToUpdate = news.filter { oldBackendIds.contains(it.backendId) }
         newsToUpdate.forEach { newsItem ->

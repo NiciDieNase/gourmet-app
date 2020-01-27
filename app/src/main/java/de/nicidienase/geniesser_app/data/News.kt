@@ -8,7 +8,6 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.microsoft.appcenter.crashes.Crashes
 import de.nicidienase.geniesser_app.api.NewsDto
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -79,9 +78,8 @@ data class News(
                 !title.isNullOrEmpty() &&
                 date != null &&
                 !content.isNullOrBlank() &&
-                internal != null &&
                 !imageUrl.isNullOrBlank()
-            ) News(title, date, content, internal, imageUrl, locationId, backendId)
+            ) News(title, date, content, false, imageUrl, locationId, backendId)
             else null
         }
 
