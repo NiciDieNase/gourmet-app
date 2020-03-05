@@ -7,6 +7,7 @@ import de.nicidienase.geniesser_app.api.GourmetApi
 import de.nicidienase.geniesser_app.api.NewsDto
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class NewsRepository(
     private val api: GourmetApi,
@@ -42,7 +43,7 @@ class NewsRepository(
         newsDao.update(* newsToUpdate.toTypedArray())
 
         _isRefreshing.postValue(false)
-        Log.i(TAG, "News update for locationId $locationId is done")
+        Timber.i("News update for locationId $locationId is done")
     }
 
     fun newsCountForLocation(locationId: Long) = newsDao.getNewsCountForLocation(locationId)
