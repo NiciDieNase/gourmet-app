@@ -28,8 +28,8 @@ interface GourmetApi {
     @GET("KMSLiveWebservices/webresources/entity.allergene/current/{location_id}")
     suspend fun getAllergens(@Path("location_id") locationId: Long): List<AllergenDto>
 
-    @GET("KMSLiveWebservices/webresources/entity.news/current/{location_id}")
-    suspend fun getNews(@Path("location_id") locationId: Long): List<NewsDto>
+    @GET("KMSLiveWebservices/webresources/entity.news")
+    suspend fun getNews(): List<NewsDto>
 
     companion object {
         val instance: GourmetApi by lazy {

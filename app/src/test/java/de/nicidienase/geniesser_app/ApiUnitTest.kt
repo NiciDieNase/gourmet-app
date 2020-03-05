@@ -75,7 +75,7 @@ class ApiUnitTest {
 
     @Test
     fun news() = runBlocking {
-        val news = api.getNews(DEFAULT_LOCATION)
+        val news = api.getNews()
         assertTrue(news.isNotEmpty())
 
         val list = news.map { News.fromNewsDto(it, DEFAULT_LOCATION) }

@@ -24,7 +24,7 @@ class NewsRepository(
 
         val existingNews = newsDao.getNewsForLocationSync(locationId)
         val oldBackendIds = existingNews.map { it.backendId }
-        val backendNews: List<NewsDto> = api.getNews(locationId)
+        val backendNews: List<NewsDto> = api.getNews()
         val news: List<News> =
             backendNews.mapNotNull { News.fromNewsDto(it, locationId.toLong()) }
 
