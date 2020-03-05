@@ -61,6 +61,7 @@ data class News(
 
     companion object CREATOR : Parcelable.Creator<News> {
         fun fromNewsDto(dto: NewsDto, locationId: Long): News? {
+            val locations = dto.locationInfo.map { it.id }
             val title = dto.title
             val date: Date? = try {
                 dto.date?.let {
@@ -75,6 +76,7 @@ data class News(
             val imageUrl = dto.newsImageUrl
             val backendId = dto.id
             return if (
+                locations.contains(locationId) &&
                 !title.isNullOrEmpty() &&
                 date != null &&
                 !content.isNullOrBlank() &&
