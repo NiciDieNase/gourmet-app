@@ -42,6 +42,11 @@ class NewsRepository(
         newsDao.insert(newsToInsert)
         newsDao.update(* newsToUpdate.toTypedArray())
 
+        val backendNewsIds = news.map { it.backendId }
+        val outdatedNews = existingNews.filterNot { backendNewsIds.contains(it.backendId) }
+        outdatedNews.forEach { it.active = false }
+        newsDao.update(* outdatedNews.toTypedArray())
+
         _isRefreshing.postValue(false)
         Timber.i("News update for locationId $locationId is done")
     }
