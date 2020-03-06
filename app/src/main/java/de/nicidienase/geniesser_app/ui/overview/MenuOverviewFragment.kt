@@ -54,19 +54,13 @@ class MenuOverviewFragment : Fragment() {
             tab.text = pagerAdapter.getPageTitle(position)
         }.attach()
 
-        viewModel.getAvailableDays().observe(this, Observer { dates ->
-            val filterPast = false
-            if (filterPast) {
-                val filterdDates = dates.subList(getIndexOfToday(dates), dates.size)
-                pagerAdapter.submitItems(filterdDates)
-            } else {
-                pagerAdapter.submitItems(dates)
-            }
-            viewModel.selectedDay?.let {
-                if (dates.contains(it)) {
-                    binding.pager.setCurrentItem(dates.indexOf(it), false)
-                }
-            }
+        viewModel.getAvailableDays().observe(viewLifecycleOwner, Observer { dates ->
+            pagerAdapter.submitItems(dates)
+//            viewModel.selectedDay?.let {
+//                if (dates.contains(it)) {
+//                    binding.pager.setCurrentItem(dates.indexOf(it), false)
+//                }
+//            }
         })
         binding.pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -88,12 +82,18 @@ class MenuOverviewFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_select_location -> {
-                findNavController().navigate(MenuOverviewFragmentDirections.actionMealOverviewFragmentToLocationSelectFragment())
+            R.id.action_settings -> {
+                findNavController().navigate(MenuOverviewFragmentDirections.actionMealOverviewFragmentToPrefFragment())
                 true
             }
             R.id.action_goto_today -> {
-                binding.pager.setCurrentItem(getIndexOfToday(pagerAdapter.dates), true)
+                val index =
+                if (viewModel.hideOldMenu) {
+                    0
+                } else {
+                    getIndexOfToday(pagerAdapter.dates)
+                }
+                binding.pager.setCurrentItem(index, true)
                 true
             }
             else -> super.onOptionsItemSelected(item)

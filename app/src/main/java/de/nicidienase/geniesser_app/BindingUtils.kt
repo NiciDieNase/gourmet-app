@@ -5,11 +5,20 @@ import android.text.Html
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.BindingAdapter
+import androidx.preference.PreferenceManager
 import com.bumptech.glide.Glide
 
 @BindingAdapter("price")
 fun AppCompatTextView.setPrice(value: Int) {
-    val floatPrice = value / 100.0
+    val preferencesService = PreferencesService(
+        PreferenceManager.getDefaultSharedPreferences(context)
+    )
+
+    val floatPrice = if (preferencesService.priceExternal) {
+        1.5 * value / 100.0
+    } else {
+        value / 100.0
+    }
     this.text = String.format("%.2f €", floatPrice)
 }
 

@@ -18,8 +18,8 @@
 			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
 			app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 		<action
-			android:id="@+id/action_mealOverviewFragment_to_locationSelectFragment"
-			app:destination="@id/locationSelectFragment" />
+			android:id="@+id/action_mealOverviewFragment_to_prefFragment"
+			app:destination="@id/prefFragment" />
 	</fragment>
 	<fragment
 		android:id="@+id/locationSelectFragment"
@@ -50,6 +50,9 @@
 			app:exitAnim="@anim/nav_default_exit_anim"
 			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
 			app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+		<action
+			android:id="@+id/action_newsListFragment_to_prefFragment"
+			app:destination="@id/prefFragment" />
 	</fragment>
 	<fragment
 		android:id="@+id/newsDetailFragment"
@@ -59,5 +62,17 @@
 		<argument
 			android:name="item"
 			app:argType="de.nicidienase.geniesser_app.data.News" />
+	</fragment>
+	<fragment
+		android:id="@+id/prefFragment"
+		android:name="de.nicidienase.geniesser_app.ui.PrefFragment"
+		android:label="Preferences">
+		<action
+			android:id="@+id/action_prefFragment_to_locationSelectFragment"
+			app:destination="@id/locationSelectFragment"
+			app:enterAnim="@anim/nav_default_enter_anim"
+			app:exitAnim="@anim/nav_default_exit_anim"
+			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+			app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
 	</fragment>
 </navigation>
