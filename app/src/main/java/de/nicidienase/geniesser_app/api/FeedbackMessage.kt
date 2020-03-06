@@ -9,7 +9,7 @@ data class FeedbackMessage(
 )
 
 @Keep
-data class FeedbackMessageItem (
+data class FeedbackMessageItem(
     val feedbackId: Long,
     val gerichtFeedbackId: Long,
     val gerichtId: Long,

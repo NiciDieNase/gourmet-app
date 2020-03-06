@@ -29,11 +29,10 @@ abstract class GourmetDatabase : RoomDatabase() {
                 .fallbackToDestructiveMigration()
                 .build()
 
-        internal val MIGRATION_5_6 = object: Migration(5,6) {
+        internal val MIGRATION_5_6 = object : Migration(5, 6) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("ALTER TABLE News ADD COLUMN active INTEGER NOT NULL DEFAULT 1")
             }
-
         }
     }
 }

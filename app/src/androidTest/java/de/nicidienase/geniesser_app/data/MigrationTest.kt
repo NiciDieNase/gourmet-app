@@ -23,7 +23,6 @@ class MigrationTest {
             FrameworkSQLiteOpenHelperFactory()
     )
 
-
     @Test
     @Throws(IOException::class)
     fun migrate5to6() {
@@ -36,7 +35,7 @@ class MigrationTest {
         db = helper.runMigrationsAndValidate(TEST_DB, 6, true, GourmetDatabase.MIGRATION_5_6)
         val cursor = db.query("SELECT * FROM News")
 
-        assertEquals(10,cursor.columnCount)
+        assertEquals(10, cursor.columnCount)
         assertTrue(cursor.columnNames.contains("active"))
     }
 }

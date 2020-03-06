@@ -4,7 +4,7 @@ import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
 @Keep
-data class FeedbackIdemDto (
+data class FeedbackIdemDto(
     val id: Long,
     @SerializedName("benutzerId") val userId: Long,
     @SerializedName("gerichtFeedbackTypeID") val feedbackTypeId: Long,

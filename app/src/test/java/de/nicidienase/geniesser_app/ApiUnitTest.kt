@@ -92,8 +92,8 @@ class ApiUnitTest {
     @Test
     fun feedbackMessage() {
         val list = listOf(
-            FeedbackMessageItem(1,1,1,"Foo", "2020-01-01"),
-            FeedbackMessageItem(1,1,1,1, "2020-01-01")
+            FeedbackMessageItem(1, 1, 1, "Foo", "2020-01-01"),
+            FeedbackMessageItem(1, 1, 1, 1, "2020-01-01")
         )
         assertEquals(2, list.size)
     }
