@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import de.nicidienase.geniesser_app.BuildConfig
 import de.nicidienase.geniesser_app.LifecycleLogger
 import de.nicidienase.geniesser_app.databinding.FragmentNewsDetailBinding
 
 class NewsDetailFragment : Fragment() {
 
-    val args: NewsDetailFragmentArgs by navArgs()
+    private val args: NewsDetailFragmentArgs by navArgs()
 
     init {
         lifecycle.addObserver(LifecycleLogger(NewsDetailFragment::class.java.simpleName))
@@ -20,7 +21,9 @@ class NewsDetailFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentNewsDetailBinding.inflate(inflater, container, false)
         binding.item = args.item
-
+        if (BuildConfig.FLAVOR == "dev") {
+            binding.debugText.visibility = View.VISIBLE
+        }
         return binding.root
     }
 }

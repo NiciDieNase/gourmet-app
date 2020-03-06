@@ -3,8 +3,12 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools">
 
+	<androidx.core.widget.NestedScrollView
+		android:id="@+id/nestedScrollView"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
 	<androidx.constraintlayout.widget.ConstraintLayout
-		android:id="@+id/root"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content">
 
@@ -19,9 +23,7 @@
 			android:singleLine="false"
 			android:text="@{dish.name}"
 			android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toStartOf="@+id/priceText"
-			app:layout_constraintHorizontal_bias="1.0"
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			tools:text="Paniertes Schnitzel" />
@@ -31,16 +33,30 @@
 			price="@{dish.price}"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="8dp"
 			android:layout_marginEnd="8dp"
+			android:layout_marginBottom="8dp"
 			android:textAppearance="@style/TextAppearance.AppCompat.Large"
-			app:layout_constraintBottom_toBottomOf="parent"
 			app:layout_constraintEnd_toEndOf="parent"
 			app:layout_constraintTop_toTopOf="@+id/nameText"
 			tools:text="3.00 €" />
 
-	</androidx.constraintlayout.widget.ConstraintLayout>
+		<androidx.appcompat.widget.AppCompatTextView
+			android:id="@+id/debugDishText"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="8dp"
+			android:layout_marginEnd="8dp"
+			android:layout_marginTop="8dp"
+			android:text="@{dish.toString()}"
+			tools:text="@tools:sample/lorem/random"
+			tools:visibility="gone"
+			app:layout_constraintTop_toBottomOf="@+id/nameText"
+			app:layout_constraintStart_toStartOf="@+id/nameText"
+			app:layout_constraintEnd_toStartOf="@+id/priceText"
+			app:layout_constraintBottom_toBottomOf="parent"/>
 
+	</androidx.constraintlayout.widget.ConstraintLayout>
+	</androidx.core.widget.NestedScrollView>
 	<data>
 
 		<variable

@@ -55,7 +55,13 @@ class MenuOverviewFragment : Fragment() {
         }.attach()
 
         viewModel.getAvailableDays().observe(this, Observer { dates ->
-            pagerAdapter.submitItems(dates)
+            val filterPast = false
+            if (filterPast) {
+                val filterdDates = dates.subList(getIndexOfToday(dates), dates.size)
+                pagerAdapter.submitItems(filterdDates)
+            } else {
+                pagerAdapter.submitItems(dates)
+            }
             viewModel.selectedDay?.let {
                 if (dates.contains(it)) {
                     binding.pager.setCurrentItem(dates.indexOf(it), false)
