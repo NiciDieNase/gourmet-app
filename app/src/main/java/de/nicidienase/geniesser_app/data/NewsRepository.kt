@@ -57,6 +57,10 @@ class NewsRepository(
         newsDao.setNewsOldForLocation(locationId)
     }
 
+    fun deleteInactiveNews() = GlobalScope.launch {
+        newsDao.deleteInactiveNews()
+    }
+
     companion object {
         private val TAG = NewsRepository::class.java.simpleName
     }

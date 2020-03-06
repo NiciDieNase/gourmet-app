@@ -22,6 +22,9 @@ abstract class NewsDao : BaseDao<News>() {
     @Query("UPDATE news SET newNews = 0 WHERE locationId = :locationId")
     abstract fun setNewsOldForLocation(locationId: Long)
 
+    @Query("DELETE FROM news WHERE active = 0")
+    abstract fun deleteInactiveNews()
+
     companion object {
         private const val SQL_TRUE = 1
         private const val SQL_FALSE = 0

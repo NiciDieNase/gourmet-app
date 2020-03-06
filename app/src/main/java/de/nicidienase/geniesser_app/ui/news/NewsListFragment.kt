@@ -74,6 +74,10 @@ class NewsListFragment : Fragment() {
                 findNavController().navigate(R.id.locationSelectFragment)
                 true
             }
+            R.id.action_cleanup_news -> {
+                viewModel.cleanup()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
