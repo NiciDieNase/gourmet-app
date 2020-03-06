@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -82,10 +81,6 @@ class MenuOverviewFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> {
-                findNavController().navigate(MenuOverviewFragmentDirections.actionMealOverviewFragmentToPrefFragment())
-                true
-            }
             R.id.action_goto_today -> {
                 val index =
                 if (viewModel.hideOldMenu) {

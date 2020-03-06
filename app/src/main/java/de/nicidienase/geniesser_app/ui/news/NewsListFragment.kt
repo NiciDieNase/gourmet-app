@@ -70,10 +70,6 @@ class NewsListFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> {
-                findNavController().navigate(NewsListFragmentDirections.actionNewsListFragmentToPrefFragment())
-                true
-            }
             R.id.action_cleanup_news -> {
                 viewModel.cleanup()
                 true

@@ -72,6 +72,9 @@ class GourmetActivity : AppCompatActivity() {
 
     companion object {
         private val noToolbarIds = listOf(R.id.newsDetailFragment)
-        private val noBottomNavIds = listOf(R.id.newsDetailFragment, R.id.locationSelectFragment)
+        private val noBottomNavIds = listOf(
+            R.id.newsDetailFragment,
+            R.id.locationSelectFragment
+        )
     }
 }

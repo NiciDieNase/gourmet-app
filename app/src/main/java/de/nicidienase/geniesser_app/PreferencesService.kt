@@ -8,6 +8,10 @@ class PreferencesService(private val sharedPreferences: SharedPreferences) {
         get() = sharedPreferences.getLong(KEY_LOCATION, 3317)
         set(value) = sharedPreferences.edit().putLong(KEY_LOCATION, value).apply()
 
+    var currentLocationName: String
+        get() = sharedPreferences.getString(KEY_LOCATION_NAME, "") ?: ""
+        set(value) = sharedPreferences.edit().putString(KEY_LOCATION_NAME, value).apply()
+
     var hideOldMenu: Boolean
         get() = sharedPreferences.getBoolean(KEY_HIDE_MENU, true)
         set(value) = sharedPreferences.edit().putBoolean(KEY_HIDE_MENU, value).apply()
@@ -18,6 +22,7 @@ class PreferencesService(private val sharedPreferences: SharedPreferences) {
 
     companion object {
         private const val KEY_LOCATION = "LocationLong"
+        private const val KEY_LOCATION_NAME = "LocationString"
         private const val KEY_HIDE_MENU = "HideMenuBool"
         private const val KEY_PRICE_EXTERNAL = "PriceExternalBool"
     }

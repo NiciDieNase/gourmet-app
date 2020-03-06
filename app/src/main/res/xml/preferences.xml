@@ -7,7 +7,7 @@
 		android:title="Location"/>
 	<SwitchPreferenceCompat
 		app:key="HideMenuBool"
-		app:title="Hide old Menus"/>
+		app:title="Hide past days"/>
 	<SwitchPreferenceCompat
 		app:key="PriceExternalBool"
 		app:title="External Prices"/>
