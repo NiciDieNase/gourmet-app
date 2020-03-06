@@ -86,6 +86,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    sourceSets {
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+    }
+
 }
 
 dependencies {
@@ -144,6 +148,7 @@ dependencies {
     debugImplementation "com.willowtreeapps.hyperion:hyperion-timber:$hyperionVersion"
 
     testImplementation 'junit:junit:4.12'
+    androidTestImplementation "android.arch.persistence.room:testing:1.1.1"
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
