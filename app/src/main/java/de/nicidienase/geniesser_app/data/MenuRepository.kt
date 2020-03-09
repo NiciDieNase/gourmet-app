@@ -2,13 +2,17 @@ package de.nicidienase.geniesser_app.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import de.nicidienase.geniesser_app.PreferencesService
 import de.nicidienase.geniesser_app.api.GourmetApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.Calendar
+import java.util.Date
 
 class MenuRepository(
     private val api: GourmetApi,
-    private val database: GourmetDatabase
+    private val database: GourmetDatabase,
+    private val preferencesService: PreferencesService
 ) {
 
     private val dishDao by lazy { database.getDishDao() }
@@ -18,7 +22,16 @@ class MenuRepository(
     val isRefreshing: LiveData<Boolean> = _isRefreshing
 
     fun getDishesForDayAndLocation(day: Long, locationId: Long) = dishDao.getDishesForDayAndLocation(day, locationId)
-    fun getDays(locationId: Long) = dishDao.getAvailableDatesForLocation(locationId)
+    fun getDays(locationId: Long): LiveData<List<Date>> {
+        val date: Long = if (preferencesService.hideOldMenu) {
+            val calendar = Calendar.getInstance()
+            calendar.add(Calendar.DATE, -1)
+            calendar.time.time
+        } else {
+            0
+        }
+        return dishDao.getAvailableDatesForLocation(locationId, date)
+    }
 
     fun update(locationId: Long) = GlobalScope.launch {
         _isRefreshing.postValue(true)

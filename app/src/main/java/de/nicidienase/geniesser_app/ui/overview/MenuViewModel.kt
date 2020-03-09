@@ -10,6 +10,8 @@ class MenuViewModel(
     private val preferencesService: PreferencesService
 ) : ViewModel() {
 
+    val hideOldMenu: Boolean
+        get() = preferencesService.hideOldMenu
     var selectedDay: Date? = null
 
     fun getDishesForDay(day: Long) = menuRepository.getDishesForDayAndLocation(day, preferencesService.currentLocation)

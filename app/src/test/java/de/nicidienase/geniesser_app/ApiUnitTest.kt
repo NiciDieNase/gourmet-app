@@ -1,5 +1,6 @@
 package de.nicidienase.geniesser_app
 
+import de.nicidienase.geniesser_app.api.FeedbackMessageItem
 import de.nicidienase.geniesser_app.api.GourmetApi
 import de.nicidienase.geniesser_app.data.Additive
 import de.nicidienase.geniesser_app.data.Allergen
@@ -75,11 +76,26 @@ class ApiUnitTest {
 
     @Test
     fun news() = runBlocking {
-        val news = api.getNews()
+        val news = api.getNews(DEFAULT_LOCATION)
         assertTrue(news.isNotEmpty())
 
         val list = news.map { News.fromNewsDto(it, DEFAULT_LOCATION) }
         assertEquals(news.size, list.size)
+    }
+
+    @Test
+    fun feedbackCategories() = runBlocking {
+        val feedbackCategories = api.getFeedbackCategories()
+        assertTrue(feedbackCategories.isNotEmpty())
+    }
+
+    @Test
+    fun feedbackMessage() {
+        val list = listOf(
+            FeedbackMessageItem(1, 1, 1, "Foo", "2020-01-01"),
+            FeedbackMessageItem(1, 1, 1, 1, "2020-01-01")
+        )
+        assertEquals(2, list.size)
     }
 
     companion object {

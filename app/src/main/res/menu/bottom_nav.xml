@@ -10,4 +10,9 @@
 		android:title="News"
 		android:icon="@drawable/ic_action_location"
 		android:id="@+id/newsListFragment"/>
+
+	<item
+		android:title="Preferences"
+		android:icon="@drawable/ic_action_settings"
+		android:id="@+id/prefFragment"/>
 </menu>

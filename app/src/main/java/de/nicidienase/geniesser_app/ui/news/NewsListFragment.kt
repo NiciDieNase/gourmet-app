@@ -49,14 +49,14 @@ class NewsListFragment : Fragment() {
         binding.newsList.adapter = adapter
         binding.newsList.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        viewModel.getNews().observe(this, Observer {
+        viewModel.getNews().observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
         binding.swipeRefreshLayout.apply {
             setOnRefreshListener {
                 viewModel.update()
             }
-            viewModel.updating.observe(this@NewsListFragment, Observer {
+            viewModel.updating.observe(viewLifecycleOwner, Observer {
                 isRefreshing = it
             })
         }
@@ -70,8 +70,8 @@ class NewsListFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_select_location -> {
-                findNavController().navigate(R.id.locationSelectFragment)
+            R.id.action_cleanup_news -> {
+                viewModel.cleanup()
                 true
             }
             else -> super.onOptionsItemSelected(item)

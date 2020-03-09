@@ -22,7 +22,8 @@ data class News(
     var imageUrl: String,
     var locationId: Long,
     var backendId: Long,
-    var newNews: Boolean = false
+    var newNews: Boolean = false,
+    var active: Boolean = true
 ) : Parcelable {
 
     @PrimaryKey(autoGenerate = true)

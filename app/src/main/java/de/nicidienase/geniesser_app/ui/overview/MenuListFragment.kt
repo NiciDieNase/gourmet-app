@@ -39,7 +39,7 @@ class MenuListFragment : Fragment() {
             findNavController().navigate(MenuOverviewFragmentDirections.actionMealOverviewFragmentToDishDetailFragment(it, it.category?.categoryName
             ?: "Detail"))
         }
-        viewModel.getDishesForDay(day).observe(this, Observer {
+        viewModel.getDishesForDay(day).observe(viewLifecycleOwner, Observer {
             dishAdapter.submitList(it)
         })
 
@@ -48,7 +48,7 @@ class MenuListFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         }
 
-        viewModel.isRefreshing.observe(this, Observer {
+        viewModel.isRefreshing.observe(viewLifecycleOwner, Observer {
             binding.swipeRefreshLayout.isRefreshing = it
         })
 

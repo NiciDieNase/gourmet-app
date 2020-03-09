@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -54,13 +53,13 @@ class MenuOverviewFragment : Fragment() {
             tab.text = pagerAdapter.getPageTitle(position)
         }.attach()
 
-        viewModel.getAvailableDays().observe(this, Observer { dates ->
+        viewModel.getAvailableDays().observe(viewLifecycleOwner, Observer { dates ->
             pagerAdapter.submitItems(dates)
-            viewModel.selectedDay?.let {
-                if (dates.contains(it)) {
-                    binding.pager.setCurrentItem(dates.indexOf(it), false)
-                }
-            }
+//            viewModel.selectedDay?.let {
+//                if (dates.contains(it)) {
+//                    binding.pager.setCurrentItem(dates.indexOf(it), false)
+//                }
+//            }
         })
         binding.pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -82,12 +81,14 @@ class MenuOverviewFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_select_location -> {
-                findNavController().navigate(MenuOverviewFragmentDirections.actionMealOverviewFragmentToLocationSelectFragment())
-                true
-            }
             R.id.action_goto_today -> {
-                binding.pager.setCurrentItem(getIndexOfToday(pagerAdapter.dates), true)
+                val index =
+                if (viewModel.hideOldMenu) {
+                    0
+                } else {
+                    getIndexOfToday(pagerAdapter.dates)
+                }
+                binding.pager.setCurrentItem(index, true)
                 true
             }
             else -> super.onOptionsItemSelected(item)

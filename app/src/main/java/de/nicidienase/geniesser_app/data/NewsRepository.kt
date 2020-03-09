@@ -25,7 +25,7 @@ class NewsRepository(
 
         val existingNews = newsDao.getNewsForLocationSync(locationId)
         val oldBackendIds = existingNews.map { it.backendId }
-        val backendNews: List<NewsDto> = api.getNews()
+        val backendNews: List<NewsDto> = api.getNews(locationId)
         val news: List<News> =
             backendNews.mapNotNull { News.fromNewsDto(it, locationId.toLong()) }
 
@@ -42,6 +42,11 @@ class NewsRepository(
         newsDao.insert(newsToInsert)
         newsDao.update(* newsToUpdate.toTypedArray())
 
+        val backendNewsIds = news.map { it.backendId }
+        val outdatedNews = existingNews.filterNot { backendNewsIds.contains(it.backendId) }
+        outdatedNews.forEach { it.active = false }
+        newsDao.update(* outdatedNews.toTypedArray())
+
         _isRefreshing.postValue(false)
         Timber.i("News update for locationId $locationId is done")
     }
@@ -50,6 +55,10 @@ class NewsRepository(
 
     fun setNewsForLocationOld(locationId: Long) = GlobalScope.launch {
         newsDao.setNewsOldForLocation(locationId)
+    }
+
+    fun deleteInactiveNews() = GlobalScope.launch {
+        newsDao.deleteInactiveNews()
     }
 
     companion object {
