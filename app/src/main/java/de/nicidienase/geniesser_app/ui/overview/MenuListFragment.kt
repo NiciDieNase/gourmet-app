@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,9 +36,16 @@ class MenuListFragment : Fragment() {
 
         Timber.i("Day: %s", Date(day))
 
-        val dishAdapter = DishAdapter {
-            findNavController().navigate(MenuOverviewFragmentDirections.actionMealOverviewFragmentToDishDetailFragment(it, it.category?.categoryName
-            ?: "Detail"))
+        val dishAdapter = DishAdapter { dish, binding ->
+            findNavController().navigate(
+                MenuOverviewFragmentDirections.actionMealOverviewFragmentToDishDetailFragment(
+                    dish,
+                    dish.category?.categoryName ?: "Detail"),
+                FragmentNavigatorExtras(
+                    binding.nameText to binding.nameText.transitionName,
+                    binding.priceText to binding.priceText.transitionName
+                )
+            )
         }
         viewModel.getDishesForDay(day).observe(viewLifecycleOwner, Observer {
             dishAdapter.submitList(it)

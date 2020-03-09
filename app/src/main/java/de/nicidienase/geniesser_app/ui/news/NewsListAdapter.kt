@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import de.nicidienase.geniesser_app.data.News
 import de.nicidienase.geniesser_app.databinding.ItemNewsBinding
 
-class NewsListAdapter(private val clickAction: (News) -> Unit) : ListAdapter<News, NewsListAdapter.NewsViewHolder>(object : DiffUtil.ItemCallback<News>() {
+class NewsListAdapter(private val clickAction: (News, ItemNewsBinding) -> Unit) : ListAdapter<News, NewsListAdapter.NewsViewHolder>(object : DiffUtil.ItemCallback<News>() {
     override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {
         return oldItem.id == newItem.id
     }
@@ -28,7 +28,7 @@ class NewsListAdapter(private val clickAction: (News) -> Unit) : ListAdapter<New
             val news = getItem(position)
             item = news
             root.setOnClickListener {
-                clickAction(news)
+                clickAction(news, this)
             }
         }
     }

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import de.nicidienase.geniesser_app.data.Dish
 import de.nicidienase.geniesser_app.databinding.ItemDishBinding
 
-class DishAdapter(val onItemSelected: (Dish) -> Unit) : ListAdapter<Dish, DishAdapter.DishViewHolder>(object : DiffUtil.ItemCallback<Dish>() {
+class DishAdapter(val onItemSelected: (Dish, ItemDishBinding) -> Unit) : ListAdapter<Dish, DishAdapter.DishViewHolder>(object : DiffUtil.ItemCallback<Dish>() {
     override fun areItemsTheSame(oldItem: Dish, newItem: Dish) = oldItem.id == newItem.id
     override fun areContentsTheSame(oldItem: Dish, newItem: Dish) = oldItem == newItem
 }) {
@@ -23,7 +23,7 @@ class DishAdapter(val onItemSelected: (Dish) -> Unit) : ListAdapter<Dish, DishAd
         holder.binding.apply {
             dish = getItem(position)
             root.setOnClickListener {
-                onItemSelected(getItem(position))
+                onItemSelected(getItem(position), this)
             }
         }
     }
