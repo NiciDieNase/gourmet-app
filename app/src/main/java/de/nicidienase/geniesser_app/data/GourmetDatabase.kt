@@ -25,8 +25,8 @@ abstract class GourmetDatabase : RoomDatabase() {
     companion object {
         fun build(context: Context) =
             Room.databaseBuilder(context.applicationContext, GourmetDatabase::class.java, "food_database")
+                .fallbackToDestructiveMigrationFrom(1,2,3,4)
                 .addMigrations(MIGRATION_5_6, MIGRATION_6_7)
-                .fallbackToDestructiveMigration()
                 .build()
 
         internal val MIGRATION_5_6 = object : Migration(5, 6) {
