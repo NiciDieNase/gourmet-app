@@ -25,7 +25,7 @@ abstract class GourmetDatabase : RoomDatabase() {
     companion object {
         fun build(context: Context) =
             Room.databaseBuilder(context.applicationContext, GourmetDatabase::class.java, "food_database")
-                .fallbackToDestructiveMigrationFrom(1,2,3,4)
+                .fallbackToDestructiveMigrationFrom(1, 2, 3, 4)
                 .addMigrations(MIGRATION_5_6, MIGRATION_6_7)
                 .build()
 
@@ -35,7 +35,7 @@ abstract class GourmetDatabase : RoomDatabase() {
             }
         }
 
-        internal val MIGRATION_6_7 = object : Migration(5, 6) {
+        internal val MIGRATION_6_7 = object : Migration(6, 7) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("ALTER TABLE Dish ADD COLUMN active INTEGER NOT NULL DEFAULT 1")
             }
