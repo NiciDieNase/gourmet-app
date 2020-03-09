@@ -7,8 +7,10 @@ import de.nicidienase.geniesser_app.PreferencesService
 import de.nicidienase.geniesser_app.data.Location
 import de.nicidienase.geniesser_app.data.LocationDao
 
-class PreferencesViewModel(private val preferencesService: PreferencesService,
-                           private val locationDao: LocationDao): ViewModel() {
+class PreferencesViewModel(
+    private val preferencesService: PreferencesService,
+    private val locationDao: LocationDao
+) : ViewModel() {
 
     val currentLocation: LiveData<Location> = Transformations.switchMap(preferencesService.currentLocationLivedata) {
         locationDao.getLocationForLocationId(it)

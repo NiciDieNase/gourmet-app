@@ -2,9 +2,7 @@ package de.nicidienase.geniesser_app
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
-import de.nicidienase.geniesser_app.api.LocationInfoDto
 import de.nicidienase.geniesser_app.util.longLiveData
-import de.nicidienase.geniesser_app.util.stringLiveData
 
 class PreferencesService(private val sharedPreferences: SharedPreferences) {
 
