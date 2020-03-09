@@ -21,16 +21,23 @@ class MenuRepository(
     private val _isRefreshing = MutableLiveData<Boolean>()
     val isRefreshing: LiveData<Boolean> = _isRefreshing
 
-    fun getDishesForDayAndLocation(day: Long, locationId: Long) = dishDao.getDishesForDayAndLocation(day, locationId)
+    fun getDishesForDayAndLocation(day: Long, locationId: Long): LiveData<List<Dish>> {
+        return if (preferencesService.hideOldMenu) {
+            dishDao.getActiveDishesForDayAndLocation(day, locationId)
+        } else {
+            dishDao.getDishesForDayAndLocation(day, locationId)
+        }
+    }
+
     fun getDays(locationId: Long): LiveData<List<Date>> {
-        val date: Long = if (preferencesService.hideOldMenu) {
+        if (preferencesService.hideOldMenu) {
             val calendar = Calendar.getInstance()
             calendar.add(Calendar.DATE, -1)
-            calendar.time.time
+            val date = calendar.time.time
+            return dishDao.getAvailableActiveDatesForLocation(locationId, date)
         } else {
-            0
+            return dishDao.getAvailableDatesForLocation(locationId)
         }
-        return dishDao.getAvailableDatesForLocation(locationId, date)
     }
 
     fun update(locationId: Long) = GlobalScope.launch {
@@ -61,6 +68,12 @@ class MenuRepository(
 
             dishDao.insert(itemsToInsert)
             dishDao.update(*itemsToUpdate.toTypedArray())
+
+            val outdatedItems = existingItems.filterNot { newBackendIds.contains(it.dishId) }
+            outdatedItems.forEach {
+                it.active = false
+            }
+            dishDao.update(* outdatedItems.toTypedArray())
         }
         _isRefreshing.postValue(false)
     }
