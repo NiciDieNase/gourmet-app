@@ -11,6 +11,7 @@ import de.nicidienase.geniesser_app.data.NewsRepository
 import de.nicidienase.geniesser_app.ui.location.LocationViewModel
 import de.nicidienase.geniesser_app.ui.news.NewsViewModel
 import de.nicidienase.geniesser_app.ui.overview.MenuViewModel
+import de.nicidienase.geniesser_app.ui.preferences.PreferencesViewModel
 import de.nicidienase.geniesser_app.util.SingletonHolder
 
 class GourmetViewModelFactory private constructor(context: Context) : ViewModelProvider.Factory {
@@ -43,6 +44,7 @@ class GourmetViewModelFactory private constructor(context: Context) : ViewModelP
                 ) as T
             modelClass.isAssignableFrom(NewsViewModel::class.java) -> NewsViewModel(newsRepository, preferencesService) as T
             modelClass.isAssignableFrom(GourmetActivityViewModel::class.java) -> GourmetActivityViewModel(newsRepository, menuRepository, preferencesService) as T
+            modelClass.isAssignableFrom(PreferencesViewModel::class.java) -> PreferencesViewModel(preferencesService, database.getLocationDao()) as T
             else -> throw UnsupportedOperationException(
                     "The requested ViewModel is currently unsupported. Please make sure to implement are correct creation of it. Request: ${modelClass.canonicalName}"
                 )

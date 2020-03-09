@@ -16,7 +16,6 @@ class LocationViewModel(
 
     fun selectLocation(location: Location) {
         preferencesService.currentLocation = location.locationId
-        preferencesService.currentLocationName = location.name
         newsRepository.update(location.locationId)
     }
 }

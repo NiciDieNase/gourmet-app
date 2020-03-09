@@ -1,16 +1,16 @@
 package de.nicidienase.geniesser_app
 
 import android.content.SharedPreferences
+import androidx.lifecycle.LiveData
+import de.nicidienase.geniesser_app.api.LocationInfoDto
+import de.nicidienase.geniesser_app.util.longLiveData
+import de.nicidienase.geniesser_app.util.stringLiveData
 
 class PreferencesService(private val sharedPreferences: SharedPreferences) {
 
     var currentLocation: Long
         get() = sharedPreferences.getLong(KEY_LOCATION, 3317)
         set(value) = sharedPreferences.edit().putLong(KEY_LOCATION, value).apply()
-
-    var currentLocationName: String
-        get() = sharedPreferences.getString(KEY_LOCATION_NAME, "") ?: ""
-        set(value) = sharedPreferences.edit().putString(KEY_LOCATION_NAME, value).apply()
 
     var hideOldMenu: Boolean
         get() = sharedPreferences.getBoolean(KEY_HIDE_MENU, true)
@@ -19,6 +19,8 @@ class PreferencesService(private val sharedPreferences: SharedPreferences) {
     var priceExternal: Boolean
         get() = sharedPreferences.getBoolean(KEY_PRICE_EXTERNAL, false)
         set(value) = sharedPreferences.edit().putBoolean(KEY_PRICE_EXTERNAL, value).apply()
+
+    val currentLocationLivedata: LiveData<Long> = sharedPreferences.longLiveData(KEY_LOCATION, 3317)
 
     companion object {
         private const val KEY_LOCATION = "LocationLong"

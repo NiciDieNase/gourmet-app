@@ -59,7 +59,7 @@
 	</fragment>
 	<fragment
 		android:id="@+id/prefFragment"
-		android:name="de.nicidienase.geniesser_app.ui.PrefFragment"
+		android:name="de.nicidienase.geniesser_app.ui.preferences.PreferencesFragment"
 		android:label="Preferences">
 		<action
 			android:id="@+id/action_prefFragment_to_locationSelectFragment"
