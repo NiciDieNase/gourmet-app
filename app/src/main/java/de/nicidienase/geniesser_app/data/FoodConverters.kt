@@ -3,9 +3,7 @@ package de.nicidienase.geniesser_app.data
 import androidx.room.TypeConverter
 import java.util.Date
 
-class FoodConverters {
-
-    companion object {
+object FoodConverters {
 
         @TypeConverter
         @JvmStatic
@@ -33,5 +31,4 @@ class FoodConverters {
         @TypeConverter
         @JvmStatic
         fun dateToTimestampe(date: Date?): Long? = date?.time
-    }
 }
