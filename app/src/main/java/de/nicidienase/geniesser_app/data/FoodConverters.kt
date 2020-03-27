@@ -10,7 +10,11 @@ class FoodConverters {
         @TypeConverter
         @JvmStatic
         fun intListToString(ints: List<Int>?): String {
-            return ints?.map { it.toString() }?.reduce { acc, s -> "$acc,$s" } ?: ""
+            return if (ints == null || ints.isEmpty()) {
+                ""
+            } else {
+                ints.map { it.toString() }.reduce { acc, s -> "$acc,$s" }
+            }
         }
 
         @TypeConverter
