@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9ddcad85-602a-46ea-b5b9-1fb8ae32191f",
+		"_postman_id": "f3e68032-3767-4725-88f7-3d46e95b6cde",
 		"name": "genussapp",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -8,21 +8,6 @@
 		{
 			"name": "Standorte",
 			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "{{PASSWORD}}",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "{{USER}}",
-							"type": "string"
-						}
-					]
-				},
 				"method": "GET",
 				"header": [
 					{
@@ -49,21 +34,6 @@
 		{
 			"name": "Speiseplan",
 			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "username",
-							"value": "{{USER}}",
-							"type": "string"
-						},
-						{
-							"key": "password",
-							"value": "{{PASSWORD}}",
-							"type": "string"
-						}
-					]
-				},
 				"method": "GET",
 				"header": [
 					{
@@ -92,21 +62,6 @@
 		{
 			"name": "Gericht-Kategorien",
 			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "{{PASSWORD}}",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "{{USER}}",
-							"type": "string"
-						}
-					]
-				},
 				"method": "GET",
 				"header": [
 					{
@@ -134,21 +89,6 @@
 		{
 			"name": "Gericht-Merkmale",
 			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "{{PASSWORD}}",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "{{USER}}",
-							"type": "string"
-						}
-					]
-				},
 				"method": "GET",
 				"header": [
 					{
@@ -200,14 +140,14 @@
 					}
 				],
 				"url": {
-					"raw": "{{BASE_URL}}/KMSLiveWebservices/webresources/entity.bonusaktion/current/{{LOCATION}}",
+					"raw": "{{BASE_URL}}/KMSLiveWebservices/webresources/entity.allergene/current/{{LOCATION}}",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
 						"KMSLiveWebservices",
 						"webresources",
-						"entity.bonusaktion",
+						"entity.allergene",
 						"current",
 						"{{LOCATION}}"
 					]
@@ -302,21 +242,6 @@
 		{
 			"name": "mobile einstellungen",
 			"request": {
-				"auth": {
-					"type": "basic",
-					"basic": [
-						{
-							"key": "password",
-							"value": "{{PASSWORD}}",
-							"type": "string"
-						},
-						{
-							"key": "username",
-							"value": "{{USER}}",
-							"type": "string"
-						}
-					]
-				},
 				"method": "GET",
 				"header": [
 					{
@@ -339,5 +264,43 @@
 			},
 			"response": []
 		}
-	]
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{PASSWORD}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{USER}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "ee1f3e4c-89b5-4069-83e6-e523977f52ea",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b4532c81-c5a8-4db6-a01c-65b29c91e953",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
 }
