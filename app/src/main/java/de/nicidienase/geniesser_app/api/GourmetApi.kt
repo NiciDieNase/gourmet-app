@@ -2,7 +2,6 @@ package de.nicidienase.geniesser_app.api
 
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
@@ -43,7 +42,7 @@ interface GourmetApi {
         private const val BASE_PATH = "kms-mt-webservices/webresources"
 
         val instance: GourmetApi by lazy {
-            val okhttpClient = OkHttpClient.Builder()
+            val okhttpClient = OkHttpClientFactory.okHttpClient.newBuilder()
                 .addInterceptor { chain: Interceptor.Chain ->
                     val request = chain.request()
                         .newBuilder()
