@@ -3,10 +3,10 @@ package de.nicidienase.geniesser_app
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -14,6 +14,8 @@ import androidx.navigation.ui.setupWithNavController
 import de.nicidienase.geniesser_app.databinding.ActivityGourmetBinding
 
 class GourmetActivity : AppCompatActivity() {
+
+    private val viewModel: GourmetActivityViewModel by viewModels()
 
     init {
         lifecycle.addObserver(LifecycleLogger(GourmetActivity::class.java.simpleName))
@@ -33,8 +35,6 @@ class GourmetActivity : AppCompatActivity() {
             AppBarConfiguration(setOf(R.id.mealOverviewFragment, R.id.newsListFragment))
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
 
-        val viewModel =
-            ViewModelProviders.of(this, GourmetViewModelFactory.getInstance(this))[GourmetActivityViewModel::class.java]
         viewModel.newsCount.observe(this, Observer {
             if (it == 0) {
                 binding.bottomNavigationView.removeBadge(R.id.newsListFragment)

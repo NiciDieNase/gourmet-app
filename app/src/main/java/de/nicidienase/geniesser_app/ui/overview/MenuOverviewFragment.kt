@@ -8,12 +8,11 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import de.nicidienase.geniesser_app.GourmetViewModelFactory
 import de.nicidienase.geniesser_app.LifecycleLogger
 import de.nicidienase.geniesser_app.R
 import de.nicidienase.geniesser_app.databinding.FragmentMealOverviewBinding
@@ -23,7 +22,7 @@ class MenuOverviewFragment : Fragment() {
 
     private lateinit var pagerAdapter: MenuPagerAdapter
     private lateinit var binding: FragmentMealOverviewBinding
-    private lateinit var viewModel: MenuViewModel
+    private val viewModel: MenuViewModel by viewModels()
 
     init {
         lifecycle.addObserver(LifecycleLogger(MenuOverviewFragment::class.java.simpleName))
@@ -36,13 +35,6 @@ class MenuOverviewFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentMealOverviewBinding.inflate(inflater, container, false)
-
-        viewModel =
-            ViewModelProviders.of(
-                this,
-                GourmetViewModelFactory.getInstance(requireContext())
-            ).get(MenuViewModel::class.java)
-
         viewModel.updateDishes()
 
         pagerAdapter = MenuPagerAdapter(this, emptyList())
