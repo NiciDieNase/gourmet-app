@@ -45,9 +45,10 @@ class GourmetActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (noToolbarIds.contains(destination.id)) {
-                binding.toolbar.visibility = View.GONE
+                supportActionBar?.hide()
+//                }
             } else {
-                binding.toolbar.visibility = View.VISIBLE
+                supportActionBar?.show()
             }
 
             if (noBottomNavIds.contains(destination.id)) {
