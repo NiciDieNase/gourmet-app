@@ -1,9 +1,9 @@
 package de.nicidienase.geniesser_app.data
 
+import java.util.Date
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import java.util.Date
 
 class FoodConvertersTest {
 

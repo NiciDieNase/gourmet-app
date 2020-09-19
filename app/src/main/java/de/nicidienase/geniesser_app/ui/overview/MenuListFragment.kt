@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import de.nicidienase.geniesser_app.GourmetViewModelFactory
 import de.nicidienase.geniesser_app.LifecycleLogger
 import de.nicidienase.geniesser_app.databinding.FragmentMenuBinding
-import timber.log.Timber
 import java.util.Date
+import timber.log.Timber
 
 class MenuListFragment : Fragment() {
 
