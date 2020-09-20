@@ -36,4 +36,14 @@ object CalendarUtils {
     fun formatDateForPager(date: Date): String {
         return SimpleDateFormat("EEE, dd. MMMM", Locale.getDefault()).format(date)
     }
+
+    fun getIndexOfDay(dates: List<Date>, day: Date = Date()): Int {
+        return try {
+            val today = dates.last { it.before(Date()) }
+            dates.indexOf(today)
+        } catch (ex: NoSuchElementException) {
+            // all entries are in the future, show first item
+            0
+        }
+    }
 }

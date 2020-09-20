@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 class FcOverviewViewModel(
     private val fcRepository: FcRepository
 ) : ViewModel() {
+    var selectedDay: Date? = null
     val availableDays: LiveData<List<Date>> = fcRepository.availableDays
 
     fun updateMenu() = viewModelScope.launch {

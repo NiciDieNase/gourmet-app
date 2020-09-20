@@ -17,7 +17,7 @@ import de.nicidienase.geniesser_app.GourmetViewModelFactory
 import de.nicidienase.geniesser_app.LifecycleLogger
 import de.nicidienase.geniesser_app.R
 import de.nicidienase.geniesser_app.databinding.FragmentMealOverviewBinding
-import java.util.Date
+import de.nicidienase.geniesser_app.util.CalendarUtils
 
 class MenuOverviewFragment : Fragment() {
 
@@ -87,21 +87,13 @@ class MenuOverviewFragment : Fragment() {
                     if (viewModel.hideOldMenu) {
                         0
                     } else {
-                        getIndexOfToday(pagerAdapter.dates)
+                        CalendarUtils.getIndexOfDay(pagerAdapter.dates)
                     }
                 binding.pager.setCurrentItem(index, true)
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun getIndexOfToday(dates: List<Date>): Int = try {
-        val today = dates.last { it.before(Date()) }
-        dates.indexOf(today)
-    } catch (ex: NoSuchElementException) {
-        // all entries are in the future, show first item
-        0
     }
 
     companion object {
