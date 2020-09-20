@@ -69,4 +69,12 @@
 			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
 			app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
 	</fragment>
+	<fragment
+			android:id="@+id/fcCampusOverviewFragment"
+			android:name="de.nicidienase.geniesser_app.ui.fccampus.FcCampusOverviewFragment"
+			android:label="FcCampus" />
+	<fragment
+			android:id="@+id/fcCampusMenuFragment"
+			android:name="de.nicidienase.geniesser_app.ui.fccampus.FcCampusMenuFragment"
+			android:label="FcCampusMenuFragment" />
 </navigation>

@@ -15,7 +15,7 @@ import de.nicidienase.geniesser_app.databinding.ActivityGourmetBinding
 
 class GourmetActivity : AppCompatActivity() {
 
-    private val viewModel: GourmetActivityViewModel by viewModels()
+    private val viewModel: GourmetActivityViewModel by viewModels { GourmetViewModelFactory.getInstance(this) }
 
     init {
         lifecycle.addObserver(LifecycleLogger(GourmetActivity::class.java.simpleName))

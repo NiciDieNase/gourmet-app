@@ -4,11 +4,12 @@ import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
 @Keep
-data class MealTimeDto(
+data class MealDto(
+    var allergens: List<String>,
     @SerializedName("_id")
     var id: String,
-    var calendarWeek: Int,
-    var description: String,
-    var from: String,
-    var to: String
+    var name: String,
+    var category: String,
+    var price: Float,
+    var uuid: String
 )
