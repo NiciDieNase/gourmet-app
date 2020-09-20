@@ -6,10 +6,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import de.nicidienase.geniesser_app.api.GourmetApi
 import de.nicidienase.geniesser_app.api.fccampus.FcCampusApi
+import de.nicidienase.geniesser_app.data.FcRepository
 import de.nicidienase.geniesser_app.data.GourmetDatabase
 import de.nicidienase.geniesser_app.data.MenuRepository
 import de.nicidienase.geniesser_app.data.NewsRepository
-import de.nicidienase.geniesser_app.ui.fccampus.FcViewModel
+import de.nicidienase.geniesser_app.ui.fccampus.FcMenuViewModel
+import de.nicidienase.geniesser_app.ui.fccampus.FcOverviewViewModel
 import de.nicidienase.geniesser_app.ui.location.LocationViewModel
 import de.nicidienase.geniesser_app.ui.news.NewsViewModel
 import de.nicidienase.geniesser_app.ui.overview.MenuViewModel
@@ -37,6 +39,8 @@ class GourmetViewModelFactory private constructor(context: Context) : ViewModelP
         )
     }
 
+    private val fcRepository: FcRepository by lazy { FcRepository(fcApi, database.getFcMealDao()) }
+
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when {
@@ -49,7 +53,8 @@ class GourmetViewModelFactory private constructor(context: Context) : ViewModelP
             modelClass.isAssignableFrom(NewsViewModel::class.java) -> NewsViewModel(newsRepository, preferencesService) as T
             modelClass.isAssignableFrom(GourmetActivityViewModel::class.java) -> GourmetActivityViewModel(newsRepository, menuRepository, preferencesService) as T
             modelClass.isAssignableFrom(PreferencesViewModel::class.java) -> PreferencesViewModel(preferencesService, database.getLocationDao()) as T
-            modelClass.isAssignableFrom(FcViewModel::class.java) -> FcViewModel(fcApi) as T
+            modelClass.isAssignableFrom(FcMenuViewModel::class.java) -> FcMenuViewModel(fcRepository) as T
+            modelClass.isAssignableFrom(FcOverviewViewModel::class.java) -> FcOverviewViewModel(fcRepository) as T
             else -> throw UnsupportedOperationException(
                     "The requested ViewModel is currently unsupported. Please make sure to implement are correct creation of it. Request: ${modelClass.canonicalName}"
                 )

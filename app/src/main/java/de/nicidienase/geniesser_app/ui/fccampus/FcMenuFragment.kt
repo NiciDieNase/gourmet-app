@@ -11,14 +11,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import de.nicidienase.geniesser_app.GourmetViewModelFactory
 import de.nicidienase.geniesser_app.LifecycleLogger
 import de.nicidienase.geniesser_app.databinding.FragmentFccampusBinding
+import java.util.Date
 import timber.log.Timber
 
-class FcCampusMenuFragment : Fragment() {
+class FcMenuFragment : Fragment() {
 
-    private val viewModel: FcViewModel by viewModels { GourmetViewModelFactory.getInstance(requireContext()) }
+    private val viewModel: FcMenuViewModel by viewModels { GourmetViewModelFactory.getInstance(requireContext()) }
 
     init {
-        lifecycle.addObserver(LifecycleLogger(FcCampusMenuFragment::class.java.simpleName))
+        lifecycle.addObserver(LifecycleLogger(FcMenuFragment::class.java.simpleName))
     }
 
     override fun onCreateView(
@@ -34,14 +35,13 @@ class FcCampusMenuFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
 
-        val date = arguments?.getString(KEY_DATE) ?: "2020-09-02"
+        val date = arguments?.getLong(KEY_DATE) ?: 1563487200000
 
         Timber.i("Date: $date")
 
-        viewModel.meals.observe(viewLifecycleOwner, Observer {
+        viewModel.getMealsForDate(date).observe(viewLifecycleOwner, Observer {
             fcMealAdapter.submitList(it)
         })
-        viewModel.setDate(date)
 
         return binding.root
     }
@@ -49,9 +49,9 @@ class FcCampusMenuFragment : Fragment() {
     companion object {
         private const val KEY_DATE = "date"
 
-        fun menuFragmentForDate(date: String) = FcCampusMenuFragment().apply {
+        fun menuFragmentForDate(date: Date) = FcMenuFragment().apply {
             val args = Bundle()
-            args.putString(KEY_DATE, date)
+            args.putLong(KEY_DATE, date.time)
             arguments = args
         }
     }

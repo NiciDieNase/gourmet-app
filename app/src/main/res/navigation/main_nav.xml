@@ -71,10 +71,6 @@
 	</fragment>
 	<fragment
 			android:id="@+id/fcCampusOverviewFragment"
-			android:name="de.nicidienase.geniesser_app.ui.fccampus.FcCampusOverviewFragment"
-			android:label="FcCampus" />
-	<fragment
-			android:id="@+id/fcCampusMenuFragment"
-			android:name="de.nicidienase.geniesser_app.ui.fccampus.FcCampusMenuFragment"
-			android:label="FcCampusMenuFragment" />
+			android:name="de.nicidienase.geniesser_app.ui.fccampus.FcOverviewFragment"
+			android:label="FC-Café" />
 </navigation>

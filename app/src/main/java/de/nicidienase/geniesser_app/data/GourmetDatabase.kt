@@ -9,8 +9,16 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(
-    entities = [Additive::class, Allergen::class, Dish::class, Location::class, Property::class, News::class],
-    version = 7
+    entities = [
+        Additive::class,
+        Allergen::class,
+        Dish::class,
+        Location::class,
+        Property::class,
+        News::class,
+        FcMeal::class
+    ],
+    version = 8
 )
 @TypeConverters(FoodConverters::class)
 abstract class GourmetDatabase : RoomDatabase() {
@@ -21,12 +29,21 @@ abstract class GourmetDatabase : RoomDatabase() {
     abstract fun getLocationDao(): LocationDao
     abstract fun getPropertyDao(): PropertyDao
     abstract fun getNewsDao(): NewsDao
+    abstract fun getFcMealDao(): FcMealDao
 
     companion object {
         fun build(context: Context) =
-            Room.databaseBuilder(context.applicationContext, GourmetDatabase::class.java, "food_database")
+            Room.databaseBuilder(
+                context.applicationContext,
+                GourmetDatabase::class.java,
+                "food_database"
+            )
                 .fallbackToDestructiveMigrationFrom(1, 2, 3, 4)
-                .addMigrations(MIGRATION_5_6, MIGRATION_6_7)
+                .addMigrations(
+                    MIGRATION_5_6,
+                    MIGRATION_6_7,
+                    MIGRATION_7_8
+                    )
                 .build()
 
         internal val MIGRATION_5_6 = object : Migration(5, 6) {
@@ -38,6 +55,13 @@ abstract class GourmetDatabase : RoomDatabase() {
         internal val MIGRATION_6_7 = object : Migration(6, 7) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("ALTER TABLE Dish ADD COLUMN active INTEGER NOT NULL DEFAULT 1")
+            }
+        }
+
+        internal val MIGRATION_7_8 = object : Migration(7, 8) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("CREATE TABLE IF NOT EXISTS `FcMeal` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `category` TEXT NOT NULL, `price` INTEGER NOT NULL, `uuid` TEXT NOT NULL, `date` INTEGER NOT NULL, `apiId` TEXT NOT NULL)")
+                database.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_FcMeal_apiId` ON `FcMeal` (`apiId`)")
             }
         }
     }

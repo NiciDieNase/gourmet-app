@@ -3,10 +3,9 @@ package de.nicidienase.geniesser_app.ui.overview
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import de.nicidienase.geniesser_app.util.CalendarUtils
 import de.nicidienase.geniesser_app.util.DateListDiffUtil
-import java.text.SimpleDateFormat
 import java.util.Date
-import java.util.Locale
 
 class MenuPagerAdapter(fragment: Fragment, var dates: List<Date>) : FragmentStateAdapter(fragment) {
 
@@ -26,7 +25,6 @@ class MenuPagerAdapter(fragment: Fragment, var dates: List<Date>) : FragmentStat
     override fun getItemCount() = dates.size
 
     fun getPageTitle(position: Int): CharSequence? {
-        val date = dates.get(position)
-        return SimpleDateFormat("EEE, dd. MMMM", Locale.getDefault()).format(date)
+        return CalendarUtils.formatDateForPager(dates[position])
     }
 }

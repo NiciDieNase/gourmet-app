@@ -15,7 +15,11 @@ import de.nicidienase.geniesser_app.databinding.ActivityGourmetBinding
 
 class GourmetActivity : AppCompatActivity() {
 
-    private val viewModel: GourmetActivityViewModel by viewModels { GourmetViewModelFactory.getInstance(this) }
+    private val viewModel: GourmetActivityViewModel by viewModels {
+        GourmetViewModelFactory.getInstance(
+            this
+        )
+    }
 
     init {
         lifecycle.addObserver(LifecycleLogger(GourmetActivity::class.java.simpleName))
@@ -31,8 +35,14 @@ class GourmetActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        val appBarConfiguration =
-            AppBarConfiguration(setOf(R.id.mealOverviewFragment, R.id.newsListFragment))
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.mealOverviewFragment,
+                R.id.fcCampusOverviewFragment,
+                R.id.newsListFragment,
+                R.id.prefFragment
+            )
+        )
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
 
         viewModel.newsCount.observe(this, Observer {
@@ -46,18 +56,15 @@ class GourmetActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (noToolbarIds.contains(destination.id)) {
                 supportActionBar?.hide()
-//                }
             } else {
                 supportActionBar?.show()
             }
-
             if (noBottomNavIds.contains(destination.id)) {
                 binding.bottomNavigationView.visibility = View.GONE
             } else {
                 binding.bottomNavigationView.visibility = View.VISIBLE
             }
         }
-
         viewModel.update()
     }
 

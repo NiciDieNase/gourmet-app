@@ -3,6 +3,10 @@ package de.nicidienase.geniesser_app.api.fccampus
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Meal from FC-API
+ */
+
 @Keep
 data class MealDto(
     var allergens: List<String>,

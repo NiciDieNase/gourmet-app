@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import de.nicidienase.geniesser_app.api.fccampus.MealDto
+import de.nicidienase.geniesser_app.data.FcMeal
 import de.nicidienase.geniesser_app.databinding.ItemFcDishBinding
 
 class FcMealAdapter :
-    ListAdapter<MealDto, FcMealAdapter.FcMealViewHolder>(object : DiffUtil.ItemCallback<MealDto>() {
-        override fun areItemsTheSame(oldItem: MealDto, newItem: MealDto) = oldItem.id == newItem.id
-        override fun areContentsTheSame(oldItem: MealDto, newItem: MealDto) = oldItem == newItem
+    ListAdapter<FcMeal, FcMealAdapter.FcMealViewHolder>(object : DiffUtil.ItemCallback<FcMeal>() {
+        override fun areItemsTheSame(oldItem: FcMeal, newItem: FcMeal) = oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: FcMeal, newItem: FcMeal) = oldItem == newItem
     }) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FcMealViewHolder {
