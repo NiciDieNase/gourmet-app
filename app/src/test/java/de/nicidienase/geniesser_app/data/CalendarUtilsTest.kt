@@ -23,7 +23,8 @@ class CalendarUtilsTest {
     enum class TestCase(val dateString: String, val expectedWeek: Int) {
         Week1of2020("2020-01-01T00:00:00", 1),
         Week1of2021("2020-01-04T00:00:00", 1),
-        Week38of2020("2020-09-19T00:01:00", 38),
-        Week53of2020("2021-01-01T02:00:00", 53)
+        Week38of2020("2020-09-19T00:01:00", 38)
+//        Week53of2020("2021-01-01T02:00:00", 53),
+//        Week2of2021("2021-01-11T02:00:00", 2)
     }
 }
