@@ -6,17 +6,17 @@
 	app:startDestination="@id/mealOverviewFragment">
 
 	<fragment
-		android:id="@+id/mealOverviewFragment"
-		android:name="de.nicidienase.geniesser_app.ui.overview.MenuOverviewFragment"
-		android:label="Essen"
-		tools:layout="@layout/fragment_meal_overview">
+			android:id="@+id/mealOverviewFragment"
+			android:name="de.nicidienase.geniesser_app.ui.overview.MenuOverviewFragment"
+			android:label="Genuss &amp; Harmonie"
+			tools:layout="@layout/fragment_meal_overview">
 		<action
-			android:id="@+id/action_mealOverviewFragment_to_dishDetailFragment"
-			app:destination="@id/dishDetailFragment"
-			app:enterAnim="@anim/nav_default_enter_anim"
-			app:exitAnim="@anim/nav_default_exit_anim"
-			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-			app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+				android:id="@+id/action_mealOverviewFragment_to_dishDetailFragment"
+				app:destination="@id/dishDetailFragment"
+				app:enterAnim="@anim/nav_default_enter_anim"
+				app:exitAnim="@anim/nav_default_exit_anim"
+				app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+				app:popExitAnim="@anim/nav_default_pop_exit_anim" />
 	</fragment>
 	<fragment
 		android:id="@+id/locationSelectFragment"
