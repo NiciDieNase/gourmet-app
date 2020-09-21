@@ -74,7 +74,12 @@ class FcOverviewFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_goto_today -> {
-                val index = CalendarUtils.getIndexOfDay(pagerAdapter.dates)
+                val index =
+                    if (viewModel.hideOldMenu) {
+                        0
+                    } else {
+                        CalendarUtils.getIndexOfDay(pagerAdapter.dates)
+                    }
                 binding.fcPager.setCurrentItem(index, true)
                 true
             }

@@ -30,13 +30,13 @@ class MenuRepository(
     }
 
     fun getDays(locationId: Long): LiveData<List<Date>> {
-        if (preferencesService.hideOldMenu) {
+        return if (preferencesService.hideOldMenu) {
             val calendar = Calendar.getInstance()
             calendar.add(Calendar.DATE, -1)
             val date = calendar.time.time
-            return dishDao.getAvailableActiveDatesForLocation(locationId, date)
+            dishDao.getAvailableActiveDatesForLocation(locationId, date)
         } else {
-            return dishDao.getAvailableDatesForLocation(locationId)
+            dishDao.getAvailableDatesForLocation(locationId)
         }
     }
 

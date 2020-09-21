@@ -30,7 +30,13 @@ class GourmetViewModelFactory private constructor(context: Context) : ViewModelP
 
     private val fcApi by lazy { FcCampusApi.instance }
 
-    private val menuRepository: MenuRepository by lazy { MenuRepository(menuApi, database, preferencesService) }
+    private val menuRepository: MenuRepository by lazy {
+        MenuRepository(
+            menuApi,
+            database,
+            preferencesService
+        )
+    }
 
     private val newsRepository: NewsRepository by lazy {
         NewsRepository(
@@ -39,26 +45,49 @@ class GourmetViewModelFactory private constructor(context: Context) : ViewModelP
         )
     }
 
-    private val fcRepository: FcRepository by lazy { FcRepository(fcApi, database.getFcMealDao()) }
+    private val fcRepository: FcRepository by lazy {
+        FcRepository(
+            fcApi,
+            database.getFcMealDao(),
+            preferencesService
+        )
+    }
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when {
-            modelClass.isAssignableFrom(MenuViewModel::class.java) -> MenuViewModel(menuRepository, preferencesService) as T
+            modelClass.isAssignableFrom(MenuViewModel::class.java) -> MenuViewModel(
+                menuRepository,
+                preferencesService
+            ) as T
             modelClass.isAssignableFrom(LocationViewModel::class.java) -> LocationViewModel(
-                    database.getLocationDao(),
-                    preferencesService,
-                    newsRepository
-                ) as T
-            modelClass.isAssignableFrom(NewsViewModel::class.java) -> NewsViewModel(newsRepository, preferencesService) as T
-            modelClass.isAssignableFrom(GourmetActivityViewModel::class.java) -> GourmetActivityViewModel(newsRepository, menuRepository, preferencesService) as T
-            modelClass.isAssignableFrom(PreferencesViewModel::class.java) -> PreferencesViewModel(preferencesService, database.getLocationDao()) as T
+                database.getLocationDao(),
+                preferencesService,
+                newsRepository
+            ) as T
+            modelClass.isAssignableFrom(NewsViewModel::class.java) -> NewsViewModel(
+                newsRepository,
+                preferencesService
+            ) as T
+            modelClass.isAssignableFrom(GourmetActivityViewModel::class.java) -> GourmetActivityViewModel(
+                newsRepository,
+                menuRepository,
+                preferencesService
+            ) as T
+            modelClass.isAssignableFrom(PreferencesViewModel::class.java) -> PreferencesViewModel(
+                preferencesService,
+                database.getLocationDao()
+            ) as T
             modelClass.isAssignableFrom(FcMenuViewModel::class.java) -> FcMenuViewModel(fcRepository) as T
-            modelClass.isAssignableFrom(FcOverviewViewModel::class.java) -> FcOverviewViewModel(fcRepository) as T
+            modelClass.isAssignableFrom(FcOverviewViewModel::class.java) -> FcOverviewViewModel(
+                fcRepository,
+                preferencesService
+            ) as T
             else -> throw UnsupportedOperationException(
-                    "The requested ViewModel is currently unsupported. Please make sure to implement are correct creation of it. Request: ${modelClass.canonicalName}"
-                )
+                "The requested ViewModel is currently unsupported. Please make sure to implement are correct creation of it. Request: ${modelClass.canonicalName}"
+            )
         }
     }
+
     companion object : SingletonHolder<GourmetViewModelFactory, Context>(::GourmetViewModelFactory)
 }
