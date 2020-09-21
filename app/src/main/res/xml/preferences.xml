@@ -5,6 +5,9 @@
 	<Preference
 		app:key="location"
 		android:title="Location"/>
+	<Preference
+		app:key="outlet"
+		android:title="Outlet"/>
 	<SwitchPreferenceCompat
 		app:key="HideMenuBool"
 		app:title="Hide past days"/>

@@ -68,7 +68,7 @@ class FcOverviewFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.overview_menu, menu)
+        inflater.inflate(R.menu.overview_menu_fc, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -81,6 +81,10 @@ class FcOverviewFragment : Fragment() {
                         CalendarUtils.getIndexOfDay(pagerAdapter.dates)
                     }
                 binding.fcPager.setCurrentItem(index, true)
+                true
+            }
+            R.id.action_info -> {
+                // TODO show EssenszeitenR
                 true
             }
             else -> super.onOptionsItemSelected(item)

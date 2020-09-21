@@ -30,11 +30,19 @@ class PreferencesFragment() : PreferenceFragmentCompat() {
             findNavController().navigate(PreferencesFragmentDirections.actionPrefFragmentToLocationSelectFragment())
             true
         }
+        val outletPreference = findPreference<Preference>("outlet")
+        outletPreference?.setOnPreferenceClickListener {
+            findNavController().navigate(PreferencesFragmentDirections.actionPrefFragmentToOutletSelectFragment())
+            true
+        }
 
         val viewModel: PreferencesViewModel by viewModels { GourmetViewModelFactory.getInstance(requireContext()) }
 
         viewModel.currentLocationName.observe(viewLifecycleOwner, Observer {
             locationPreference?.summary = it
+        })
+        viewModel.currentOutletName.observe(viewLifecycleOwner, Observer {
+            outletPreference?.summary = it
         })
     }
 }

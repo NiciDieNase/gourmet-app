@@ -16,9 +16,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase
         Location::class,
         Property::class,
         News::class,
-        FcMeal::class
+        FcMeal::class,
+        Outlet::class
     ],
-    version = 8
+    version = 9
 )
 @TypeConverters(FoodConverters::class)
 abstract class GourmetDatabase : RoomDatabase() {
@@ -30,6 +31,7 @@ abstract class GourmetDatabase : RoomDatabase() {
     abstract fun getPropertyDao(): PropertyDao
     abstract fun getNewsDao(): NewsDao
     abstract fun getFcMealDao(): FcMealDao
+    abstract fun getOutletDao(): OutletDao
 
     companion object {
         fun build(context: Context) =
@@ -42,8 +44,9 @@ abstract class GourmetDatabase : RoomDatabase() {
                 .addMigrations(
                     MIGRATION_5_6,
                     MIGRATION_6_7,
-                    MIGRATION_7_8
-                    )
+                    MIGRATION_7_8,
+                    MIGRATION_8_9
+                )
                 .build()
 
         internal val MIGRATION_5_6 = object : Migration(5, 6) {
@@ -62,6 +65,14 @@ abstract class GourmetDatabase : RoomDatabase() {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("CREATE TABLE IF NOT EXISTS `FcMeal` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `category` TEXT NOT NULL, `price` INTEGER NOT NULL, `uuid` TEXT NOT NULL, `date` INTEGER NOT NULL, `apiId` TEXT NOT NULL)")
                 database.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_FcMeal_apiId` ON `FcMeal` (`apiId`)")
+            }
+        }
+
+        internal val MIGRATION_8_9 = object : Migration(8, 9) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("CREATE TABLE IF NOT EXISTS `Outlet` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `outletId` INTEGER NOT NULL, `name` TEXT NOT NULL, `order` INTEGER NOT NULL, `locationId` INTEGER NOT NULL)")
+                database.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_Outlet_outletId` ON `Outlet` (`outletId`)")
+                database.execSQL("CREATE INDEX IF NOT EXISTS `index_Outlet_locationId` ON `Outlet` (`locationId`)")
             }
         }
     }

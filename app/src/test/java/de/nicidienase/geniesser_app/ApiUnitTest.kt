@@ -33,8 +33,15 @@ class ApiUnitTest {
     }
 
     @Test
+    fun outlets() = runBlocking {
+        val outlets = api.getOutlets()
+        assertTrue(outlets.isNotEmpty())
+    }
+
+    @Test
     fun menu() = runBlocking {
-        val menu = api.getMenu(DEFAULT_LOCATION)
+        val response = api.getMenu(DEFAULT_LOCATION)
+        val menu = response.body()
         assertTrue(menu?.size != 0)
     }
 
@@ -99,6 +106,6 @@ class ApiUnitTest {
     }
 
     companion object {
-        const val DEFAULT_LOCATION = 3317L
+        const val DEFAULT_LOCATION = 3377L // 3317L
     }
 }

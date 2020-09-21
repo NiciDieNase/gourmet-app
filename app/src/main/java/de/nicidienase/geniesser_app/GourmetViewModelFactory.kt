@@ -62,6 +62,7 @@ class GourmetViewModelFactory private constructor(context: Context) : ViewModelP
             ) as T
             modelClass.isAssignableFrom(LocationViewModel::class.java) -> LocationViewModel(
                 database.getLocationDao(),
+                database.getOutletDao(),
                 preferencesService,
                 newsRepository
             ) as T
@@ -76,7 +77,8 @@ class GourmetViewModelFactory private constructor(context: Context) : ViewModelP
             ) as T
             modelClass.isAssignableFrom(PreferencesViewModel::class.java) -> PreferencesViewModel(
                 preferencesService,
-                database.getLocationDao()
+                database.getLocationDao(),
+                database.getOutletDao()
             ) as T
             modelClass.isAssignableFrom(FcMenuViewModel::class.java) -> FcMenuViewModel(fcRepository) as T
             modelClass.isAssignableFrom(FcOverviewViewModel::class.java) -> FcOverviewViewModel(

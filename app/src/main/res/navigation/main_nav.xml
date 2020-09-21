@@ -68,9 +68,16 @@
 			app:exitAnim="@anim/nav_default_exit_anim"
 			app:popEnterAnim="@anim/nav_default_pop_enter_anim"
 			app:popExitAnim="@anim/nav_default_pop_exit_anim"  />
+		<action
+				android:id="@+id/action_prefFragment_to_outletSelectFragment"
+				app:destination="@id/outletSelectFragment" />
 	</fragment>
 	<fragment
 			android:id="@+id/fcCampusOverviewFragment"
 			android:name="de.nicidienase.geniesser_app.ui.fccampus.FcOverviewFragment"
 			android:label="FC-Café" />
+	<fragment
+			android:id="@+id/outletSelectFragment"
+			android:name="de.nicidienase.geniesser_app.ui.outlet.OutletSelectFragment"
+			android:label="Filialauswahl" />
 </navigation>

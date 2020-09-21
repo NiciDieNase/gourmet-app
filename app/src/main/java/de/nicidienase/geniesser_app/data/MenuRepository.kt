@@ -17,15 +17,16 @@ class MenuRepository(
 
     private val dishDao by lazy { database.getDishDao() }
     private val locationDao by lazy { database.getLocationDao() }
+    private val outletDao by lazy { database.getOutletDao() }
 
     private val _isRefreshing = MutableLiveData<Boolean>()
     val isRefreshing: LiveData<Boolean> = _isRefreshing
 
-    fun getDishesForDayAndLocation(day: Long, locationId: Long): LiveData<List<Dish>> {
+    fun getDishesForDayAndLocation(day: Long, locationId: Long, outletId: Long): LiveData<List<Dish>> {
         return if (preferencesService.hideOldMenu) {
-            dishDao.getActiveDishesForDayAndLocation(day, locationId)
+            dishDao.getActiveDishesForDayAndLocation(day, locationId, outletId)
         } else {
-            dishDao.getDishesForDayAndLocation(day, locationId)
+            dishDao.getDishesForDayAndLocation(day, locationId, outletId)
         }
     }
 
@@ -42,9 +43,18 @@ class MenuRepository(
 
     fun update(locationId: Long) = GlobalScope.launch {
         _isRefreshing.postValue(true)
-        locationDao.insert(api.getLocations().mapNotNull { Location.fromDto(it) })
+        locationDao.insert(
+            api.getLocations().mapNotNull { Location.fromDto(it) }
+        )
 
-        val menus = api.getMenu(locationId)
+        outletDao.insert(
+            api.getOutlets().mapNotNull { Outlet.fromDto(it) }
+        )
+
+        val response = api.getMenu(locationId)
+        if (response.code() == 204) return@launch
+
+        val menus = response.body()
         val categories = api.getMenuCategories(locationId)
         val dishes: List<Dish>? = menus?.flatMap { wrapper ->
             wrapper.speiseplanGerichtData?.mapNotNull {

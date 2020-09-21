@@ -2,6 +2,7 @@ package de.nicidienase.geniesser_app.api
 
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
@@ -14,8 +15,11 @@ interface GourmetApi {
     @GET("$BASE_PATH/entity.standort/")
     suspend fun getLocations(): List<StandortDto>
 
+    @GET("$BASE_PATH/entity.outlet/")
+    suspend fun getOutlets(): List<OutletDto>
+
     @GET("$BASE_PATH/entity.speiseplanadvanced/getdata/{location_id}/1")
-    suspend fun getMenu(@Path("location_id") locationId: Long): List<SpeiseplanWrapperDto>?
+    suspend fun getMenu(@Path("location_id") locationId: Long): Response<List<SpeiseplanWrapperDto>?>
 
     @GET("$BASE_PATH/entity.gerichtkategorie/current/{location_id}")
     suspend fun getMenuCategories(@Path("location_id") locationId: Long): List<SpeiseplanKategorieDto>
