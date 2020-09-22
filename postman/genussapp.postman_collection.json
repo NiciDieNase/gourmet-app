@@ -56,13 +56,11 @@
 					}
 				],
 				"url": {
-					"raw": "{{BASE_URL}}/KMSLiveWebservices/webresources/entity.standort/",
+					"raw": "{{BASE_URL}}/entity.standort/",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
-						"KMSLiveWebservices",
-						"webresources",
 						"entity.standort",
 						""
 					]
@@ -82,14 +80,12 @@
 					}
 				],
 				"url": {
-					"raw": "{{BASE_URL}}/KMSLiveWebservices/webresources/entity.speiseplanadvanced/getdata/{{LOCATION}}/1",
+					"raw": "{{BASE_URL}}entity.speiseplanadvanced/getdata/{{LOCATION}}/1",
 					"host": [
-						"{{BASE_URL}}"
+						"{{BASE_URL}}entity",
+						"speiseplanadvanced"
 					],
 					"path": [
-						"KMSLiveWebservices",
-						"webresources",
-						"entity.speiseplanadvanced",
 						"getdata",
 						"{{LOCATION}}",
 						"1"
@@ -110,13 +106,11 @@
 					}
 				],
 				"url": {
-					"raw": "{{BASE_URL}}/KMSLiveWebservices/webresources/entity.gerichtkategorie/current/{{LOCATION}}",
+					"raw": "{{BASE_URL}}/entity.gerichtkategorie/current/{{LOCATION}}",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
-						"KMSLiveWebservices",
-						"webresources",
 						"entity.gerichtkategorie",
 						"current",
 						"{{LOCATION}}"
@@ -149,13 +143,11 @@
 					}
 				],
 				"url": {
-					"raw": "{{BASE_URL}}/KMSLiveWebservices/webresources/entity.gerichtmerkmal/current/{{LOCATION}}",
+					"raw": "{{BASE_URL}}/entity.gerichtmerkmal/current/{{LOCATION}}",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
-						"KMSLiveWebservices",
-						"webresources",
 						"entity.gerichtmerkmal",
 						"current",
 						"{{LOCATION}}"
@@ -233,13 +225,11 @@
 					}
 				],
 				"url": {
-					"raw": "{{BASE_URL}}/KMSLiveWebservices/webresources/entity.zusatzstoffe/current/{{LOCATION}}",
+					"raw": "{{BASE_URL}}/entity.zusatzstoffe/current/{{LOCATION}}",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
-						"KMSLiveWebservices",
-						"webresources",
 						"entity.zusatzstoffe",
 						"current",
 						"{{LOCATION}}"
@@ -314,13 +304,11 @@
 					}
 				],
 				"url": {
-					"raw": "{{BASE_URL}}/KMSLiveWebservices/webresources/entity.news/current/{{LOCATION}}",
+					"raw": "{{BASE_URL}}/entity.news/current/{{LOCATION}}",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
-						"KMSLiveWebservices",
-						"webresources",
 						"entity.news",
 						"current",
 						"{{LOCATION}}"
@@ -349,6 +337,716 @@
 						"KMSLiveWebservices",
 						"webresources",
 						"entity.mobileeinstellungen"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Outlet",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}entity.outlet/",
+					"host": [
+						"{{BASE_URL}}entity",
+						"outlet"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "fields",
+							"value": "AVAILABLE_HOLIDAYS,AVAILABLE_ORDERINFOS",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f034ce1b-3740-423a-ab70-806644fa4b80",
+						"exec": [
+							"pm.test(\"Check not empty\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.not.empty;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/entity.recipe/current",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"entity.recipe",
+						"current"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adresse",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/entity.adresse/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"entity.adresse",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "QR-Zugang (CHECK)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/entity.appqrzugang/check/{{QR_CONTENT}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"entity.appqrzugang",
+						"check",
+						"{{QR_CONTENT}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "QR-Zugang (GET)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/entity.appqrzugang",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"entity.appqrzugang"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ActiveModulesMobile",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/entity.activemodulsmobile/current/3317/2",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"entity.activemodulsmobile",
+						"current",
+						"3317",
+						"2"
+					]
+				},
+				"description": "1 = iOS\n2 = Android\n3 = Windows"
+			},
+			"response": []
+		},
+		{
+			"name": "Bonusaktion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "57b5c5b3-a9a9-44b5-949a-dfa69b380b2f",
+						"exec": [
+							"pm.test(\"Check not empty\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.not.empty;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/entity.bonusaktion/current/{{LOCATION}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"entity.bonusaktion",
+						"current",
+						"{{LOCATION}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Bonuscode",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db95574e-62d0-45c6-b82d-ff051ccab96d",
+						"exec": [
+							"pm.test(\"Check not empty\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.not.empty;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/entity.bonuscode/current/{{LOCATION}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"entity.bonuscode",
+						"current",
+						"{{LOCATION}}"
+					]
+				},
+				"description": "content bei 3302 und 3306"
+			},
+			"response": []
+		},
+		{
+			"name": "Auslastungsanzeige",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "be02695c-08c2-4bb2-8fb7-45239ceab282",
+						"exec": [
+							"pm.test(\"Check not empty\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.not.empty;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/entity.auslastungsanzeige/current/{{LOCATION}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"entity.auslastungsanzeige",
+						"current",
+						"{{LOCATION}}"
+					]
+				},
+				"description": "Location 3301 & 3319 hat content"
+			},
+			"response": []
+		},
+		{
+			"name": "VendingMachines",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "42e2c422-554b-4a11-bb73-42b02baa6412",
+						"exec": [
+							"pm.test(\"Check not empty\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.not.empty;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/entity.device/getVendingMachines/{{LOCATION}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"entity.device",
+						"getVendingMachines",
+						"{{LOCATION}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ernährungsampel",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/entity.ernaehrungsampel/current/{{LOCATION}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"entity.ernaehrungsampel",
+						"current",
+						"{{LOCATION}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Feedback",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/entity.gerichtfeedback/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"entity.gerichtfeedback",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipecategory",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7c8aa3d7-b2b2-47e5-b890-33580f8510f6",
+						"exec": [
+							"pm.test(\"Check not empty\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.not.empty;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/entity.recipecategory/current/{{LOCATION}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"entity.recipecategory",
+						"current",
+						"{{LOCATION}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "speiseplanmasterdata",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/entity.speiseplanmasterdata/current/{{LOCATION}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"entity.speiseplanmasterdata",
+						"current",
+						"{{LOCATION}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "weblink",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b50a5a8f-04a1-4687-9704-36b4c5c80c8d",
+						"exec": [
+							"pm.test(\"Check not empty\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.not.empty;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/entity.weblink/current/{{LOCATION}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"entity.weblink",
+						"current",
+						"{{LOCATION}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tischreservierungsettings",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "27bf5444-76df-4e85-b120-c5ee954be712",
+						"exec": [
+							"pm.test(\"Check not empty\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.not.empty;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{PASSWORD}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{USER}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/entity.tischreservierungsettings/current/{{LOCATION}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"entity.tischreservierungsettings",
+						"current",
+						"{{LOCATION}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ipadgdw",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7c8aa3d7-b2b2-47e5-b890-33580f8510f6",
+						"exec": [
+							"pm.test(\"Check not empty\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.not.empty;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/entity.ipadgdw/current/{{LOCATION}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"entity.ipadgdw",
+						"current",
+						"{{LOCATION}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ipadgericht",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7c8aa3d7-b2b2-47e5-b890-33580f8510f6",
+						"exec": [
+							"pm.test(\"Check not empty\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.not.empty;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/entity.ipadgericht/current/{{LOCATION}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"entity.ipadgericht",
+						"current",
+						"{{LOCATION}}"
 					]
 				}
 			},
