@@ -42,6 +42,9 @@ interface GourmetApi {
     @POST("$BASE_PATH/entity.gerichtfeedbackmessage/createAll")
     suspend fun sendFeedback(@Body messageItem: FeedbackMessage)
 
+    @GET("$BASE_PATH/entity.appqrzugang")
+    suspend fun getQrInfo(): List<QrInfoDto>
+
     companion object {
         private const val BASE_PATH = "kms-mt-webservices/webresources"
 

@@ -97,6 +97,12 @@ class ApiUnitTest {
     }
 
     @Test
+    fun qrInfo() = runBlocking {
+        val qrInfo = api.getQrInfo()
+        assertTrue(qrInfo.isNotEmpty())
+    }
+
+    @Test
     fun feedbackMessage() {
         val list = listOf(
             FeedbackMessageItem(1, 1, 1, "Foo", "2020-01-01"),

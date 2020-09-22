@@ -71,6 +71,9 @@
 		<action
 				android:id="@+id/action_prefFragment_to_outletSelectFragment"
 				app:destination="@id/outletSelectFragment" />
+		<action
+				android:id="@+id/action_prefFragment_to_qrInfoFragment"
+				app:destination="@id/qrInfoFragment" />
 	</fragment>
 	<fragment
 			android:id="@+id/fcCampusOverviewFragment"
@@ -80,4 +83,8 @@
 			android:id="@+id/outletSelectFragment"
 			android:name="de.nicidienase.geniesser_app.ui.outlet.OutletSelectFragment"
 			android:label="Filialauswahl" />
+	<fragment
+			android:id="@+id/qrInfoFragment"
+			android:name="de.nicidienase.geniesser_app.ui.preferences.qr.QrInfoFragment"
+			android:label="QrInfoFragment" />
 </navigation>
