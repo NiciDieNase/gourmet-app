@@ -23,11 +23,11 @@ class PreferencesViewModel(
         "${it.name} (${it.locationId})"
     }
 
-    val currentOutlet: LiveData<Outlet> = Transformations.switchMap(preferencesService.currentOutletLiveData) {
+    private val currentOutlet: LiveData<Outlet> = Transformations.switchMap(preferencesService.currentOutletLiveData) {
         outletDao.getOutletById(it)
     }
 
     val currentOutletName: LiveData<String> = Transformations.map(currentOutlet) {
-        "${it.name} (${it.locationId}-${it.outletId})"
+        if(it == null) "" else "${it.name} (${it.locationId}-${it.outletId})"
     }
 }
