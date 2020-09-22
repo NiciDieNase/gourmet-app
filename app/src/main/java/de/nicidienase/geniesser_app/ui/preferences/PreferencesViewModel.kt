@@ -28,6 +28,6 @@ class PreferencesViewModel(
     }
 
     val currentOutletName: LiveData<String> = Transformations.map(currentOutlet) {
-        if(it == null) "" else "${it.name} (${it.locationId}-${it.outletId})"
+        if (it == null) "" else "${it.name} (${it.locationId}-${it.outletId})"
     }
 }
