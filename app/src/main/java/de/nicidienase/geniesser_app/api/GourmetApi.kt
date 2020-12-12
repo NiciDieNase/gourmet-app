@@ -58,6 +58,7 @@ interface GourmetApi {
                         .header("User-Agent", "Mozilla/5.0 (Linux; Android 5.0.2; Android SDK built for x86_64 Build/LSY66K) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/37.0.0.0 Mobile Safari/537.36")
                         .header("X-LANGUAGETYPE", "1")
                         .header("X-Requested-With", "de.konkaapps.mittagstisch.geha")
+                        .header("X-API-MT-VERSION", "MTA3.26.1")
                         .build()
                     return@addInterceptor chain.proceed(request)
                 }
