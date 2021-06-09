@@ -29,7 +29,7 @@ data class FcMeal(
                 (dto.price * 100).toInt(),
                 dto.uuid,
                 date,
-                dto.id
+                dto.id ?: ""
             )
         }
     }

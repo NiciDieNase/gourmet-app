@@ -8,6 +8,7 @@ import java.util.Calendar
 import java.util.Date
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 class FcRepository(
     private val fcCampusApi: FcCampusApi,
@@ -29,7 +30,8 @@ class FcRepository(
                 val meals = it.meals.mapNotNull { mealDto ->
                     FcMeal.fromMealDto(mealDto, menuDay)
                 }
-                fcMealDao.insert(meals)
+                val ids = fcMealDao.insert(meals)
+                Timber.d("Inserted ${ids.size} entries")
             }
         }
     }
@@ -47,5 +49,9 @@ class FcRepository(
 
     fun getMealsForDay(day: Long): LiveData<List<FcMeal>> {
         return fcMealDao.getMealsForDay(day)
+    }
+
+    companion object {
+        private val TAG = FcRepository::class.java.simpleName
     }
 }

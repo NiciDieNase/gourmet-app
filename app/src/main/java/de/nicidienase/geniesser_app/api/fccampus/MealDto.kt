@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName
 data class MealDto(
     var allergens: List<String>,
     @SerializedName("_id")
-    var id: String,
+    var id: String?,
     var name: String,
     var category: String,
     var price: Float,

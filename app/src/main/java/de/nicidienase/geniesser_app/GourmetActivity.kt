@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -45,6 +46,7 @@ class GourmetActivity : AppCompatActivity() {
         )
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
 
+        val viewModel = ViewModelProvider(this, GourmetViewModelFactory.getInstance(this))[GourmetActivityViewModel::class.java]
         viewModel.newsCount.observe(this, Observer {
             if (it == 0) {
                 binding.bottomNavigationView.removeBadge(R.id.newsListFragment)
