@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import de.nicidienase.geniesser_app.PreferencesService
-import de.nicidienase.geniesser_app.data.FcRepository
+import de.nicidienase.geniesser_app.data.fccampus.FcRepository
 import de.nicidienase.geniesser_app.util.CalendarUtils
 import java.util.Date
 import kotlinx.coroutines.launch

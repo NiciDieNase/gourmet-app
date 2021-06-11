@@ -37,6 +37,10 @@ object CalendarUtils {
         return SimpleDateFormat("EEE, dd. MMMM", Locale.getDefault()).format(date)
     }
 
+    fun formatTimeOnly(date: Date): String {
+        return SimpleDateFormat("HH:mm", Locale.getDefault()).format(date)
+    }
+
     fun getIndexOfDay(dates: List<Date>, day: Date = Date()): Int {
         return try {
             val today = dates.last { it.before(Date()) }

@@ -1,8 +1,9 @@
-package de.nicidienase.geniesser_app.data
+package de.nicidienase.geniesser_app.data.fccampus
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
+import de.nicidienase.geniesser_app.data.BaseDao
 import java.util.Date
 
 @Dao

@@ -18,11 +18,11 @@ def getMyVersionCode = { ->
 }
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         applicationId "de.nicidienase.geniesser_app"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode getMyVersionCode()
         versionName versionString
         manifestPlaceholders = [label: appName]
@@ -82,6 +82,7 @@ android {
     buildFeatures{
         dataBinding = true
         viewBinding = true
+        compose = true
     }
 
     compileOptions {
@@ -91,6 +92,11 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    composeOptions {
+        kotlinCompilerVersion "1.5.10"
+        kotlinCompilerExtensionVersion "1.0.0-beta08"
     }
 
     packagingOptions {
@@ -119,6 +125,19 @@ dependencies {
     implementation "androidx.preference:preference-ktx:1.1.1"
     implementation 'com.google.firebase:firebase-analytics:19.0.0'
 
+    implementation "androidx.compose.compiler:compiler:1.0.0-beta08"
+    implementation 'androidx.compose.ui:ui:1.0.0-beta08'
+    implementation 'androidx.compose.ui:ui-tooling:1.0.0-beta08'
+    implementation 'androidx.compose.foundation:foundation:1.0.0-beta08'
+    implementation 'androidx.compose.material:material:1.0.0-beta08'
+    implementation 'androidx.compose.material:material-icons-core:1.0.0-beta08'
+    implementation 'androidx.compose.material:material-icons-extended:1.0.0-beta08'
+    implementation 'androidx.activity:activity-compose:1.3.0-beta01'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha06'
+    implementation 'androidx.compose.runtime:runtime-livedata:1.0.0-beta08'
+    implementation 'androidx.compose.runtime:runtime-rxjava2:1.0.0-beta08'
+
+
     def room_version = "2.3.0"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
@@ -144,9 +163,9 @@ dependencies {
     implementation "com.jakewharton.timber:timber:4.7.1"
 
     debugImplementation "com.facebook.stetho:stetho:1.5.1"
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:2.0-alpha-3"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:2.7"
 
-    def hyperionVersion = "0.9.27"
+    def hyperionVersion = "0.9.31"
     debugImplementation "com.willowtreeapps.hyperion:hyperion-core:$hyperionVersion"
     debugImplementation "com.willowtreeapps.hyperion:hyperion-attr:$hyperionVersion"
     debugImplementation "com.willowtreeapps.hyperion:hyperion-build-config:$hyperionVersion"

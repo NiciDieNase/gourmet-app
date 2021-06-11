@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -55,7 +56,9 @@ class FcOverviewFragment : Fragment() {
 
         binding.fcPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                viewModel.selectedDay = pagerAdapter.dates[position]
+                if(pagerAdapter.dates.size < position){
+                    viewModel.selectedDay = pagerAdapter.dates[position]
+                }
             }
         })
 
@@ -84,7 +87,7 @@ class FcOverviewFragment : Fragment() {
                 true
             }
             R.id.action_info -> {
-                // TODO show EssenszeitenR
+                findNavController().navigate(FcOverviewFragmentDirections.actionFcCampusOverviewFragmentToFcMealTimesFragment())
                 true
             }
             else -> super.onOptionsItemSelected(item)

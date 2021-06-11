@@ -1,4 +1,4 @@
-package de.nicidienase.geniesser_app.data
+package de.nicidienase.geniesser_app.data.fccampus
 
 import androidx.lifecycle.LiveData
 import de.nicidienase.geniesser_app.PreferencesService
@@ -13,6 +13,7 @@ import timber.log.Timber
 class FcRepository(
     private val fcCampusApi: FcCampusApi,
     private val fcMealDao: FcMealDao,
+    private val fcMealTimeDao: MealTimeDao,
     private val preferencesService: PreferencesService
 ) {
     val availableDays: LiveData<List<Date>> = fcMealDao.getAvailableDates()
@@ -36,6 +37,27 @@ class FcRepository(
         }
     }
 
+    suspend fun updateMealTimes() {
+        withContext(Dispatchers.IO){
+            val currentWeek = CalendarUtils.getWeekNumberForDate(Date())
+
+            updateMealTimesForWeek(currentWeek)
+            updateMealTimesForWeek(currentWeek + 1)
+            updateMealTimesForWeek(currentWeek + 2)
+
+            fcMealTimeDao.deleteBeforeWeek(currentWeek)
+        }
+    }
+
+    private suspend fun updateMealTimesForWeek(week: Int){
+        withContext(Dispatchers.IO){
+            val apiMealTimes = fcCampusApi.getMealTimes(week)
+            val mealTimes: List<MealTime> = apiMealTimes.mealTimes.mapNotNull { MealTime.fromMealTimeDto(it) }
+            fcMealTimeDao.insert(mealTimes)
+        }
+
+    }
+
     fun getDays(): LiveData<List<Date>> {
         return if (preferencesService.hideOldMenu) {
             val calendar = Calendar.getInstance()
@@ -50,6 +72,8 @@ class FcRepository(
     fun getMealsForDay(day: Long): LiveData<List<FcMeal>> {
         return fcMealDao.getMealsForDay(day)
     }
+
+    fun getMealTimesFromWeek(week: Int) = fcMealTimeDao.getFromWeekIncluding(week)
 
     companion object {
         private val TAG = FcRepository::class.java.simpleName

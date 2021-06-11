@@ -1,4 +1,4 @@
-package de.nicidienase.geniesser_app.data
+package de.nicidienase.geniesser_app.data.fccampus
 
 import androidx.annotation.Keep
 import androidx.room.Entity
