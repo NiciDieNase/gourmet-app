@@ -8,7 +8,7 @@ import de.nicidienase.geniesser_app.api.fccampus.MealDto
 import java.util.Date
 
 @Keep
-@Entity(indices = [Index(value = ["apiId"], unique = true)])
+@Entity(indices = [Index(value = ["uuid", "date"], unique = true)])
 data class FcMeal(
     var name: String,
     var category: String,

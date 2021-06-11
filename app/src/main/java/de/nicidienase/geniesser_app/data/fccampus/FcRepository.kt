@@ -32,7 +32,7 @@ class FcRepository(
                     FcMeal.fromMealDto(mealDto, menuDay)
                 }
                 val ids = fcMealDao.insert(meals)
-                Timber.d("Inserted ${ids.size} entries")
+                Timber.d("Inserted $ids")
             }
         }
     }

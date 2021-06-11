@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 10,
-    "identityHash": "37dd137a873e8979ddcd4d1e631a0ced",
+    "identityHash": "313ad94652c1a3b163f94f5d6940b7f9",
     "entities": [
       {
         "tableName": "Additive",
@@ -516,12 +516,13 @@
         },
         "indices": [
           {
-            "name": "index_FcMeal_apiId",
+            "name": "index_FcMeal_uuid_date",
             "unique": true,
             "columnNames": [
-              "apiId"
+              "uuid",
+              "date"
             ],
-            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_FcMeal_apiId` ON `${TABLE_NAME}` (`apiId`)"
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_FcMeal_uuid_date` ON `${TABLE_NAME}` (`uuid`, `date`)"
           }
         ],
         "foreignKeys": []
@@ -589,7 +590,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '37dd137a873e8979ddcd4d1e631a0ced')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '313ad94652c1a3b163f94f5d6940b7f9')"
     ]
   }
 }

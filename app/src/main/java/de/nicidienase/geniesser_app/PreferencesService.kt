@@ -15,7 +15,7 @@ class PreferencesService(private val sharedPreferences: SharedPreferences) {
         set(value) = sharedPreferences.edit().putLong(KEY_OUTLET, value).apply()
 
     var hideOldMenu: Boolean
-        get() = sharedPreferences.getBoolean(KEY_HIDE_MENU, true)
+        get() = sharedPreferences.getBoolean(KEY_HIDE_MENU, false)
         set(value) = sharedPreferences.edit().putBoolean(KEY_HIDE_MENU, value).apply()
 
     var priceExternal: Boolean
