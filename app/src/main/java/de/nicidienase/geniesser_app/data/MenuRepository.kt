@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import de.nicidienase.geniesser_app.PreferencesService
 import de.nicidienase.geniesser_app.api.GourmetApi
-import java.util.Calendar
-import java.util.Date
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.util.Calendar
+import java.util.Date
 
 class MenuRepository(
     private val api: GourmetApi,

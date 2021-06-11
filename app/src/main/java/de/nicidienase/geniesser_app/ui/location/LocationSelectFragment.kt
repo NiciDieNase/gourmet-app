@@ -36,9 +36,12 @@ class LocationSelectFragment : Fragment() {
         binding.locationList.adapter = adapter
         binding.locationList.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        viewModel.getLocations().observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
+        viewModel.getLocations().observe(
+            viewLifecycleOwner,
+            Observer {
+                adapter.submitList(it)
+            }
+        )
 
         return binding.root
     }

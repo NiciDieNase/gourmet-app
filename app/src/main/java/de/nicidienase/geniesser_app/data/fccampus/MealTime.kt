@@ -4,10 +4,9 @@ import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
 import de.nicidienase.geniesser_app.api.fccampus.MealTimeDto
 import de.nicidienase.geniesser_app.util.CalendarUtils
-import java.util.*
+import java.util.Date
 
 @Keep
 @Entity(indices = [Index(value = ["apiId"], unique = true)])
@@ -26,7 +25,7 @@ data class MealTime(
             val fromDate = CalendarUtils.parseDateString(dto.from)
             val toDate = CalendarUtils.parseDateString(dto.to)
 
-            return if(fromDate != null && toDate != null) {
+            return if (fromDate != null && toDate != null) {
                 MealTime(
                     calendarWeek = dto.calendarWeek,
                     description = dto.description,

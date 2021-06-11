@@ -56,16 +56,22 @@ class NewsListFragment : Fragment() {
         binding.newsList.adapter = adapter
         binding.newsList.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        viewModel.getNews().observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
+        viewModel.getNews().observe(
+            viewLifecycleOwner,
+            Observer {
+                adapter.submitList(it)
+            }
+        )
         binding.swipeRefreshLayout.apply {
             setOnRefreshListener {
                 viewModel.update()
             }
-            viewModel.updating.observe(viewLifecycleOwner, Observer {
-                isRefreshing = it
-            })
+            viewModel.updating.observe(
+                viewLifecycleOwner,
+                Observer {
+                    isRefreshing = it
+                }
+            )
         }
 
         return binding.root

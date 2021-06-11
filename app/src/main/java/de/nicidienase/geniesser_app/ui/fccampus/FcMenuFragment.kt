@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import de.nicidienase.geniesser_app.GourmetViewModelFactory
 import de.nicidienase.geniesser_app.LifecycleLogger
 import de.nicidienase.geniesser_app.databinding.FragmentFccampusBinding
-import java.util.Date
 import timber.log.Timber
+import java.util.Date
 
 class FcMenuFragment : Fragment() {
 
@@ -39,9 +39,12 @@ class FcMenuFragment : Fragment() {
 
         Timber.i("Date: $date")
 
-        viewModel.getMealsForDate(date).observe(viewLifecycleOwner, Observer {
-            fcMealAdapter.submitList(it)
-        })
+        viewModel.getMealsForDate(date).observe(
+            viewLifecycleOwner,
+            Observer {
+                fcMealAdapter.submitList(it)
+            }
+        )
 
         return binding.root
     }

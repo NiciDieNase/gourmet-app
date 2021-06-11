@@ -4,12 +4,12 @@ import androidx.room.testing.MigrationTestHelper
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
-import java.io.IOException
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
 class MigrationTest {
@@ -18,9 +18,9 @@ class MigrationTest {
 
     @get:Rule
     val helper: MigrationTestHelper = MigrationTestHelper(
-            InstrumentationRegistry.getInstrumentation(),
-            GourmetDatabase::class.java.canonicalName,
-            FrameworkSQLiteOpenHelperFactory()
+        InstrumentationRegistry.getInstrumentation(),
+        GourmetDatabase::class.java.canonicalName,
+        FrameworkSQLiteOpenHelperFactory()
     )
 
     @Test
@@ -28,8 +28,10 @@ class MigrationTest {
     fun migrate5to6() {
         var db = helper.createDatabase(TEST_DB, 5)
         db.apply {
-            execSQL("INSERT INTO News (title, date, content, internal, imageUrl, locationId, backendId, newNews) " +
-                    "              VALUES ('test',3600, 'test',  0,        '',       1,          1,         1)")
+            execSQL(
+                "INSERT INTO News (title, date, content, internal, imageUrl, locationId, backendId, newNews) " +
+                    "              VALUES ('test',3600, 'test',  0,        '',       1,          1,         1)"
+            )
             close()
         }
         db = helper.runMigrationsAndValidate(TEST_DB, 6, true, GourmetDatabase.MIGRATION_5_6)

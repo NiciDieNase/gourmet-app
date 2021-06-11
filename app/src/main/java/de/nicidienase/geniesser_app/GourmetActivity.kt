@@ -47,13 +47,16 @@ class GourmetActivity : AppCompatActivity() {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
 
         val viewModel = ViewModelProvider(this, GourmetViewModelFactory.getInstance(this))[GourmetActivityViewModel::class.java]
-        viewModel.newsCount.observe(this, Observer {
-            if (it == 0) {
-                binding.bottomNavigationView.removeBadge(R.id.newsListFragment)
-            } else {
-                binding.bottomNavigationView.getOrCreateBadge(R.id.newsListFragment).number = it
+        viewModel.newsCount.observe(
+            this,
+            Observer {
+                if (it == 0) {
+                    binding.bottomNavigationView.removeBadge(R.id.newsListFragment)
+                } else {
+                    binding.bottomNavigationView.getOrCreateBadge(R.id.newsListFragment).number = it
+                }
             }
-        })
+        )
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (noToolbarIds.contains(destination.id)) {

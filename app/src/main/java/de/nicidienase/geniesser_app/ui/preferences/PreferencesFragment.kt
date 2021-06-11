@@ -36,12 +36,18 @@ class PreferencesFragment() : PreferenceFragmentCompat() {
 
         val viewModel: PreferencesViewModel by viewModels { GourmetViewModelFactory.getInstance(requireContext()) }
 
-        viewModel.currentLocationName.observe(viewLifecycleOwner, Observer {
-            locationPreference?.summary = it
-        })
-        viewModel.currentOutletName.observe(viewLifecycleOwner, Observer {
-            outletPreference?.summary = it
-        })
+        viewModel.currentLocationName.observe(
+            viewLifecycleOwner,
+            Observer {
+                locationPreference?.summary = it
+            }
+        )
+        viewModel.currentOutletName.observe(
+            viewLifecycleOwner,
+            Observer {
+                outletPreference?.summary = it
+            }
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

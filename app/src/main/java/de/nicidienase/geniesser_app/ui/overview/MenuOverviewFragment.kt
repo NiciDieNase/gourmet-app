@@ -54,14 +54,17 @@ class MenuOverviewFragment : Fragment() {
             tab.text = pagerAdapter.getPageTitle(position)
         }.attach()
 
-        viewModel.getAvailableDays().observe(viewLifecycleOwner, Observer { dates ->
-            pagerAdapter.submitItems(dates)
+        viewModel.getAvailableDays().observe(
+            viewLifecycleOwner,
+            Observer { dates ->
+                pagerAdapter.submitItems(dates)
 //            viewModel.selectedDay?.let {
 //                if (dates.contains(it)) {
 //                    binding.pager.setCurrentItem(dates.indexOf(it), false)
 //                }
 //            }
-        })
+            }
+        )
         binding.pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 viewModel.selectedDay = pagerAdapter.dates[position]

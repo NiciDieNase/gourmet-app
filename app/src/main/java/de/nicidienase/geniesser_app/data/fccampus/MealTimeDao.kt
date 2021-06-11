@@ -6,7 +6,7 @@ import androidx.room.Query
 import de.nicidienase.geniesser_app.data.BaseDao
 
 @Dao
-abstract class MealTimeDao: BaseDao<MealTime>() {
+abstract class MealTimeDao : BaseDao<MealTime>() {
 
     @Query("SELECT * FROM MealTime ORDER BY calendarWeek, description ASC")
     abstract fun getAll(): LiveData<MealTime>

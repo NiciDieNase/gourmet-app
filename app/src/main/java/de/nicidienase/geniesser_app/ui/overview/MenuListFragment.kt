@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import de.nicidienase.geniesser_app.GourmetViewModelFactory
 import de.nicidienase.geniesser_app.LifecycleLogger
 import de.nicidienase.geniesser_app.databinding.FragmentMenuBinding
-import java.util.Date
 import timber.log.Timber
+import java.util.Date
 
 class MenuListFragment : Fragment() {
 
@@ -40,25 +40,32 @@ class MenuListFragment : Fragment() {
             findNavController().navigate(
                 MenuOverviewFragmentDirections.actionMealOverviewFragmentToDishDetailFragment(
                     dish,
-                    dish.category?.categoryName ?: "Detail"),
+                    dish.category?.categoryName ?: "Detail"
+                ),
                 FragmentNavigatorExtras(
                     binding.nameText to binding.nameText.transitionName,
                     binding.priceText to binding.priceText.transitionName
                 )
             )
         }
-        viewModel.getDishesForDay(day).observe(viewLifecycleOwner, Observer {
-            dishAdapter.submitList(it)
-        })
+        viewModel.getDishesForDay(day).observe(
+            viewLifecycleOwner,
+            Observer {
+                dishAdapter.submitList(it)
+            }
+        )
 
         binding.menuList.apply {
             adapter = dishAdapter
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         }
 
-        viewModel.isRefreshing.observe(viewLifecycleOwner, Observer {
-            binding.swipeRefreshLayout.isRefreshing = it
-        })
+        viewModel.isRefreshing.observe(
+            viewLifecycleOwner,
+            Observer {
+                binding.swipeRefreshLayout.isRefreshing = it
+            }
+        )
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.updateDishes()

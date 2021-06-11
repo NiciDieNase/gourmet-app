@@ -38,12 +38,15 @@ class OutletSelectFragment : Fragment() {
         binding.locationList.apply {
             this.adapter = adapter
             layoutManager =
-            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+                LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         }
 
-        viewModel.getOutlets().observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
+        viewModel.getOutlets().observe(
+            viewLifecycleOwner,
+            Observer {
+                adapter.submitList(it)
+            }
+        )
         return binding.root
     }
 }

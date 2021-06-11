@@ -1,11 +1,11 @@
 package de.nicidienase.geniesser_app.data
 
 import de.nicidienase.geniesser_app.util.CalendarUtils
-import java.util.Date
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.fail
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
+import java.util.Date
 
 class CalendarUtilsTest {
 

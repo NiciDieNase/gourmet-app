@@ -56,16 +56,19 @@ class FcOverviewFragment : Fragment() {
 
         binding.fcPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                if(pagerAdapter.dates.size < position){
+                if (pagerAdapter.dates.size < position) {
                     viewModel.selectedDay = pagerAdapter.dates[position]
                 }
             }
         })
 
         // Setup Observer
-        viewModel.availableDays.observe(viewLifecycleOwner, Observer {
-            pagerAdapter.submitItems(it)
-        })
+        viewModel.availableDays.observe(
+            viewLifecycleOwner,
+            Observer {
+                pagerAdapter.submitItems(it)
+            }
+        )
 
         return binding.root
     }

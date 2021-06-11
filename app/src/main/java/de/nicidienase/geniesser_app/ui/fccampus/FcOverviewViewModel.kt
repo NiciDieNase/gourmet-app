@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import de.nicidienase.geniesser_app.PreferencesService
 import de.nicidienase.geniesser_app.data.fccampus.FcRepository
 import de.nicidienase.geniesser_app.util.CalendarUtils
-import java.util.Date
 import kotlinx.coroutines.launch
+import java.util.Date
 
 class FcOverviewViewModel(
     private val fcRepository: FcRepository,

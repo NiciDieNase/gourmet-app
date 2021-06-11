@@ -40,7 +40,6 @@ abstract class GourmetDatabase : RoomDatabase() {
     abstract fun getFcMealDao(): FcMealDao
     abstract fun getMealTimeDao(): MealTimeDao
 
-
     companion object {
         fun build(context: Context) =
             Room.databaseBuilder(

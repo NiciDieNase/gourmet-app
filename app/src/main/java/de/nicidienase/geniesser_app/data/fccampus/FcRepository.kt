@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import de.nicidienase.geniesser_app.PreferencesService
 import de.nicidienase.geniesser_app.api.fccampus.FcCampusApi
 import de.nicidienase.geniesser_app.util.CalendarUtils
-import java.util.Calendar
-import java.util.Date
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
+import java.util.Calendar
+import java.util.Date
 
 class FcRepository(
     private val fcCampusApi: FcCampusApi,
@@ -38,7 +38,7 @@ class FcRepository(
     }
 
     suspend fun updateMealTimes() {
-        withContext(Dispatchers.IO){
+        withContext(Dispatchers.IO) {
             val currentWeek = CalendarUtils.getWeekNumberForDate(Date())
 
             updateMealTimesForWeek(currentWeek)
@@ -49,13 +49,12 @@ class FcRepository(
         }
     }
 
-    private suspend fun updateMealTimesForWeek(week: Int){
-        withContext(Dispatchers.IO){
+    private suspend fun updateMealTimesForWeek(week: Int) {
+        withContext(Dispatchers.IO) {
             val apiMealTimes = fcCampusApi.getMealTimes(week)
             val mealTimes: List<MealTime> = apiMealTimes.mealTimes.mapNotNull { MealTime.fromMealTimeDto(it) }
             fcMealTimeDao.insert(mealTimes)
         }
-
     }
 
     fun getDays(): LiveData<List<Date>> {

@@ -7,10 +7,12 @@ import androidx.room.PrimaryKey
 import de.nicidienase.geniesser_app.api.OutletDto
 
 @Keep
-@Entity(indices = [
-    Index(value = ["outletId"], unique = true),
-    Index(value = ["locationId"])
-])
+@Entity(
+    indices = [
+        Index(value = ["outletId"], unique = true),
+        Index(value = ["locationId"])
+    ]
+)
 data class Outlet(
     var outletId: Long,
     var name: String,

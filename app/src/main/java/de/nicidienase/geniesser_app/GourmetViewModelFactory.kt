@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import de.nicidienase.geniesser_app.api.GourmetApi
 import de.nicidienase.geniesser_app.api.fccampus.FcCampusApi
-import de.nicidienase.geniesser_app.data.fccampus.FcRepository
 import de.nicidienase.geniesser_app.data.GourmetDatabase
 import de.nicidienase.geniesser_app.data.MenuRepository
 import de.nicidienase.geniesser_app.data.NewsRepository
+import de.nicidienase.geniesser_app.data.fccampus.FcRepository
 import de.nicidienase.geniesser_app.ui.fccampus.FcMenuViewModel
 import de.nicidienase.geniesser_app.ui.fccampus.FcOverviewViewModel
 import de.nicidienase.geniesser_app.ui.fccampus.mealtimes.MealTimesViewModel
