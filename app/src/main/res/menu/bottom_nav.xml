@@ -2,22 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-            android:id="@+id/mealOverviewFragment"
-            android:icon="@drawable/ic_action_date"
-            android:title="GenussAPP" />
+        android:id="@+id/guh_meals"
+        android:icon="@drawable/ic_action_date"
+        android:title="@string/app_title" />
 
     <item
-            android:id="@+id/fcCampusOverviewFragment"
-            android:icon="@drawable/ic_fccampus_cafe"
-            android:title="FCCampus" />
+        android:id="@+id/guh_news"
+        android:icon="@drawable/ic_action_location"
+        android:title="@string/news" />
 
     <item
-            android:id="@+id/newsListFragment"
-            android:icon="@drawable/ic_action_location"
-            android:title="News" />
+        android:id="@+id/fc_campus"
+        android:icon="@drawable/ic_fccampus_cafe"
+        android:title="@string/fc_cafe" />
 
     <item
-            android:id="@+id/prefFragment"
-            android:icon="@drawable/ic_action_settings"
-            android:title="Preferences" />
+        android:id="@id/fc_times"
+        android:icon="@drawable/ic_time"
+        android:title="@string/fc_cafe_times" />
+
+    <item
+        android:id="@+id/preferences"
+        android:icon="@drawable/ic_action_settings"
+        android:title="@string/preferences" />
 </menu>

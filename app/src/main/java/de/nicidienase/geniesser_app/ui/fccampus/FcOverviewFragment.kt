@@ -89,10 +89,6 @@ class FcOverviewFragment : Fragment() {
                 binding.fcPager.setCurrentItem(index, true)
                 true
             }
-            R.id.action_info -> {
-                findNavController().navigate(FcOverviewFragmentDirections.actionFcCampusOverviewFragmentToFcMealTimesFragment())
-                true
-            }
             else -> super.onOptionsItemSelected(item)
         }
     }

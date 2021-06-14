@@ -1,11 +1,22 @@
 <resources>
     <string name="app_name">Genießer-App</string>
-    <string name="select_location">Select Location</string>
-	<string name="braces">(%s)</string>
-    <string name="valid_from_till" formatted="true">Valid from %1$s \ntill %2$s</string>
+	<string name="braces" translatable="false">(%s)</string>
 
     <string name="transition_name_news_image" translatable="false">news_image_%s</string>
     <string name="transition_name_news_title" translatable="false">news_title_%s</string>
     <string name="transition_name_meal_title" translatable="false">meal_title_%s</string>
     <string name="transition_name_meal_price" translatable="false">meal_price_%s</string>
+
+    <string name="go_to_today">Go to today</string>
+    <string name="app_title" translatable="false">GenussAPP</string>
+    <string name="news">News</string>
+    <string name="fc_cafe" translatable="false">FC-Café</string>
+    <string name="preferences">Preferences</string>
+    <string name="cleanup_news">Cleanup old News</string>
+    <string name="qr_codes" translatable="false">QR-Codes</string>
+    <string name="fc_cafe_times">FC-Café Lunch Times</string>
+    <string name="guh_label" translatable="false"><![CDATA[Genuss & Harmonie]]></string>
+    <string name="company_selection">Filialauswahl</string>
+    <string name="location_selection">Standortauswahl</string>
+    <string name="valid_from_till">Valid from %1$s till %2$s</string>
 </resources>

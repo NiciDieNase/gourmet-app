@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Genießer-App</string>
+    <string name="valid_from_till">Gültig von %1$s bis %2$s</string>
+    <string name="go_to_today">Zu heute springen</string>
+    <string name="news">News</string>
+    <string name="preferences">Einstellungen</string>
+    <string name="cleanup_news">Alte Nachrichten löschen</string>
+    <string name="fc_cafe_times">FC-Café Essenszeiten</string>
+    <string name="company_selection">Filialauswahl</string>
+    <string name="location_selection">Standortauswahl</string>
+</resources>

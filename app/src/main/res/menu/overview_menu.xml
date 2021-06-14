@@ -4,6 +4,6 @@
     <item
         android:id="@+id/action_goto_today"
         android:icon="@drawable/ic_action_date"
-        android:title="Go to today"
+        android:title="@string/go_to_today"
         app:showAsAction="ifRoom" />
 </menu>

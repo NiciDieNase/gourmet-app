@@ -38,10 +38,11 @@ class GourmetActivity : AppCompatActivity() {
 
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.mealOverviewFragment,
-                R.id.fcCampusOverviewFragment,
-                R.id.newsListFragment,
-                R.id.prefFragment
+                R.id.guh_meals,
+                R.id.guh_meals,
+                R.id.fc_campus,
+                R.id.fc_times,
+                R.id.preferences
             )
         )
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
@@ -69,6 +70,7 @@ class GourmetActivity : AppCompatActivity() {
             } else {
                 binding.bottomNavigationView.visibility = View.VISIBLE
             }
+            supportActionBar?.setDisplayHomeAsUpEnabled(!noUpNavigationIds.contains(destination.id))
         }
         viewModel.update()
     }
@@ -86,8 +88,16 @@ class GourmetActivity : AppCompatActivity() {
     companion object {
         private val noToolbarIds = listOf(R.id.newsDetailFragment)
         private val noBottomNavIds = listOf(
-            R.id.newsDetailFragment,
-            R.id.locationSelectFragment
+//            R.id.newsDetailFragment,
+            R.id.locationSelectFragment,
+            R.id.outletSelectFragment
+        )
+        private val noUpNavigationIds = listOf(
+            R.id.mealOverviewFragment,
+            R.id.newsListFragment,
+            R.id.fcCampusOverviewFragment,
+            R.id.fcMealTimesFragment,
+            R.id.prefFragment
         )
     }
 }

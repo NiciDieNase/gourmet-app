@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fc_times"
+    app:startDestination="@id/fcMealTimesFragment">
+    <fragment
+        android:id="@+id/fcMealTimesFragment"
+        android:name="de.nicidienase.geniesser_app.ui.fccampus.mealtimes.FcMealTimesFragment"
+        android:label="@string/fc_cafe_times" />
+</navigation>
