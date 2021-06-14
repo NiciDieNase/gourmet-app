@@ -86,7 +86,7 @@ abstract class GourmetDatabase : RoomDatabase() {
 
         internal val MIGRATION_9_10 = object : Migration(9, 10) {
             override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("CREATE TABLE IF NOT EXISTS `MealTime` (`calendarWeek` INTEGER NOT NULL, `description` TEXT NOT NULL, `from` INTEGER NOT NULL, `to` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)")
+                database.execSQL("CREATE TABLE IF NOT EXISTS `MealTime` (`calendarWeek` INTEGER NOT NULL, `description` TEXT NOT NULL, `from` INTEGER NOT NULL, `to` INTEGER NOT NULL, `apiId` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)")
                 database.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_MealTime_apiId` ON `MealTime` (`apiId`)")
                 database.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_FcMeal_uuid_date` ON `FcMeal` (`uuid`, `date`)")
                 database.execSQL("DROP INDEX IF EXISTS `index_FcMeal_apiId`")
