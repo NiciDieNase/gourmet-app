@@ -40,12 +40,12 @@ jobs:
               -PversionCode=${VERSION_CODE} \
               -PversionName=${VERSION_NAME} \
               app:assemble${STAGE}${BUILD_TYPE}
-      - run:
-          name: Test
-          command: |
-            ./gradlew $SIGN_CONFIG --continue \
-              app:test${STAGE}${BUILD_TYPE}UnitTest \
-              app:lint${STAGE}${BUILD_TYPE}
+#      - run:
+#          name: Test
+#          command: |
+#            ./gradlew $SIGN_CONFIG --continue \
+#              app:test${STAGE}${BUILD_TYPE}UnitTest \
+#              app:lint${STAGE}${BUILD_TYPE}
       - store_artifacts:
           path: app/build/outputs
           destination: app-outputs
