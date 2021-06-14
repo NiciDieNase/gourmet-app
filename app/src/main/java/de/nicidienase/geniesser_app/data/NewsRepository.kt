@@ -1,6 +1,5 @@
 package de.nicidienase.geniesser_app.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import de.nicidienase.geniesser_app.api.GourmetApi
@@ -8,7 +7,6 @@ import de.nicidienase.geniesser_app.api.NewsDto
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
-
 class NewsRepository(
     private val api: GourmetApi,
     private val newsDao: NewsDao
@@ -17,10 +15,16 @@ class NewsRepository(
     private val _isRefreshing = MutableLiveData<Boolean>()
     val isRefreshing: LiveData<Boolean> = _isRefreshing
 
-    fun getNewsForLocation(locationId: Long) = newsDao.getNewsForLocation(locationId)
+    fun getNewsForLocation(locationId: Long, activeOnly: Boolean = false): LiveData<List<News>> {
+        return if (activeOnly) {
+            newsDao.getActiveNewsForLocation(locationId)
+        } else {
+            newsDao.getNewsForLocation(locationId)
+        }
+    }
 
     fun update(locationId: Long) = GlobalScope.launch {
-        Log.i(TAG, "Starting News update for locationId $locationId")
+        Timber.i("Starting News update for locationId $locationId")
         _isRefreshing.postValue(true)
 
         val existingNews = newsDao.getNewsForLocationSync(locationId)

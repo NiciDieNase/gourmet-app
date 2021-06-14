@@ -2,6 +2,7 @@ package de.nicidienase.geniesser_app
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
+import de.nicidienase.geniesser_app.util.booleanLiveData
 import de.nicidienase.geniesser_app.util.longLiveData
 
 class PreferencesService(private val sharedPreferences: SharedPreferences) {
@@ -22,7 +23,10 @@ class PreferencesService(private val sharedPreferences: SharedPreferences) {
         get() = sharedPreferences.getBoolean(KEY_PRICE_EXTERNAL, false)
         set(value) = sharedPreferences.edit().putBoolean(KEY_PRICE_EXTERNAL, value).apply()
 
+    val hideOldNews: LiveData<Boolean> = sharedPreferences.booleanLiveData(KEY_HIDE_NEWS, false)
+
     val currentLocationLivedata: LiveData<Long> = sharedPreferences.longLiveData(KEY_LOCATION, 3317)
+
     val currentOutletLiveData: LiveData<Long> = sharedPreferences.longLiveData(KEY_OUTLET, 0)
 
     companion object {
@@ -30,6 +34,7 @@ class PreferencesService(private val sharedPreferences: SharedPreferences) {
         private const val KEY_OUTLET = "OutletLong"
         private const val KEY_LOCATION_NAME = "LocationString"
         private const val KEY_HIDE_MENU = "HideMenuBool"
+        private const val KEY_HIDE_NEWS = "hideNewsBool"
         private const val KEY_PRICE_EXTERNAL = "PriceExternalBool"
     }
 }

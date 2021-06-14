@@ -56,7 +56,7 @@ class NewsListFragment : Fragment() {
         binding.newsList.adapter = adapter
         binding.newsList.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        viewModel.getNews().observe(
+        viewModel.news.observe(
             viewLifecycleOwner,
             Observer {
                 adapter.submitList(it)

@@ -19,4 +19,9 @@
     <string name="company_selection">Filialauswahl</string>
     <string name="location_selection">Standortauswahl</string>
     <string name="valid_from_till">Valid from %1$s till %2$s</string>
+    <string name="company">Location</string>
+    <string name="outlet">Outlet</string>
+    <string name="hide_past_meals">Hide past days</string>
+    <string name="hide_past_news">Hide old news</string>
+    <string name="external_prices">External Prices</string>
 </resources>
