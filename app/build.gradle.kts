@@ -1,4 +1,4 @@
-plugins{
+plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-android-extensions")
@@ -8,38 +8,52 @@ plugins{
     id("com.google.gms.google-services")
 }
 
-String appName = "Genießer-App"
-String versionString = new File("versionfile").text.trim()
+val appName = "Genießer-App"
+val versionString: String = File("versionfile").readText().trim()
 
-def getMyVersionCode = { ->
-    def code = project.hasProperty("versionCode") ? versionCode.toInteger() : 1
-    println "VersionCode is set to $code"
+
+val versionCode: Int? by project
+
+fun getMyVersionCode(): Int {
+    val code = versionCode ?: 1
+    println("VersionCode is set to $code")
     return code
 }
 
 android {
-    compileSdkVersion(30)
+
+    val gourmetKeyStore: String by project
+    val gourmetStorePassword: String by project
+    val gourmetKeyName: String by project
+    val gourmetKeyPassword: String by project
+    val gourmetAppcenterId: String by project
+    val gourmetAppcenterDevId: String by project
+
+    compileSdk = 30
     defaultConfig {
         applicationId = "de.nicidienase.geniesser_app"
-        minSdkVersion(21)
-        targetSdkVersion(30)
+        minSdk = 21
+        targetSdk = 30
         versionCode = getMyVersionCode()
         versionName = versionString
-        manifestPlaceholders = [label: appName]
+        manifestPlaceholders["label"] = appName
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = ["room.schemaLocation":
-                                     "$projectDir/schemas".toString()]
+                argument("room.schemaLocation", "$projectDir/schemas")
             }
         }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+
     signingConfigs {
         //noinspection GroovyMissingReturnStatement, GroovyAssignabilityCheck
-        release {
-            if (project.hasProperty("gourmetKeyStore") && file(gourmetKeyStore).exists() && file(gourmetKeyStore).isFile()) {
-                println "Release app signing is configured: will sign APK"
+        create("release") {
+            if (project.hasProperty("gourmetKeyStore") && file(gourmetKeyStore).exists() && file(
+                    gourmetKeyStore
+                ).isFile()
+            ) {
+                println("Release app signing is configured: will sign APK")
                 storeFile = file(gourmetKeyStore)
                 storePassword = gourmetStorePassword
                 keyAlias = gourmetKeyName
@@ -52,34 +66,40 @@ android {
 
     buildTypes {
         getByName("debug") {
-            manifestPlaceholders = [label: appName + "-Debug"]
+            manifestPlaceholders["label"] = "$appName-Debug"
             applicationIdSuffix = ".debug"
         }
         getByName("release") {
-            minifyEnabled = true
-            shrinkResources = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-            if (project.hasProperty("gourmetKeyStore") && file(gourmetKeyStore).exists() && file(gourmetKeyStore).isFile()) {
-                signingConfig signingConfigs.release
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            if (project.hasProperty("gourmetKeyStore") && file(gourmetKeyStore).exists() && file(
+                    gourmetKeyStore
+                ).isFile()
+            ) {
+                signingConfig = signingConfigs.getByName("release")
             }
         }
     }
 
-    flavorDimensions "stage"
+    flavorDimensions.add("stage")
     productFlavors {
-        prod {
-            dimension "stage"
-            buildConfigField "String", "APPCENTER_ID", "$gourmetAppcenterId"
+        create("prod") {
+            dimension = "stage"
+            buildConfigField("String", "APPCENTER_ID", "$gourmetAppcenterId")
         }
-        dev {
-            dimension "stage"
-            applicationIdSuffix ".dev"
-            manifestPlaceholders = [label: appName + "-DEV"]
-            buildConfigField "String", "APPCENTER_ID", "$gourmetAppcenterDevId"
+        create("dev") {
+            dimension = "stage"
+            applicationIdSuffix = ".dev"
+            manifestPlaceholders["label"] = "$appName-DEV"
+            buildConfigField("String", "APPCENTER_ID", "$gourmetAppcenterDevId")
         }
     }
 
-    buildFeatures{
+    buildFeatures {
         dataBinding = true
         viewBinding = true
         compose = true
@@ -100,18 +120,17 @@ android {
     }
 
     packagingOptions {
-        exclude "META-INF/LICENSE*"
+        resources.excludes.add("META-INF/LICENSE*")
     }
 
     sourceSets {
-        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+        getByName("androidTest").assets.srcDirs("$projectDir/schemas")
     }
 
 }
 
 dependencies {
-    implementation(fileTree(dir: "libs", include: ["*.jar"]))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${rootProject.kotlin_version}")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:${rootProject.extra["kotlin_version"]}")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3")
 
@@ -138,25 +157,25 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-rxjava2:1.0.0-beta08")
 
 
-    def room_version = "2.3.0"
+    val room_version = "2.3.0"
     implementation("androidx.room:room-runtime:$room_version")
-    kapt "androidx.room:room-compiler:$room_version"
+    kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
 
-//    def nav_version_ktx = "2.3.5"
-    def nav_version_ktx = "2.4.0-alpha02"
+//    val nav_version_ktx = "2.3.5"
+    val nav_version_ktx = "2.4.0-alpha02"
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version_ktx")
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version_ktx")
 
-    def appCenterSdkVersion = "2.5.1"
+    val appCenterSdkVersion = "2.5.1"
     implementation("com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}")
     implementation("com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}")
     implementation("com.microsoft.appcenter:appcenter-distribute:${appCenterSdkVersion}")
 
 
-    def glideVersion = "4.9.0"
+    val glideVersion = "4.9.0"
     implementation("com.github.bumptech.glide:glide:${glideVersion}")
-    kapt "com.github.bumptech.glide:compiler:${glideVersion}"
+    kapt("com.github.bumptech.glide:compiler:${glideVersion}")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -166,7 +185,7 @@ dependencies {
     debugImplementation("com.facebook.stetho:stetho:1.5.1")
     debugImplementation("com.squareup.leakcanary:leakcanary-android:2.7")
 
-    def hyperionVersion = "0.9.31"
+    val hyperionVersion = "0.9.31"
     debugImplementation("com.willowtreeapps.hyperion:hyperion-core:$hyperionVersion")
     debugImplementation("com.willowtreeapps.hyperion:hyperion-attr:$hyperionVersion")
     debugImplementation("com.willowtreeapps.hyperion:hyperion-build-config:$hyperionVersion")
