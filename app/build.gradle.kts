@@ -1,8 +1,8 @@
 plugins {
     id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-android-extensions")
-    id("kotlin-kapt")
+    kotlin("android")
+    kotlin("android.extensions")
+    kotlin("kapt")
     id("androidx.navigation.safeargs.kotlin")
     id("de.mannodermaus.android-junit5")
     id("com.google.gms.google-services")
@@ -10,7 +10,6 @@ plugins {
 
 val appName = "Genießer-App"
 val versionString: String = File("versionfile").readText().trim()
-
 
 val versionCode: Int? by project
 
@@ -44,7 +43,6 @@ android {
         }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
 
     signingConfigs {
         //noinspection GroovyMissingReturnStatement, GroovyAssignabilityCheck
@@ -126,7 +124,6 @@ android {
     sourceSets {
         getByName("androidTest").assets.srcDirs("$projectDir/schemas")
     }
-
 }
 
 dependencies {
@@ -156,7 +153,6 @@ dependencies {
     implementation("androidx.compose.runtime:runtime-livedata:1.0.0-beta08")
     implementation("androidx.compose.runtime:runtime-rxjava2:1.0.0-beta08")
 
-
     val room_version = "2.3.0"
     implementation("androidx.room:room-runtime:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
@@ -168,14 +164,13 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:$nav_version_ktx")
 
     val appCenterSdkVersion = "2.5.1"
-    implementation("com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}")
-    implementation("com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}")
-    implementation("com.microsoft.appcenter:appcenter-distribute:${appCenterSdkVersion}")
-
+    implementation("com.microsoft.appcenter:appcenter-analytics:$appCenterSdkVersion")
+    implementation("com.microsoft.appcenter:appcenter-crashes:$appCenterSdkVersion")
+    implementation("com.microsoft.appcenter:appcenter-distribute:$appCenterSdkVersion")
 
     val glideVersion = "4.9.0"
-    implementation("com.github.bumptech.glide:glide:${glideVersion}")
-    kapt("com.github.bumptech.glide:compiler:${glideVersion}")
+    implementation("com.github.bumptech.glide:glide:$glideVersion")
+    kapt("com.github.bumptech.glide:compiler:$glideVersion")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
