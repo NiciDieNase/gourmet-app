@@ -66,7 +66,8 @@ class Property(
                 !nameAlternative.isNullOrEmpty() &&
                 !abbreviation.isNullOrEmpty() &&
                 !logoImage.isNullOrEmpty() &&
-                showInSpeiseplanOverview != null)
+                showInSpeiseplanOverview != null
+            )
                 Property(propertyId, name, nameAlternative, abbreviation, logoImage, showInSpeiseplanOverview)
             else null
         }

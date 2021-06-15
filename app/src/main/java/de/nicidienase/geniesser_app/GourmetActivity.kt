@@ -3,10 +3,11 @@ package de.nicidienase.geniesser_app
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -14,6 +15,12 @@ import androidx.navigation.ui.setupWithNavController
 import de.nicidienase.geniesser_app.databinding.ActivityGourmetBinding
 
 class GourmetActivity : AppCompatActivity() {
+
+    private val viewModel: GourmetActivityViewModel by viewModels {
+        GourmetViewModelFactory.getInstance(
+            this
+        )
+    }
 
     init {
         lifecycle.addObserver(LifecycleLogger(GourmetActivity::class.java.simpleName))
@@ -29,34 +36,42 @@ class GourmetActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        val appBarConfiguration =
-            AppBarConfiguration(setOf(R.id.mealOverviewFragment, R.id.newsListFragment))
+        val appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.guh_meals,
+                R.id.guh_meals,
+                R.id.fc_campus,
+                R.id.fc_times,
+                R.id.preferences
+            )
+        )
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
 
-        val viewModel =
-            ViewModelProviders.of(this, GourmetViewModelFactory.getInstance(this))[GourmetActivityViewModel::class.java]
-        viewModel.newsCount.observe(this, Observer {
-            if (it == 0) {
-                binding.bottomNavigationView.removeBadge(R.id.newsListFragment)
-            } else {
-                binding.bottomNavigationView.getOrCreateBadge(R.id.newsListFragment).number = it
+        val viewModel = ViewModelProvider(this, GourmetViewModelFactory.getInstance(this))[GourmetActivityViewModel::class.java]
+        viewModel.newsCount.observe(
+            this,
+            Observer {
+                if (it == 0) {
+                    binding.bottomNavigationView.removeBadge(R.id.newsListFragment)
+                } else {
+                    binding.bottomNavigationView.getOrCreateBadge(R.id.newsListFragment).number = it
+                }
             }
-        })
+        )
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (noToolbarIds.contains(destination.id)) {
-                binding.toolbar.visibility = View.GONE
+                supportActionBar?.hide()
             } else {
-                binding.toolbar.visibility = View.VISIBLE
+                supportActionBar?.show()
             }
-
             if (noBottomNavIds.contains(destination.id)) {
                 binding.bottomNavigationView.visibility = View.GONE
             } else {
                 binding.bottomNavigationView.visibility = View.VISIBLE
             }
+            supportActionBar?.setDisplayHomeAsUpEnabled(!noUpNavigationIds.contains(destination.id))
         }
-
         viewModel.update()
     }
 
@@ -73,8 +88,16 @@ class GourmetActivity : AppCompatActivity() {
     companion object {
         private val noToolbarIds = listOf(R.id.newsDetailFragment)
         private val noBottomNavIds = listOf(
-            R.id.newsDetailFragment,
-            R.id.locationSelectFragment
+//            R.id.newsDetailFragment,
+            R.id.locationSelectFragment,
+            R.id.outletSelectFragment
+        )
+        private val noUpNavigationIds = listOf(
+            R.id.mealOverviewFragment,
+            R.id.newsListFragment,
+            R.id.fcCampusOverviewFragment,
+            R.id.fcMealTimesFragment,
+            R.id.prefFragment
         )
     }
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/preferences"
+    app:startDestination="@id/prefFragment">
+    <fragment
+        android:id="@+id/outletSelectFragment"
+        android:name="de.nicidienase.geniesser_app.ui.outlet.OutletSelectFragment"
+        android:label="@string/company_selection"
+        tools:layout="@layout/fragment_select_locations" />
+    <fragment
+        android:id="@+id/qrInfoFragment"
+        android:name="de.nicidienase.geniesser_app.ui.preferences.qr.QrInfoFragment"
+        android:label="@string/qr_codes"
+        tools:layout="@layout/fragment_select_locations" />
+    <fragment
+        android:id="@+id/locationSelectFragment"
+        android:name="de.nicidienase.geniesser_app.ui.location.LocationSelectFragment"
+        android:label="@string/location_selection"
+        tools:layout="@layout/fragment_select_locations" />
+    <fragment
+        android:id="@+id/prefFragment"
+        android:name="de.nicidienase.geniesser_app.ui.preferences.PreferencesFragment"
+        android:label="@string/preferences">
+        <action
+            android:id="@+id/action_prefFragment_to_locationSelectFragment"
+            app:destination="@id/locationSelectFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_prefFragment_to_outletSelectFragment"
+            app:destination="@id/outletSelectFragment" />
+        <action
+            android:id="@+id/action_prefFragment_to_qrInfoFragment"
+            app:destination="@id/qrInfoFragment" />
+    </fragment>
+
+</navigation>

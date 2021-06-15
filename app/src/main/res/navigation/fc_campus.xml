@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fc_campus"
+    app:startDestination="@id/fcCampusOverviewFragment">
+    <fragment
+        android:id="@+id/fcCampusOverviewFragment"
+        android:name="de.nicidienase.geniesser_app.ui.fccampus.FcOverviewFragment"
+        android:label="@string/fc_cafe"
+        tools:layout="@layout/fragment_fc_overview"/>
+</navigation>

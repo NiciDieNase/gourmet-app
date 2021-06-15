@@ -14,7 +14,11 @@ class MenuViewModel(
         get() = preferencesService.hideOldMenu
     var selectedDay: Date? = null
 
-    fun getDishesForDay(day: Long) = menuRepository.getDishesForDayAndLocation(day, preferencesService.currentLocation)
+    fun getDishesForDay(day: Long) = menuRepository.getDishesForDayAndLocation(
+        day,
+        preferencesService.currentLocation,
+        preferencesService.currentOutlet
+    )
 
     fun updateDishes() {
         menuRepository.update(preferencesService.currentLocation)

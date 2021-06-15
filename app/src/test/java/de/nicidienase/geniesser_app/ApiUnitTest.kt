@@ -9,16 +9,16 @@ import de.nicidienase.geniesser_app.data.Location
 import de.nicidienase.geniesser_app.data.News
 import de.nicidienase.geniesser_app.data.Property
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 class ApiUnitTest {
 
     lateinit var api: GourmetApi
 
-    @Before
+    @BeforeEach
     fun setup() {
         api = GourmetApi.instance
     }
@@ -33,8 +33,15 @@ class ApiUnitTest {
     }
 
     @Test
+    fun outlets() = runBlocking {
+        val outlets = api.getOutlets()
+        assertTrue(outlets.isNotEmpty())
+    }
+
+    @Test
     fun menu() = runBlocking {
-        val menu = api.getMenu(DEFAULT_LOCATION)
+        val response = api.getMenu(DEFAULT_LOCATION)
+        val menu = response.body()
         assertTrue(menu?.size != 0)
     }
 
@@ -90,6 +97,12 @@ class ApiUnitTest {
     }
 
     @Test
+    fun qrInfo() = runBlocking {
+        val qrInfo = api.getQrInfo()
+        assertTrue(qrInfo.isNotEmpty())
+    }
+
+    @Test
     fun feedbackMessage() {
         val list = listOf(
             FeedbackMessageItem(1, 1, 1, "Foo", "2020-01-01"),
@@ -99,6 +112,6 @@ class ApiUnitTest {
     }
 
     companion object {
-        const val DEFAULT_LOCATION = 3317L
+        const val DEFAULT_LOCATION = 3377L // 3317L
     }
 }

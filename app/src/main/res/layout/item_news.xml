@@ -8,7 +8,7 @@
 		android:layout_height="wrap_content">
 
 		<androidx.appcompat.widget.AppCompatImageView
-			android:id="@+id/appCompatImageView"
+			android:id="@+id/newsImage"
 			android:layout_width="120dp"
 			android:layout_height="80dp"
 			android:layout_marginBottom="8dp"
@@ -18,20 +18,41 @@
 			app:layout_constraintStart_toStartOf="parent"
 			app:layout_constraintTop_toTopOf="parent"
 			app:srcCompat="@{item.imageUrl}"
+			android:transitionName="@{@string/transition_name_news_image(item.backendId)}"
 			tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
 		<androidx.appcompat.widget.AppCompatTextView
-			android:id="@+id/appCompatTextView"
+			android:id="@+id/newsTitle"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
 			android:layout_marginEnd="8dp"
 			android:layout_marginStart="8dp"
 			android:layout_marginTop="8dp"
 			android:text="@{item.title}"
+				android:transitionName="@{@string/transition_name_news_title(item.backendId)}"
 			app:layout_constraintEnd_toEndOf="parent"
-			app:layout_constraintStart_toEndOf="@+id/appCompatImageView"
+			app:layout_constraintStart_toEndOf="@+id/newsImage"
 			app:layout_constraintTop_toTopOf="parent"
 			tools:text="@tools:sample/cities" />
+
+		<FrameLayout
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:background="#80000000"
+				android:visibility="@{item.active ? View.INVISIBLE : View.VISIBLE}"
+				tools:visibility="visible"
+				app:layout_constraintBottom_toBottomOf="@id/newsImage"
+				app:layout_constraintEnd_toEndOf="@+id/newsImage"
+				app:layout_constraintStart_toStartOf="@id/newsImage"
+				app:layout_constraintTop_toTopOf="@id/newsImage">
+
+			<androidx.appcompat.widget.AppCompatImageView
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_margin="8dp"
+					app:srcCompat="@drawable/ic_action_archive" />
+
+		</FrameLayout>
 
 	</androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -40,6 +61,8 @@
 		<variable
 			name="item"
 			type="de.nicidienase.geniesser_app.data.News" />
+
+		<import type="android.view.View" />
 	</data>
 
 </layout>

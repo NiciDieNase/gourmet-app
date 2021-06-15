@@ -14,6 +14,8 @@ echo "export STAGE_LOWER=\"$(tr '[:upper:]' '[:lower:]' <<< ${STAGE:0:1})${STAGE
 echo "$ENCODED_KEYSTORE" | base64 --decode > ${HOME}/code/keystore.jks
 KEYSTORE=${HOME}/code/keystore.jks
 
+echo "$ENCODED_GOOGLE_JSON" | base64 --decode > ${HOME}/code/app/google-services.json
+
 echo "export SIGN_CONFIG=\"-PgourmetKeyStore=$KEYSTORE\
  -PgourmetStorePassword=$KEYSTORE_PASSWORD\
  -PgourmetKeyName=$KEY_NAME\

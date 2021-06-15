@@ -3,7 +3,6 @@ package de.nicidienase.geniesser_app
 import androidx.test.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import org.junit.Assert.assertEquals
-
 import org.junit.Test
 import org.junit.runner.RunWith
 

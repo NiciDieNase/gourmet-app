@@ -30,7 +30,8 @@ data class Dish(
     var category: Category?,
     var allergenIds: List<Int>? = null,
     var additiveIds: List<Int>? = null,
-    var propertyIds: List<Int>? = null
+    var propertyIds: List<Int>? = null,
+    var active: Boolean = true
 ) : Parcelable {
 
     @PrimaryKey(autoGenerate = true)

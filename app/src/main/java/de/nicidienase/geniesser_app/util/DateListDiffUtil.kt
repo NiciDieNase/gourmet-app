@@ -1,4 +1,4 @@
-package de.nicidienase.geniesser_app.ui.overview
+package de.nicidienase.geniesser_app.util
 
 import androidx.recyclerview.widget.DiffUtil
 import java.util.Date

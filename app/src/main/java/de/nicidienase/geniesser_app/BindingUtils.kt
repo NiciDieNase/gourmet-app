@@ -22,6 +22,11 @@ fun AppCompatTextView.setPrice(value: Int) {
     this.text = String.format("%.2f €", floatPrice)
 }
 
+@BindingAdapter("price")
+fun AppCompatTextView.setPrice(value: Float) {
+    this.text = String.format("%.2f €", value)
+}
+
 @BindingAdapter("srcCompat")
 fun AppCompatImageView.setSrc(url: String) {
     Glide.with(this.context)

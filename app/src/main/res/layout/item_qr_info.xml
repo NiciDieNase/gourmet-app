@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="qrInfo"
+                type="de.nicidienase.geniesser_app.api.QrInfoDto" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/qr_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@{qrInfo.name}"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/qr_description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Description" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/qr_code"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_margin="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/qr_description"
+                app:srcCompat="@{qrInfo.qrCodeImage}"
+                tools:src="@tools:sample/avatars" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_qr_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rotation="-90"
+                android:text="@{qrInfo.qrCodeContent}"
+                app:layout_constraintBottom_toBottomOf="@id/qr_code"
+                app:layout_constraintEnd_toStartOf="@+id/qr_code"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/qr_code"
+                tools:text="FooBar" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_valid_from"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@{String.format(@string/valid_from_till, qrInfo.gueltigVon, qrInfo.gueltigBis)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/qr_code"
+                tools:text="Valid: foo - bar" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -2,7 +2,7 @@ package de.nicidienase.geniesser_app.api
 
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
-import okhttp3.OkHttpClient
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
@@ -15,8 +15,11 @@ interface GourmetApi {
     @GET("$BASE_PATH/entity.standort/")
     suspend fun getLocations(): List<StandortDto>
 
+    @GET("$BASE_PATH/entity.outlet/")
+    suspend fun getOutlets(): List<OutletDto>
+
     @GET("$BASE_PATH/entity.speiseplanadvanced/getdata/{location_id}/1")
-    suspend fun getMenu(@Path("location_id") locationId: Long): List<SpeiseplanWrapperDto>?
+    suspend fun getMenu(@Path("location_id") locationId: Long): Response<List<SpeiseplanWrapperDto>?>
 
     @GET("$BASE_PATH/entity.gerichtkategorie/current/{location_id}")
     suspend fun getMenuCategories(@Path("location_id") locationId: Long): List<SpeiseplanKategorieDto>
@@ -39,11 +42,14 @@ interface GourmetApi {
     @POST("$BASE_PATH/entity.gerichtfeedbackmessage/createAll")
     suspend fun sendFeedback(@Body messageItem: FeedbackMessage)
 
+    @GET("$BASE_PATH/entity.appqrzugang")
+    suspend fun getQrInfo(): List<QrInfoDto>
+
     companion object {
         private const val BASE_PATH = "kms-mt-webservices/webresources"
 
         val instance: GourmetApi by lazy {
-            val okhttpClient = OkHttpClient.Builder()
+            val okhttpClient = OkHttpClientFactory.okHttpClient.newBuilder()
                 .addInterceptor { chain: Interceptor.Chain ->
                     val request = chain.request()
                         .newBuilder()
@@ -52,7 +58,7 @@ interface GourmetApi {
                         .header("User-Agent", "Mozilla/5.0 (Linux; Android 5.0.2; Android SDK built for x86_64 Build/LSY66K) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/37.0.0.0 Mobile Safari/537.36")
                         .header("X-LANGUAGETYPE", "1")
                         .header("X-Requested-With", "de.konkaapps.mittagstisch.geha")
-                        .header("X-API-MT-VERSION", "MTA3.23.0")
+                        .header("X-API-MT-VERSION", "MTA3.26.1")
                         .build()
                     return@addInterceptor chain.proceed(request)
                 }

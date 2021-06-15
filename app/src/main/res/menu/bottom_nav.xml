@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<item
-		android:title="Meals"
-		android:icon="@drawable/ic_action_date"
-		android:id="@+id/mealOverviewFragment"/>
+    <item
+        android:id="@+id/guh_meals"
+        android:icon="@drawable/ic_action_date"
+        android:title="@string/app_title" />
 
-	<item
-		android:title="News"
-		android:icon="@drawable/ic_action_location"
-		android:id="@+id/newsListFragment"/>
+    <item
+        android:id="@+id/guh_news"
+        android:icon="@drawable/ic_action_location"
+        android:title="@string/news" />
 
-	<item
-		android:title="Preferences"
-		android:icon="@drawable/ic_action_settings"
-		android:id="@+id/prefFragment"/>
+    <item
+        android:id="@+id/fc_campus"
+        android:icon="@drawable/ic_fccampus_cafe"
+        android:title="@string/fc_cafe" />
+
+    <item
+        android:id="@id/fc_times"
+        android:icon="@drawable/ic_time"
+        android:title="@string/fc_cafe_times" />
+
+    <item
+        android:id="@+id/preferences"
+        android:icon="@drawable/ic_action_settings"
+        android:title="@string/preferences" />
 </menu>

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -43,22 +44,34 @@ class NewsListFragment : Fragment() {
         viewModel =
             ViewModelProviders.of(this, GourmetViewModelFactory.getInstance(requireContext()))[NewsViewModel::class.java]
 
-        val adapter = NewsListAdapter {
-            findNavController().navigate(NewsListFragmentDirections.actionNewsListFragmentToNewsDetailFragment(it))
+        val adapter = NewsListAdapter { news, binding ->
+            findNavController().navigate(
+                NewsListFragmentDirections.actionNewsListFragmentToNewsDetailFragment(news),
+                FragmentNavigatorExtras(
+                    binding.newsImage to binding.newsImage.transitionName,
+                    binding.newsTitle to binding.newsTitle.transitionName
+                )
+            )
         }
         binding.newsList.adapter = adapter
         binding.newsList.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-        viewModel.getNews().observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
+        viewModel.news.observe(
+            viewLifecycleOwner,
+            Observer {
+                adapter.submitList(it)
+            }
+        )
         binding.swipeRefreshLayout.apply {
             setOnRefreshListener {
                 viewModel.update()
             }
-            viewModel.updating.observe(viewLifecycleOwner, Observer {
-                isRefreshing = it
-            })
+            viewModel.updating.observe(
+                viewLifecycleOwner,
+                Observer {
+                    isRefreshing = it
+                }
+            )
         }
 
         return binding.root

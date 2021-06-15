@@ -50,7 +50,8 @@ class Additive(
             val abbreviation = dto.kuerzel
             return if (id != null &&
                 !name.isNullOrEmpty() &&
-                !abbreviation.isNullOrEmpty())
+                !abbreviation.isNullOrEmpty()
+            )
                 Additive(id, name, abbreviation)
             else null
         }

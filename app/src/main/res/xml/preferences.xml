@@ -4,12 +4,18 @@
 
 	<Preference
 		app:key="location"
-		android:title="Location"/>
+		android:title="@string/company"/>
+	<Preference
+		app:key="outlet"
+		android:title="@string/outlet"/>
 	<SwitchPreferenceCompat
 		app:key="HideMenuBool"
-		app:title="Hide past days"/>
+		app:title="@string/hide_past_meals"/>
+	<SwitchPreferenceCompat
+		app:key="hideNewsBool"
+		app:title="@string/hide_past_news"/>
 	<SwitchPreferenceCompat
 		app:key="PriceExternalBool"
-		app:title="External Prices"/>
+		app:title="@string/external_prices"/>
 
 </PreferenceScreen>

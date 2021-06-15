@@ -15,6 +15,3 @@ class NewsDto(
     @SerializedName("timestampLog") val timestampLog: String?,
     @SerializedName("locationInfo") val locationInfo: List<LocationInfoDto>
 )
-
-@Keep
-class LocationInfoDto(val id: Long, val name: String)
