@@ -10,10 +10,10 @@ plugins {
 val appName = "Genießer-App"
 val versionString: String = File("versionfile").readText().trim()
 
-val versionCode: Int? by project
+val versionCode: String? by project
 
 fun getMyVersionCode(): Int {
-    val code = versionCode ?: 1
+    val code = versionCode?.toInt() ?: 1
     println("VersionCode is set to $code")
     return code
 }
@@ -46,9 +46,9 @@ android {
     signingConfigs {
         //noinspection GroovyMissingReturnStatement, GroovyAssignabilityCheck
         create("release") {
-            if (project.hasProperty("gourmetKeyStore") && file(gourmetKeyStore).exists() && file(
-                    gourmetKeyStore
-                ).isFile()
+            if (project.hasProperty("gourmetKeyStore") &&
+                file(gourmetKeyStore).exists() &&
+                file(gourmetKeyStore).isFile
             ) {
                 println("Release app signing is configured: will sign APK")
                 storeFile = file(gourmetKeyStore)
