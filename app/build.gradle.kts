@@ -73,9 +73,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            if (project.hasProperty("gourmetKeyStore") && file(gourmetKeyStore).exists() && file(
-                    gourmetKeyStore
-                ).isFile()
+            if (project.hasProperty("gourmetKeyStore") && file(gourmetKeyStore).exists() &&
+                file(gourmetKeyStore).isFile
             ) {
                 signingConfig = signingConfigs.getByName("release")
             }
@@ -86,13 +85,13 @@ android {
     productFlavors {
         create("prod") {
             dimension = "stage"
-            buildConfigField("String", "APPCENTER_ID", "$gourmetAppcenterId")
+            buildConfigField("String", "APPCENTER_ID", gourmetAppcenterId)
         }
         create("dev") {
             dimension = "stage"
             applicationIdSuffix = ".dev"
             manifestPlaceholders["label"] = "$appName-DEV"
-            buildConfigField("String", "APPCENTER_ID", "$gourmetAppcenterDevId")
+            buildConfigField("String", "APPCENTER_ID", gourmetAppcenterDevId)
         }
     }
 
@@ -193,16 +192,16 @@ dependencies {
     debugImplementation("com.willowtreeapps.hyperion:hyperion-shared-preferences:$hyperionVersion")
     debugImplementation("com.willowtreeapps.hyperion:hyperion-timber:$hyperionVersion")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.6.0")
 
-    testImplementation("org.junit.platform:junit-platform-launcher:1.6.0")
+    testImplementation("org.junit.platform:junit-platform-launcher:1.7.0")
 
-    testImplementation("org.assertj:assertj-core:3.11.1")
+    testImplementation("org.assertj:assertj-core:3.12.2")
     testImplementation("io.mockk:mockk:1.9.3.kotlin12")
 
     androidTestImplementation("android.arch.persistence.room:testing:1.1.1")
-    androidTestImplementation("androidx.test:runner:1.2.0")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
+    androidTestImplementation("androidx.test:runner:1.3.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
 }
