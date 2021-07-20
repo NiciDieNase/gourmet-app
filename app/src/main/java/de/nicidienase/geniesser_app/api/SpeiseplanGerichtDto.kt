@@ -7,7 +7,7 @@ data class SpeiseplanGerichtDto(
     var allergeneIds: String?,
     var gerichtmerkmaleIds: String?,
     var speiseplanAdvancedGericht: AdvancedGerichtDto,
-    var zusatzinformationen: ZusatzinformationenDto,
+    var zusatzinformationen: ZusatzinformationenDto?,
     var zusatzstoffeIds: String?
 )
 

@@ -3,6 +3,7 @@ package de.nicidienase.geniesser_app.data.fccampus
 import androidx.lifecycle.LiveData
 import de.nicidienase.geniesser_app.PreferencesService
 import de.nicidienase.geniesser_app.api.fccampus.FcCampusApi
+import de.nicidienase.geniesser_app.api.fccampus.MealTimesWrapperDto
 import de.nicidienase.geniesser_app.util.CalendarUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -24,15 +25,19 @@ class FcRepository(
             val fromDateString = CalendarUtils.formatDateForFcAPI(from)
             val toDateString = CalendarUtils.formatDateForFcAPI(to)
 
-            val menus = fcCampusApi.getMenus(fromDateString, toDateString)
-
-            menus.dayMenus.forEach {
-                val menuDay = CalendarUtils.parseDateString(it.day) ?: Date(0)
-                val meals = it.meals.mapNotNull { mealDto ->
-                    FcMeal.fromMealDto(mealDto, menuDay)
+            val response = fcCampusApi.getMenus(fromDateString, toDateString)
+            val menus = response.body()
+            if (response.isSuccessful && menus != null) {
+                menus.dayMenus.forEach {
+                    val menuDay = CalendarUtils.parseDateString(it.day) ?: Date(0)
+                    val meals = it.meals.mapNotNull { mealDto ->
+                        FcMeal.fromMealDto(mealDto, menuDay)
+                    }
+                    val ids = fcMealDao.insert(meals)
+                    Timber.d("Inserted $ids")
                 }
-                val ids = fcMealDao.insert(meals)
-                Timber.d("Inserted $ids")
+            } else {
+                Timber.e("Failed to update, responseCode: ${response.code()}")
             }
         }
     }
@@ -51,9 +56,14 @@ class FcRepository(
 
     private suspend fun updateMealTimesForWeek(week: Int) {
         withContext(Dispatchers.IO) {
-            val apiMealTimes = fcCampusApi.getMealTimes(week)
-            val mealTimes: List<MealTime> = apiMealTimes.mealTimes.mapNotNull { MealTime.fromMealTimeDto(it) }
-            fcMealTimeDao.insert(mealTimes)
+            val response = fcCampusApi.getMealTimes(week)
+            val apiMealTimes: MealTimesWrapperDto? = response.body()
+            if (response.isSuccessful && apiMealTimes != null) {
+                val mealTimes: List<MealTime> = apiMealTimes.mealTimes.mapNotNull { MealTime.fromMealTimeDto(it) }
+                fcMealTimeDao.insert(mealTimes)
+            } else {
+                Timber.e("Failed to update, responseCode: ${response.code()}")
+            }
         }
     }
 

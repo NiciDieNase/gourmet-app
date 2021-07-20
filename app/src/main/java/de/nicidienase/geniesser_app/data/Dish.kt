@@ -124,7 +124,7 @@ data class Dish(
                 null
             }
 
-            val priceDecimal = gerichtDto.zusatzinformationen.mitarbeiterpreisDecimal2
+            val priceDecimal = gerichtDto.zusatzinformationen?.mitarbeiterpreisDecimal2
             val priceInteger =
                 if (priceDecimal != null) ((priceDecimal) * 100 + 0.5).toInt() else null
             val allergens: List<Int>? = gerichtDto.allergeneIds?.split(",")?.map { it.toInt() }

@@ -17,18 +17,19 @@ class FcCampusApiTest {
 
     @Test
     fun getMealTimes() = runBlocking {
-        val mealTimes = api.getMealTimes(38)
+        val week = 29
+        val mealTimes = api.getMealTimes(week).body()
         println(mealTimes)
-        val first = mealTimes.mealTimes.first { it.calendarWeek == 38 }
+        val first = mealTimes?.mealTimes?.first { it.calendarWeek == week }
         assertNotNull(first)
     }
 
     @Test
     fun getMenus() = runBlocking {
         val date = "2020-09-02"
-        val menus = api.getMenus(date, date)
+        val menus = api.getMenus(date, date).body()
         println(menus)
-        val first = menus.dayMenus.first { it.day.startsWith(date) }
+        val first = menus?.dayMenus?.first { it.day.startsWith(date) }
         assertNotNull(first)
     }
 }

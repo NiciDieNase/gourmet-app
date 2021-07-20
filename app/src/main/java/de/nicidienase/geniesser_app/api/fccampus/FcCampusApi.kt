@@ -3,6 +3,7 @@ package de.nicidienase.geniesser_app.api.fccampus
 import com.google.gson.GsonBuilder
 import de.nicidienase.geniesser_app.api.OkHttpClientFactory
 import okhttp3.Interceptor
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -14,12 +15,12 @@ interface FcCampusApi {
     suspend fun getMenus(
         @Path("from") fromDate: String,
         @Path("to") toDate: String
-    ): MenusWrapperDto
+    ): Response<MenusWrapperDto>
 
     @GET("$BASE_PATH/mealTimes/{week}")
     suspend fun getMealTimes(
         @Path("week") week: Int
-    ): MealTimesWrapperDto
+    ): Response<MealTimesWrapperDto>
 
     companion object {
         private const val BASE_PATH = "restaurants/5f17207ae9b5b375023b529b"
