@@ -67,9 +67,10 @@ jobs:
               "app/build/outputs/apk/${STAGE_LOWER}/${BUILD_TYPE_LOWER}/app-${STAGE_LOWER}-${BUILD_TYPE_LOWER}.apk" \
               $RELEASENOTES_FILE \
               $APPCENTER_GROUP \
-              "app/build/outputs/mapping/${STAGE_LOWER}/${BUILD_TYPE_LOWER}/mapping.txt" \
-              "$VERSION_CODE" \
-              "$VERSION_NAME"
+              "app/build/outputs/mapping/${STAGE_LOWER}/${BUILDTYPE}/mapping.txt" \
+	      "$VERSION_NAME" \
+	      "$VERSION_CODE"
+
       - save_cache:
           paths:
             - ~/.gradle
