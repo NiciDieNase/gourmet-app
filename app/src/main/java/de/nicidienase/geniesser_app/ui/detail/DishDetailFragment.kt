@@ -16,16 +16,16 @@ import de.nicidienase.geniesser_app.databinding.FragmentDishDetailBinding
 
 class DishDetailFragment : Fragment() {
 
-    val args: DishDetailFragmentArgs by navArgs()
+    private val args: DishDetailFragmentArgs by navArgs()
 
     init {
         lifecycle.addObserver(LifecycleLogger(DishDetailFragment::class.java.simpleName))
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         postponeEnterTransition()
         val binding = FragmentDishDetailBinding.inflate(inflater, container, false)
-        binding.dish = args.dish
+        binding.dish = this.args.dish
         if (BuildConfig.FLAVOR == "dev") {
             binding.debugDishText.visibility = View.VISIBLE
         }

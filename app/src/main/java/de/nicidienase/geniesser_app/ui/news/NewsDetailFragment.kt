@@ -22,7 +22,7 @@ class NewsDetailFragment : Fragment() {
         lifecycle.addObserver(LifecycleLogger(NewsDetailFragment::class.java.simpleName))
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val binding = FragmentNewsDetailBinding.inflate(inflater, container, false)
         postponeEnterTransition()
         binding.item = args.item
