@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9ddcad85-602a-46ea-b5b9-1fb8ae32191f",
+		"_postman_id": "12728dd3-81c0-412a-a32a-81fc47af3639",
 		"name": "genussapp",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1291,6 +1291,32 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "https://genussapp-api-mt.konkaapps.de"
+		},
+		{
+			"key": "BASE_PATH",
+			"value": "kms-mt-webservices/webresources"
+		},
+		{
+			"key": "USER",
+			"value": "ws_live_user"
+		},
+		{
+			"key": "PASSWORD",
+			"value": "AtMs4HGyE!VN7"
+		},
+		{
+			"key": "LOCATION",
+			"value": "3317"
+		},
+		{
+			"key": "QR_CONTENT",
+			"value": "1550006091548"
 		}
 	]
 }
