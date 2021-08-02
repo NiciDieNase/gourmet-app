@@ -15,8 +15,8 @@ data class FcMeal(
     var price: Int,
     var uuid: String,
     var date: Date,
-    var apiId: String = ""
-// allergens: List<String>
+    var apiId: String = "",
+    var allergens: String
 ) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
@@ -29,7 +29,8 @@ data class FcMeal(
                 (dto.price * 100).toInt(),
                 dto.uuid,
                 date,
-                dto.id ?: ""
+                dto.id ?: "",
+                dto.allergens.joinToString(separator = ", ")
             )
         }
     }

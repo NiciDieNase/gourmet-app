@@ -9,4 +9,10 @@
     <string name="fc_cafe_times">FC-Café Essenszeiten</string>
     <string name="company_selection">Filialauswahl</string>
     <string name="location_selection">Standortauswahl</string>
+    <string name="company">Standort</string>
+    <string name="outlet">Filiale</string>
+    <string name="hide_past_meals">Vergangene Tage ausblenden</string>
+    <string name="hide_past_news">Alte Nachrichten ausblenden</string>
+    <string name="external_prices">Preise für Externe</string>
+    <string name="allergens">Allergene: %s</string>
 </resources>

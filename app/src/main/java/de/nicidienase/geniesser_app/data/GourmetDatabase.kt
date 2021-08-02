@@ -24,7 +24,7 @@ import de.nicidienase.geniesser_app.data.fccampus.MealTimeDao
         FcMeal::class,
         MealTime::class
     ],
-    version = 10
+    version = 11
 )
 @TypeConverters(FoodConverters::class)
 abstract class GourmetDatabase : RoomDatabase() {
@@ -53,7 +53,8 @@ abstract class GourmetDatabase : RoomDatabase() {
                     MIGRATION_6_7,
                     MIGRATION_7_8,
                     MIGRATION_8_9,
-                    MIGRATION_9_10
+                    MIGRATION_9_10,
+                    MIGRATION_10_11,
                 )
                 .build()
 
@@ -90,6 +91,12 @@ abstract class GourmetDatabase : RoomDatabase() {
                 database.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_MealTime_apiId` ON `MealTime` (`apiId`)")
                 database.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS `index_FcMeal_uuid_date` ON `FcMeal` (`uuid`, `date`)")
                 database.execSQL("DROP INDEX IF EXISTS `index_FcMeal_apiId`")
+            }
+        }
+
+        internal val MIGRATION_10_11 = object : Migration(10,11) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE `FcMeal` ADD COLUMN allergens TEXT NOT NULL DEFAULT ''")
             }
         }
     }

@@ -24,4 +24,5 @@
     <string name="hide_past_meals">Hide past days</string>
     <string name="hide_past_news">Hide old news</string>
     <string name="external_prices">External Prices</string>
+    <string name="allergens">Allergens: %s</string>
 </resources>
