@@ -68,8 +68,8 @@ jobs:
               $RELEASENOTES_FILE \
               $APPCENTER_GROUP \
               "app/build/outputs/mapping/${STAGE_LOWER}/${BUILDTYPE}/mapping.txt" \
-	      "$VERSION_NAME" \
-	      "$VERSION_CODE"
+              "$VERSION_NAME" \
+              "$VERSION_CODE"
 
       - save_cache:
           paths:
