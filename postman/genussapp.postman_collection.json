@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ede92a5d-df80-4aa1-a52d-986f3a975f99",
+		"_postman_id": "9ddcad85-602a-46ea-b5b9-1fb8ae32191f",
 		"name": "genussapp",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,27 +11,20 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "24f76f44-8863-4fab-b0dd-ad071e881084",
 						"exec": [
 							"var template = `",
 							"    <table bgcolor=\"#FFFFFF\">",
 							"        <tr>",
+							"            <th>Logo</th>",
 							"            <th>Id</th>",
-							"            <th>Name</th>",
-							"            <th>active</th>",
-							"            <th>Logo</th>",
-							"            <th>Logo</th>",
-							"            <th>Logo</th>",
+							"            <th>name</th>",
 							"        </tr>",
 							"",
 							"        {{#each response}}",
 							"            <tr>",
+							"                <td><img src={{logoImage}} width=100></td>",
 							"                <td>{{id}}</td>",
 							"                <td>{{name}}</td>",
-							"                <td>{{active}}</td>",
-							"                <td><img src=\"{{logoImage}}\" width=100/></td>",
-							"                <td><img src=\"{{standortImage}}\" width=100/></td>",
-							"                <td><img src=\"{{mapImage}}\" width=100/></td>",
 							"            </tr>",
 							"        {{/each}}",
 							"    </table>",
@@ -47,6 +40,21 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{PASSWORD}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{USER}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [
 					{
@@ -56,11 +64,12 @@
 					}
 				],
 				"url": {
-					"raw": "{{BASE_URL}}/entity.standort/",
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.standort/",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
+						"{{BASE_PATH}}",
 						"entity.standort",
 						""
 					]
@@ -70,7 +79,59 @@
 		},
 		{
 			"name": "Speiseplan",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `",
+							"    {{#each response}}",
+							"        {{speiseplanAdvanced.anzeigename}} {{speiseplanAdvanced.locationInfo.name}}",
+							"        ",
+							"        <table bgcolor=\"#FFFFFF\">",
+							"            <tr>",
+							"                <th>Date</th>",
+							"                <th>Category</th>",
+							"                <th>name</th>",
+							"            </tr>",
+							"    ",
+							"            {{#each speiseplanGerichtData}}",
+							"                <tr>",
+							"                    <td>{{speiseplanAdvancedGericht.datum}}</td>",
+							"                    <td>{{speiseplanAdvancedGericht.gerichtkategorieID}}</td>",
+							"                    <td>{{speiseplanAdvancedGericht.gerichtname}}</td>",
+							"                </tr>",
+							"            {{/each}}",
+							"            ",
+							"        </table>",
+							"    {{/each}}",
+							"`;",
+							"",
+							"pm.visualizer.set(template, {",
+							"    // Pass the response body parsed as JSON as `data`",
+							"    response: pm.response.json()",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{USER}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{PASSWORD}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [
 					{
@@ -80,12 +141,13 @@
 					}
 				],
 				"url": {
-					"raw": "{{BASE_URL}}entity.speiseplanadvanced/getdata/{{LOCATION}}/1",
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.speiseplanadvanced/getdata/{{LOCATION}}/1",
 					"host": [
-						"{{BASE_URL}}entity",
-						"speiseplanadvanced"
+						"{{BASE_URL}}"
 					],
 					"path": [
+						"{{BASE_PATH}}",
+						"entity.speiseplanadvanced",
 						"getdata",
 						"{{LOCATION}}",
 						"1"
@@ -96,7 +158,56 @@
 		},
 		{
 			"name": "Gericht-Kategorien",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `",
+							"    <table bgcolor=\"#FFFFFF\">",
+							"        <tr>",
+							"            <th>UserId</th>",
+							"            <th>CategoryId</th>",
+							"            <th>Name</th>",
+							"            <th>Timestamp</th>",
+							"        </tr>",
+							"",
+							"        {{#each response}}",
+							"            <tr>",
+							"                <td>{{benutzerID}}</td>",
+							"                <td>{{gerichtkategorieID}}</td>",
+							"                <td>{{name}}</td>",
+							"                <td>{{timestampLog}}</td>",
+							"            </tr>",
+							"        {{/each}}",
+							"    </table>",
+							"`;",
+							"",
+							"pm.visualizer.set(template, {",
+							"    // Pass the response body parsed as JSON as `data`",
+							"    response: pm.response.json()",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{PASSWORD}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{USER}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [
 					{
@@ -106,14 +217,15 @@
 					}
 				],
 				"url": {
-					"raw": "{{BASE_URL}}/entity.gerichtkategorie/current/{{LOCATION}}",
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.gerichtkategorie/current/{{LOCATION}}\n",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
+						"{{BASE_PATH}}",
 						"entity.gerichtkategorie",
 						"current",
-						"{{LOCATION}}"
+						"{{LOCATION}}\n"
 					]
 				}
 			},
@@ -121,19 +233,22 @@
 		},
 		{
 			"name": "Gericht-Merkmale",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "c7bde16a-112c-4674-b124-04413d466b78",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{PASSWORD}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{USER}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [
 					{
@@ -143,14 +258,15 @@
 					}
 				],
 				"url": {
-					"raw": "{{BASE_URL}}/entity.gerichtmerkmal/current/{{LOCATION}}",
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.gerichtmerkmal/current/{{LOCATION}}\n",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
+						"{{BASE_PATH}}",
 						"entity.gerichtmerkmal",
 						"current",
-						"{{LOCATION}}"
+						"{{LOCATION}}\n"
 					]
 				}
 			},
@@ -183,13 +299,12 @@
 					}
 				],
 				"url": {
-					"raw": "{{BASE_URL}}/KMSLiveWebservices/webresources/entity.allergene/current/{{LOCATION}}",
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.allergene/current/{{LOCATION}}",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
-						"KMSLiveWebservices",
-						"webresources",
+						"{{BASE_PATH}}",
 						"entity.allergene",
 						"current",
 						"{{LOCATION}}"
@@ -225,11 +340,12 @@
 					}
 				],
 				"url": {
-					"raw": "{{BASE_URL}}/entity.zusatzstoffe/current/{{LOCATION}}",
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.zusatzstoffe/current/{{LOCATION}}",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
+						"{{BASE_PATH}}",
 						"entity.zusatzstoffe",
 						"current",
 						"{{LOCATION}}"
@@ -244,26 +360,27 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "54bd61c4-b535-43cf-88af-cc64b066913c",
 						"exec": [
 							"var template = `",
 							"    <table bgcolor=\"#FFFFFF\">",
 							"        <tr>",
-							"            <th>Id</th>",
-							"            <th>Text</th>",
-							"            <th>Location</th>",
+							"            <th>Image</th>",
+							"            <th>Title</th>",
+							"            <th>Message</th>",
+							"            <th>Date</th>",
+							"            <th>Locations</th>",
 							"        </tr>",
 							"",
 							"        {{#each response}}",
 							"            <tr>",
-							"                <td>{{id}}<br/><img src=\"{{newsImage}}\" width=200/></td>",
-							"                <td><h3>{{titel}}</h3>{{inhaltRichtext}}</td>",
+							"                <td><img src={{newsImage}} width=100></td>",
+							"                <td>{{title}}</td>",
+							"                <td>{{inhaltRichtext}}</td>",
+							"                <td>{{datum}}</td>",
 							"                <td>",
-							"                <ul>",
-							"                {{#each locationInfo}}",
-							"                    <li>{{name}}</li>",
-							"                {{/each}}",
-							"                </ul>",
+							"                    {{#each locationInfo}}",
+							"                        {{name}}<br>",
+							"                    {{/each}}",
 							"                </td>",
 							"            </tr>",
 							"        {{/each}}",
@@ -304,11 +421,12 @@
 					}
 				],
 				"url": {
-					"raw": "{{BASE_URL}}/entity.news/current/{{LOCATION}}",
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.news/current/{{LOCATION}}",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
+						"{{BASE_PATH}}",
 						"entity.news",
 						"current",
 						"{{LOCATION}}"
@@ -320,6 +438,21 @@
 		{
 			"name": "mobile einstellungen",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{PASSWORD}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{USER}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [
 					{
@@ -329,14 +462,14 @@
 					}
 				],
 				"url": {
-					"raw": "{{BASE_URL}}/KMSLiveWebservices/webresources/entity.mobileeinstellungen",
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.mobileeinstellungen/",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
-						"KMSLiveWebservices",
-						"webresources",
-						"entity.mobileeinstellungen"
+						"{{BASE_PATH}}",
+						"entity.mobileeinstellungen",
+						""
 					]
 				}
 			},
@@ -348,12 +481,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{BASE_URL}}entity.outlet/",
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.outlet/",
 					"host": [
-						"{{BASE_URL}}entity",
-						"outlet"
+						"{{BASE_URL}}"
 					],
 					"path": [
+						"{{BASE_PATH}}",
+						"entity.outlet",
 						""
 					],
 					"query": [
@@ -373,7 +507,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "f034ce1b-3740-423a-ab70-806644fa4b80",
 						"exec": [
 							"pm.test(\"Check not empty\", function () {",
 							"    var jsonData = pm.response.json();",
@@ -399,11 +532,12 @@
 					}
 				],
 				"url": {
-					"raw": "{{BASE_URL}}/entity.recipe/current",
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.recipe/current",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
+						"{{BASE_PATH}}",
 						"entity.recipe",
 						"current"
 					]
@@ -423,11 +557,12 @@
 					}
 				],
 				"url": {
-					"raw": "{{BASE_URL}}/entity.adresse/",
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.adresse/",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
+						"{{BASE_PATH}}",
 						"entity.adresse",
 						""
 					]
@@ -447,11 +582,12 @@
 					}
 				],
 				"url": {
-					"raw": "{{BASE_URL}}/entity.appqrzugang/check/{{QR_CONTENT}}",
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.appqrzugang/check/{{QR_CONTENT}}",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
+						"{{BASE_PATH}}",
 						"entity.appqrzugang",
 						"check",
 						"{{QR_CONTENT}}"
@@ -479,11 +615,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/entity.appqrzugang",
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.appqrzugang",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
+						"{{BASE_PATH}}",
 						"entity.appqrzugang"
 					]
 				}
@@ -530,7 +667,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "57b5c5b3-a9a9-44b5-949a-dfa69b380b2f",
 						"exec": [
 							"pm.test(\"Check not empty\", function () {",
 							"    var jsonData = pm.response.json();",
@@ -558,11 +694,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/entity.bonusaktion/current/{{LOCATION}}",
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.bonusaktion/current/{{LOCATION}}",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
+						"{{BASE_PATH}}",
 						"entity.bonusaktion",
 						"current",
 						"{{LOCATION}}"
@@ -577,7 +714,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "db95574e-62d0-45c6-b82d-ff051ccab96d",
 						"exec": [
 							"pm.test(\"Check not empty\", function () {",
 							"    var jsonData = pm.response.json();",
@@ -605,11 +741,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/entity.bonuscode/current/{{LOCATION}}",
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.bonuscode/current/{{LOCATION}}",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
+						"{{BASE_PATH}}",
 						"entity.bonuscode",
 						"current",
 						"{{LOCATION}}"
@@ -625,7 +762,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "be02695c-08c2-4bb2-8fb7-45239ceab282",
 						"exec": [
 							"pm.test(\"Check not empty\", function () {",
 							"    var jsonData = pm.response.json();",
@@ -653,11 +789,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/entity.auslastungsanzeige/current/{{LOCATION}}",
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.auslastungsanzeige/current/{{LOCATION}}",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
+						"{{BASE_PATH}}",
 						"entity.auslastungsanzeige",
 						"current",
 						"{{LOCATION}}"
@@ -668,12 +805,79 @@
 			"response": []
 		},
 		{
+			"name": "Auslastung",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://u0u662hddi.execute-api.us-east-1.amazonaws.com/dev/",
+					"protocol": "https",
+					"host": [
+						"u0u662hddi",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Canteen Counter Env",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://canteen-counter.lx-infra.aws.dmtech.cloud/env.js",
+					"protocol": "https",
+					"host": [
+						"canteen-counter",
+						"lx-infra",
+						"aws",
+						"dmtech",
+						"cloud"
+					],
+					"path": [
+						"env.js"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Canteen Counter Data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://u0u662hddi.execute-api.us-east-1.amazonaws.com/dev/",
+					"protocol": "https",
+					"host": [
+						"u0u662hddi",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "VendingMachines",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "42e2c422-554b-4a11-bb73-42b02baa6412",
 						"exec": [
 							"pm.test(\"Check not empty\", function () {",
 							"    var jsonData = pm.response.json();",
@@ -701,11 +905,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/entity.device/getVendingMachines/{{LOCATION}}",
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.device/getVendingMachines/{{LOCATION}}",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
+						"{{BASE_PATH}}",
 						"entity.device",
 						"getVendingMachines",
 						"{{LOCATION}}"
@@ -733,169 +938,13 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{BASE_URL}}/entity.ernaehrungsampel/current/{{LOCATION}}",
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.ernaehrungsampel/current/{{LOCATION}}",
 					"host": [
 						"{{BASE_URL}}"
 					],
 					"path": [
+						"{{BASE_PATH}}",
 						"entity.ernaehrungsampel",
-						"current",
-						"{{LOCATION}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Feedback",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{BASE_URL}}/entity.gerichtfeedback/",
-					"host": [
-						"{{BASE_URL}}"
-					],
-					"path": [
-						"entity.gerichtfeedback",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "recipecategory",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "7c8aa3d7-b2b2-47e5-b890-33580f8510f6",
-						"exec": [
-							"pm.test(\"Check not empty\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData).to.not.empty;",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{BASE_URL}}/entity.recipecategory/current/{{LOCATION}}",
-					"host": [
-						"{{BASE_URL}}"
-					],
-					"path": [
-						"entity.recipecategory",
-						"current",
-						"{{LOCATION}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "speiseplanmasterdata",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{BASE_URL}}/entity.speiseplanmasterdata/current/{{LOCATION}}",
-					"host": [
-						"{{BASE_URL}}"
-					],
-					"path": [
-						"entity.speiseplanmasterdata",
-						"current",
-						"{{LOCATION}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "weblink",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "b50a5a8f-04a1-4687-9704-36b4c5c80c8d",
-						"exec": [
-							"pm.test(\"Check not empty\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData).to.not.empty;",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{BASE_URL}}/entity.weblink/current/{{LOCATION}}",
-					"host": [
-						"{{BASE_URL}}"
-					],
-					"path": [
-						"entity.weblink",
 						"current",
 						"{{LOCATION}}"
 					]
@@ -909,7 +958,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "27bf5444-76df-4e85-b120-c5ee954be712",
 						"exec": [
 							"pm.test(\"Check not empty\", function () {",
 							"    var jsonData = pm.response.json();",
@@ -959,12 +1007,44 @@
 			"response": []
 		},
 		{
+			"name": "speiseplanmasterdata",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.speiseplanmasterdata/current/{{LOCATION}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"{{BASE_PATH}}",
+						"entity.speiseplanmasterdata",
+						"current",
+						"{{LOCATION}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "ipadgdw",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "7c8aa3d7-b2b2-47e5-b890-33580f8510f6",
 						"exec": [
 							"pm.test(\"Check not empty\", function () {",
 							"    var jsonData = pm.response.json();",
@@ -1011,7 +1091,6 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7c8aa3d7-b2b2-47e5-b890-33580f8510f6",
 						"exec": [
 							"pm.test(\"Check not empty\", function () {",
 							"    var jsonData = pm.response.json();",
@@ -1051,6 +1130,132 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "weblink",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check not empty\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.not.empty;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.weblink/current/{{LOCATION}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"{{BASE_PATH}}",
+						"entity.weblink",
+						"current",
+						"{{LOCATION}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recipecategory",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check not empty\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.not.empty;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.recipecategory/current/{{LOCATION}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"{{BASE_PATH}}",
+						"entity.recipecategory",
+						"current",
+						"{{LOCATION}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Feedback",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/{{BASE_PATH}}/entity.gerichtfeedback/",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"{{BASE_PATH}}",
+						"entity.gerichtfeedback",
+						""
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"auth": {
@@ -1072,7 +1277,6 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "ee1f3e4c-89b5-4069-83e6-e523977f52ea",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -1082,13 +1286,11 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "b4532c81-c5a8-4db6-a01c-65b29c91e953",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
