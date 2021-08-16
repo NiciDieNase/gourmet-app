@@ -11,20 +11,23 @@ import retrofit2.http.Path
 
 interface FcCampusApi {
 
-    @GET("$BASE_PATH/dayMenus/{from}/{to}")
+    @GET("$MEAL_BASE_PATH/dayMenus/{from}/{to}")
     suspend fun getMenus(
         @Path("from") fromDate: String,
         @Path("to") toDate: String
     ): Response<MenusWrapperDto>
 
-    @GET("$BASE_PATH/mealTimes/{week}")
+    @GET("$MEAL_BASE_PATH/mealTimes/{week}")
     suspend fun getMealTimes(
         @Path("week") week: Int
     ): Response<MealTimesWrapperDto>
 
-    companion object {
-        private const val BASE_PATH = "restaurants/5f17207ae9b5b375023b529b"
+    @GET("$NEWS_PATH")
+    suspend fun getNews(): Response<List<FcNewsDto>>
 
+    companion object {
+        private const val MEAL_BASE_PATH = "restaurants/5f17207ae9b5b375023b529b"
+        private const val NEWS_PATH = "buildings/news/60f0428e98133554fa66a26b"
         val instance: FcCampusApi by lazy {
 
             val okhttpClient = OkHttpClientFactory.okHttpClient.newBuilder()

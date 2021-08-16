@@ -7,10 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import de.nicidienase.geniesser_app.data.fccampus.FcMeal
-import de.nicidienase.geniesser_app.data.fccampus.FcMealDao
-import de.nicidienase.geniesser_app.data.fccampus.MealTime
-import de.nicidienase.geniesser_app.data.fccampus.MealTimeDao
+import de.nicidienase.geniesser_app.data.fccampus.*
 
 @Database(
     entities = [
@@ -22,9 +19,10 @@ import de.nicidienase.geniesser_app.data.fccampus.MealTimeDao
         News::class,
         Outlet::class,
         FcMeal::class,
-        MealTime::class
+        MealTime::class,
+        FcNews::class
     ],
-    version = 11
+    version = 12
 )
 @TypeConverters(FoodConverters::class)
 abstract class GourmetDatabase : RoomDatabase() {
@@ -39,6 +37,7 @@ abstract class GourmetDatabase : RoomDatabase() {
 
     abstract fun getFcMealDao(): FcMealDao
     abstract fun getMealTimeDao(): MealTimeDao
+    abstract fun getFcNewsDao(): FcNewsDao
 
     companion object {
         fun build(context: Context) =
@@ -55,6 +54,7 @@ abstract class GourmetDatabase : RoomDatabase() {
                     MIGRATION_8_9,
                     MIGRATION_9_10,
                     MIGRATION_10_11,
+                    MIGRATION_11_12
                 )
                 .build()
 
@@ -98,6 +98,13 @@ abstract class GourmetDatabase : RoomDatabase() {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("ALTER TABLE `FcMeal` ADD COLUMN allergens TEXT NOT NULL DEFAULT ''")
             }
+        }
+
+        internal val MIGRATION_11_12 = object : Migration(11,12){
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("CREATE TABLE IF NOT EXISTS `FcNews` (`apiId` TEXT NOT NULL, `title` TEXT NOT NULL, `notificationText` TEXT NOT NULL, `newsText` TEXT NOT NULL, `date` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)")
+            }
+
         }
     }
 }

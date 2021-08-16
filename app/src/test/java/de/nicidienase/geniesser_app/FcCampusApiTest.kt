@@ -32,4 +32,12 @@ class FcCampusApiTest {
         val first = menus?.dayMenus?.first { it.day.startsWith(date) }
         assertNotNull(first)
     }
+
+    @Test
+    fun getNews() = runBlocking {
+        val news = api.getNews().body();
+        println(news);
+        val first = news?.first()
+        assertNotNull(first)
+    }
 }
