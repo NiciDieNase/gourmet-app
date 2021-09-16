@@ -21,7 +21,7 @@ class FcOverviewViewModel(
 
     fun updateMenu() = viewModelScope.launch {
         val startDate = CalendarUtils.getDateForDaysInFuture(-7)
-        val endDate = CalendarUtils.getDateForDaysInFuture(7)
+        val endDate = CalendarUtils.getDateForDaysInFuture(14)
         fcRepository.updateMenu(startDate, endDate)
     }
 }
