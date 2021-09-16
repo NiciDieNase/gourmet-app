@@ -35,8 +35,8 @@ class FcCampusApiTest {
 
     @Test
     fun getNews() = runBlocking {
-        val news = api.getNews().body();
-        println(news);
+        val news = api.getNews().body()
+        println(news)
         val first = news?.first()
         assertNotNull(first)
     }

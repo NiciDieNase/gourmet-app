@@ -2,7 +2,7 @@ package de.nicidienase.geniesser_app.api.fccampus
 
 import com.google.gson.annotations.SerializedName
 
-data class FcNewsDto (
+data class FcNewsDto(
     @SerializedName("_id")
     val id: String,
     val title: String,

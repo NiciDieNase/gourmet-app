@@ -7,7 +7,12 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import de.nicidienase.geniesser_app.data.fccampus.*
+import de.nicidienase.geniesser_app.data.fccampus.FcMeal
+import de.nicidienase.geniesser_app.data.fccampus.FcMealDao
+import de.nicidienase.geniesser_app.data.fccampus.FcNews
+import de.nicidienase.geniesser_app.data.fccampus.FcNewsDao
+import de.nicidienase.geniesser_app.data.fccampus.MealTime
+import de.nicidienase.geniesser_app.data.fccampus.MealTimeDao
 
 @Database(
     entities = [
@@ -100,11 +105,10 @@ abstract class GourmetDatabase : RoomDatabase() {
             }
         }
 
-        internal val MIGRATION_11_12 = object : Migration(11,12){
+        internal val MIGRATION_11_12 = object : Migration(11, 12) {
             override fun migrate(database: SupportSQLiteDatabase) {
                 database.execSQL("CREATE TABLE IF NOT EXISTS `FcNews` (`apiId` TEXT NOT NULL, `title` TEXT NOT NULL, `notificationText` TEXT NOT NULL, `newsText` TEXT NOT NULL, `date` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)")
             }
-
         }
     }
 }

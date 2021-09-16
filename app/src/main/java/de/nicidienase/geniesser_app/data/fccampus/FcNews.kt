@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import de.nicidienase.geniesser_app.api.fccampus.FcNewsDto
 import de.nicidienase.geniesser_app.util.CalendarUtils
-import java.util.*
+import java.util.Date
 
 @Entity
 data class FcNews(
@@ -20,7 +20,7 @@ data class FcNews(
 
         fun fromDto(dto: FcNewsDto): FcNews? {
             val date = CalendarUtils.parseDateString(dto.date)
-            return if(date != null){
+            return if (date != null) {
                 FcNews(
                     dto.id,
                     dto.title,
